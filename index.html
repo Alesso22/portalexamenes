@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Exámenes — Liceo Santa María</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.2/babel.min.js"></script>
+<script>
+  window.JSONBIN_KEY = "TU_MASTER_KEY_AQUI";
+  window.JSONBIN_BIN = "TU_BIN_ID_AQUI";
+</script>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'Segoe UI',sans-serif;background:#0a0a1a;color:#fff;}
+  input,textarea,select{font-family:'Segoe UI',sans-serif;}
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+const {useState,useEffect}=React;
+
+// ── CURSOS ────────────────────────────────────────────
+const CURSOS=[
+  {id:"comp1", label:"4to Bach — Computación I",          color:"#00d2ff",bg:"rgba(0,210,255,0.15)",  dark:"#005f7a"},
+  {id:"lab1",  label:"4to Bach — Laboratorio I",          color:"#7b2ff7",bg:"rgba(123,47,247,0.15)", dark:"#3a006e"},
+  {id:"prog4", label:"4to Perito — Programación C++",     color:"#f7971e",bg:"rgba(247,151,30,0.15)", dark:"#7a4500"},
+  {id:"py5",   label:"5to Perito — Programación Python",  color:"#f7ca18",bg:"rgba(247,202,24,0.15)", dark:"#7a6200"},
+  {id:"comp5", label:"5to Bach — Computación Aplicada",   color:"#00a86b",bg:"rgba(0,168,107,0.15)",  dark:"#005c3a"},
+];
+const getCurso=id=>CURSOS.find(c=>c.id===id);
+const PASS_MAESTRO="liceo2026";
+
+// ══════════════════════════════════════════════════════
+// PREGUNTAS — PYTHON (5to y 6to Perito — mismo examen)
+// ══════════════════════════════════════════════════════
+const PM_PY=[
+  {id:"m1",txt:"¿Qué hace la función print() en Python?",opts:["Lee datos del teclado","Guarda un valor en una variable","Muestra información en pantalla","Convierte texto a número"],correcta:2},
+  {id:"m2",txt:"¿Cuál es el tipo de dato que devuelve SIEMPRE la función input()?",opts:["int","float","bool","str (texto)"],correcta:3},
+  {id:"m3",txt:"¿Cuál es el resultado de: 10 % 3 en Python?",opts:["3","0","1","2"],correcta:2},
+  {id:"m4",txt:"¿Qué función usarías para convertir el texto \"25\" al número entero 25?",opts:["str()","float()","int()","num()"],correcta:2},
+  {id:"m5",txt:"¿Cuál de estas variables está correctamente declarada en Python?",opts:["int nombre = \"Ana\"","nombre = \"Ana\"","var nombre = \"Ana\"","string nombre = \"Ana\""],correcta:1},
+  {id:"m6",txt:"¿Qué operador se usa en Python para calcular una POTENCIA? (ej: 2³)",opts:["^","**","^^","//"],correcta:1},
+  {id:"m7",txt:"¿Cuál es el resultado de: 10 // 3 en Python?",opts:["3.33","1","3","0"],correcta:2},
+  {id:"m8",txt:"Si edad = input(\"¿Cuántos años tienes? \") y el usuario escribe 17, ¿qué tipo de dato tiene edad?",opts:["int","float","str","bool"],correcta:2},
+  {id:"m9",txt:"¿Cuál de estas líneas muestra correctamente el valor de una variable llamada nombre?",opts:["print(\"nombre\")","print(nombre)","show(nombre)","display nombre"],correcta:1},
+  {id:"m10",txt:"¿Qué tipo de dato es: aprobado = True?",opts:["str","int","float","bool"],correcta:3},
+];
+
+const PVF_PY=[
+  {id:"vf1",txt:"Python es un lenguaje de programación gratuito y de código abierto.",correcta:true},
+  {id:"vf2",txt:"La función input() siempre devuelve un número entero (int).",correcta:false},
+  {id:"vf3",txt:"Para mostrar texto en pantalla en Python se usa la función print().",correcta:true},
+  {id:"vf4",txt:"El operador // en Python realiza una división y devuelve solo la parte entera.",correcta:true},
+  {id:"vf5",txt:"En Python, una variable debe declararse con la palabra 'var' antes de su nombre.",correcta:false},
+  {id:"vf6",txt:"El operador % (módulo) devuelve el residuo de una división.",correcta:true},
+  {id:"vf7",txt:"int() se usa para convertir texto a número decimal con decimales.",correcta:false},
+  {id:"vf8",txt:"print() puede mostrar texto y variables al mismo tiempo separándolos con coma.",correcta:true},
+];
+
+const EJS_PY=[
+  {
+    id:"e1",pts:6,
+    titulo:"Ejercicio 1 — Presentación personal",
+    enunciado:"Escribe un programa en Python que:\n1. Pida al usuario su nombre usando input()\n2. Pida su edad usando input() y conviértela con int()\n3. Muestre con print() un mensaje así:\n\n   ¡Hola, [nombre]! Tienes [edad] años.\n   En 10 años tendrás [edad+10] años.",
+    pista:"Recuerda: input() devuelve texto. Usa int() para hacer la suma de edades.",
+    placeholder:"nombre = input(\"¿Cómo te llamas? \")\nedad = int(input(\"¿Cuántos años tienes? \"))\nprint(\"¡Hola,\", nombre + \"! Tienes\", edad, \"años.\")\nprint(\"En 10 años tendrás\", edad + 10, \"años.\")"
+  },
+  {
+    id:"e2",pts:8,
+    titulo:"Ejercicio 2 — Calculadora de IVA",
+    enunciado:"Escribe un programa en Python que:\n1. Pida el precio de un producto con input() y conviértelo con float()\n2. Calcule: iva = precio * 0.12\n3. Calcule: total = precio + iva\n4. Muestre en pantalla:\n\n   Precio sin IVA: Q[precio]\n   IVA (12%): Q[iva]\n   Total a pagar: Q[total]",
+    pista:"Usa float() en lugar de int() porque los precios tienen decimales.",
+    placeholder:"precio = float(input(\"Ingresa el precio del producto: Q\"))\niva = precio * 0.12\ntotal = precio + iva\nprint(\"Precio sin IVA: Q\", precio)\nprint(\"IVA (12%): Q\", iva)\nprint(\"Total a pagar: Q\", total)"
+  },
+];
+
+function calcPY(r){
+  let p=0;
+  PM_PY.forEach(q=>{if(r.multiple?.[q.id]===q.correcta)p++;});
+  PVF_PY.forEach(q=>{if(r.vf?.[q.id]===q.correcta)p++;});
+  return p; // 18 auto + 14 ejercicios manual
+}
+
+// ══════════════════════════════════════════════════════
+// RESTO DE PREGUNTAS (igual que antes)
+// ══════════════════════════════════════════════════════
+const PM_C1=[{id:"m1",txt:"¿Cuál es la definición correcta de Hardware?",opts:["Conjunto de programas que controlan el computador","La parte física del computador que se puede tocar y ver","Las instrucciones que le dicen al CPU qué hacer","El sistema operativo instalado en la máquina"],correcta:1},{id:"m2",txt:"¿Cuál de estos es un ejemplo de Software de Sistema?",opts:["Microsoft Word","Google Chrome","Windows 11","WinRAR"],correcta:2},{id:"m3",txt:"El teclado y el mouse son ejemplos de hardware de:",opts:["Salida","Procesamiento","Almacenamiento","Entrada"],correcta:3},{id:"m4",txt:"¿Qué tipo de software es un antivirus?",opts:["Software de Sistema","Software de Aplicación","Software Utilitario","Software de Programación"],correcta:2},{id:"m5",txt:"¿Cuál es la analogía correcta entre hardware y software?",opts:["El hardware es la mente y el software el cuerpo","El hardware es el cuerpo humano y el software es la mente que lo controla","Ambos son lo mismo, solo cambia el nombre","El software es físico y el hardware es virtual"],correcta:1},{id:"m6",txt:"El monitor y la impresora son dispositivos de:",opts:["Entrada","Almacenamiento","Salida","Procesamiento"],correcta:2},{id:"m7",txt:"¿Cuál de estos es un ejemplo de Software de Programación?",opts:["WhatsApp","Visual Studio Code","Windows 11","Antivirus AVG"],correcta:1},{id:"m8",txt:"El CPU (procesador) pertenece al hardware de:",opts:["Entrada","Salida","Comunicación","Procesamiento"],correcta:3},{id:"m9",txt:"Si un programa falla, ¿qué se hace normalmente para solucionarlo?",opts:["Se repara físicamente","Se reinstala o actualiza","Se reemplaza el monitor","Se cambia el teclado"],correcta:1},{id:"m10",txt:"¿Cuál de estas opciones contiene SOLO ejemplos de hardware?",opts:["Windows, Word, Chrome","Monitor, teclado, impresora","Excel, antivirus, Ubuntu","CPU, WhatsApp, disco duro"],correcta:1}];
+const PVF_C1=[{id:"vf1",txt:"El software es la parte física del computador que puedes tocar.",correcta:false},{id:"vf2",txt:"Un disco duro SSD es un ejemplo de hardware de almacenamiento.",correcta:true},{id:"vf3",txt:"Windows 11 es un ejemplo de Software de Aplicación.",correcta:false},{id:"vf4",txt:"Sin hardware, el software no puede funcionar.",correcta:true},{id:"vf5",txt:"La tarjeta de red WiFi es un hardware de comunicación.",correcta:true},{id:"vf6",txt:"Microsoft Word es un ejemplo de Software de Sistema.",correcta:false},{id:"vf7",txt:"Si el hardware se daña, se puede reinstalar igual que un programa.",correcta:false},{id:"vf8",txt:"El software de programación se usa para crear otros programas.",correcta:true}];
+const BANCO_C1=["hardware","software","entrada","salida","procesamiento","sistema operativo","aplicación","utilitario","almacenamiento","física"];
+const PC_C1=[{id:"c1",pre:"El",post:"es la parte física del computador que podemos ver y tocar.",correcta:"hardware"},{id:"c2",pre:"El",post:"es el conjunto de programas e instrucciones que controlan el hardware.",correcta:"software"},{id:"c3",pre:"El teclado es un dispositivo de",post:"porque envía datos al computador.",correcta:"entrada"},{id:"c4",pre:"El monitor es un dispositivo de",post:"porque muestra resultados al usuario.",correcta:"salida"},{id:"c5",pre:"Windows y Linux son ejemplos de",post:".",correcta:"sistema operativo"},{id:"c6",pre:"WinRAR y los antivirus son ejemplos de software",post:".",correcta:"utilitario"},{id:"c7",pre:"El CPU realiza las operaciones del computador, por eso es hardware de",post:".",correcta:"procesamiento"}];
+const REL_C1_IZQ=[{id:"r1",txt:"🖱️ Mouse"},{id:"r2",txt:"🪟 Windows 11"},{id:"r3",txt:"🖨️ Impresora"},{id:"r4",txt:"💾 Disco Duro"},{id:"r5",txt:"📝 Microsoft Word"},{id:"r6",txt:"🛡️ Antivirus"}];
+const REL_C1_DER=[{id:"A",txt:"A. Software de Aplicación"},{id:"B",txt:"B. Hardware de Entrada"},{id:"C",txt:"C. Software Utilitario"},{id:"D",txt:"D. Hardware de Salida"},{id:"E",txt:"E. Software de Sistema"},{id:"F",txt:"F. Hardware de Almacenamiento"}];
+const REL_C1_OK={r1:"B",r2:"E",r3:"D",r4:"F",r5:"A",r6:"C"};
+function calcC1(r){let p=0;PM_C1.forEach(q=>{if(r.multiple?.[q.id]===q.correcta)p++;});PVF_C1.forEach(q=>{if(r.vf?.[q.id]===q.correcta)p++;});PC_C1.forEach(q=>{if((r.completar?.[q.id]||"").toLowerCase().trim()===q.correcta)p++;});Object.entries(REL_C1_OK).forEach(([k,v])=>{if(r.relacionar?.[k]===v)p++;});return p;}
+
+const PM_L1=[{id:"m1",txt:"¿Cuál es la característica principal de un virus informático?",opts:["Pide dinero a cambio de tus archivos bloqueados","Se adjunta a archivos y se replica al ejecutarse","Espía tus contraseñas sin que lo notes","Se propaga solo por la red sin archivos"],correcta:1},{id:"m2",txt:"El malware que bloquea archivos y exige pago para recuperarlos se llama:",opts:["Spyware","Gusano (Worm)","Ransomware","Troyano"],correcta:2},{id:"m3",txt:"¿Cuál es una señal de alerta de un correo de phishing?",opts:["El remitente usa un dominio institucional conocido","El correo te saluda por tu nombre completo","Pide que actúes urgentemente y hagas clic en un enlace","El correo no tiene archivos adjuntos"],correcta:2},{id:"m4",txt:"¿Cuál de estas contraseñas es la MÁS segura?",opts:["juan2010","password123","MiCasa#GT2026!","liceo2026"],correcta:2},{id:"m5",txt:"El malware que se disfraza de programa legítimo para abrir acceso oculto es:",opts:["Ransomware","Troyano","Virus","Spyware"],correcta:1},{id:"m6",txt:"¿Qué significa 2FA?",opts:["Dos Firewalls Activos","Doble Factor de Autenticación","Segunda Fase de Acceso","Doble Filtro Antivirus"],correcta:1},{id:"m7",txt:"¿Cuántos caracteres mínimos debe tener una contraseña segura?",opts:["6 caracteres","8 caracteres","10 caracteres","12 caracteres"],correcta:3},{id:"m8",txt:"El virus ILOVEYOU en el año 2000:",opts:["Bloqueó servidores del gobierno de EE.UU.","Afectó 50 millones de computadoras por correo","Robó millones de contraseñas bancarias","Fue el primer ransomware"],correcta:1},{id:"m9",txt:"¿Cuál es un ejemplo del método Passphrase?",opts:["abc123456","MgDeEt@l3! (de 'Mi gato duerme en el techo a las 3')","Liceo2026","qwerty!"],correcta:1},{id:"m10",txt:"¿Cuál es el segundo factor más seguro para el 2FA?",opts:["Código por SMS","Pregunta de seguridad","App autenticadora (Google Authenticator)","Correo de verificación"],correcta:2}];
+const PVF_L1=[{id:"vf1",txt:"Un gusano (worm) necesita que el usuario ejecute un archivo para propagarse.",correcta:false},{id:"vf2",txt:"El phishing busca engañar al usuario para robar sus datos personales.",correcta:true},{id:"vf3",txt:"Una contraseña de 6 caracteres simples puede ser descifrada en menos de 1 segundo.",correcta:true},{id:"vf4",txt:"El spyware bloquea los archivos del usuario y pide rescate.",correcta:false},{id:"vf5",txt:"Activar el 2FA hace más difícil acceder a tu cuenta aunque roben tu contraseña.",correcta:true},{id:"vf6",txt:"Es recomendable usar la misma contraseña segura en todas tus cuentas.",correcta:false},{id:"vf7",txt:"Los correos de phishing usan urgencia y amenazas para presionar al usuario.",correcta:true},{id:"vf8",txt:"Un troyano siempre se propaga solo por la red sin intervención del usuario.",correcta:false}];
+const BANCO_L1=["phishing","ransomware","autenticación","passphrase","spyware","mayúsculas","troyano","seguridad informática"];
+const PC_L1=[{id:"c1",pre:"La",post:"es la disciplina que protege sistemas, redes e información digital de ataques.",correcta:"seguridad informática"},{id:"c2",pre:"El",post:"es un malware que cifra los archivos del usuario y exige pago para recuperarlos.",correcta:"ransomware"},{id:"c3",pre:"Un correo falso que imita a un banco para robar contraseñas es un ataque de",post:".",correcta:"phishing"},{id:"c4",pre:"El",post:"se esconde y espía las actividades del usuario sin que este lo note.",correcta:"spyware"},{id:"c5",pre:"Una contraseña segura debe contener letras",post:", minúsculas, números y caracteres especiales.",correcta:"mayúsculas"},{id:"c6",pre:"El método",post:"consiste en tomar iniciales de una frase personal para crear una contraseña.",correcta:"passphrase"},{id:"c7",pre:"El doble factor de",post:"(2FA) agrega una segunda capa de verificación.",correcta:"autenticación"}];
+const PD_L1=[{id:"d1",pts:2,txt:"Explica qué es el phishing y menciona DOS señales de alerta que indican que un correo podría ser falso."},{id:"d2",pts:3,txt:"Crea una contraseña usando el método Passphrase. Escribe: a) la frase que usaste, b) la contraseña resultante y c) explica por qué es segura."}];
+function calcL1(r){let p=0;PM_L1.forEach(q=>{if(r.multiple?.[q.id]===q.correcta)p++;});PVF_L1.forEach(q=>{if(r.vf?.[q.id]===q.correcta)p++;});PC_L1.forEach(q=>{if((r.completar?.[q.id]||"").toLowerCase().trim()===q.correcta)p++;});return p;}
+
+const PM_P4=[{id:"m1",txt:"¿Qué es un IDE?",opts:["Un tipo de variable en C++","Un Entorno de Desarrollo Integrado para escribir y ejecutar código","Un operador matemático especial","Una librería de C++"],correcta:1},{id:"m2",txt:"¿Qué hace la instrucción #include <iostream>?",opts:["Declara la función main","Incluye la librería para entrada y salida de datos","Termina el programa correctamente","Declara variables enteras"],correcta:1},{id:"m3",txt:"¿Cuál es el resultado de: 10 % 3?",opts:["3","0","1","2"],correcta:2},{id:"m4",txt:"¿Qué instrucción se usa para MOSTRAR texto en pantalla en C++?",opts:["cin >>","print()","cout <<","display()"],correcta:2},{id:"m5",txt:"¿Qué tipo de dato usarías para guardar un número CON decimales?",opts:["int","string","bool","float"],correcta:3},{id:"m6",txt:"¿Qué hace el operador += en C++?",opts:["Suma dos números y los muestra","Suma un valor a la variable y guarda el resultado en ella","Compara si dos valores son iguales","Declara una nueva variable"],correcta:1},{id:"m7",txt:"Si x = 10, ¿cuál es el valor de x después de ejecutar x -= 3?",opts:["13","30","3","7"],correcta:3},{id:"m8",txt:"¿Cuál es el operador de MULTIPLICACIÓN en C++?",opts:["/","x","*","%"],correcta:2},{id:"m9",txt:"¿Qué sucede si divides dos variables de tipo int con resultado decimal?\nEj: int a=7, b=2; int r = a/b;",opts:["Da error de compilación","El resultado es 3.5","El resultado es 3 (se trunca el decimal)","El programa se cierra"],correcta:2},{id:"m10",txt:"¿Qué hace x++ en C++?",opts:["Multiplica x por x","Muestra x en pantalla","Incrementa x en 1","Decrementa x en 1"],correcta:2}];
+const PVF_P4=[{id:"vf1",txt:"El operador % (módulo) devuelve el cociente de una división.",correcta:false},{id:"vf2",txt:"La función main() es donde inicia la ejecución de todo programa en C++.",correcta:true},{id:"vf3",txt:"using namespace std; permite usar cout y cin sin escribir 'std::' antes.",correcta:true},{id:"vf4",txt:"Para guardar el nombre de una persona usaríamos el tipo de dato int.",correcta:false},{id:"vf5",txt:"El operador -- decrementa en 1 el valor de una variable.",correcta:true},{id:"vf6",txt:"cout >> se usa para leer datos del teclado en C++.",correcta:false},{id:"vf7",txt:"Toda instrucción en C++ debe terminar con punto y coma (;).",correcta:true},{id:"vf8",txt:"x *= 2 es equivalente a escribir x = x * 2.",correcta:true}];
+const BANCO_P4=["cout","cin","int","float","return 0","main","iostream","endl","compiler","string"];
+const PC_P4=[{id:"c1",pre:"La librería",post:"se incluye para poder usar cout y cin en C++.",correcta:"iostream"},{id:"c2",pre:"Usamos",post:"para mostrar información en pantalla.",correcta:"cout"},{id:"c3",pre:"Para leer datos que el usuario escribe en el teclado usamos",post:".",correcta:"cin"},{id:"c4",pre:"El tipo de dato",post:"se usa para números enteros como edad o cantidad.",correcta:"int"},{id:"c5",pre:"Para guardar números con decimales como precios usamos el tipo",post:".",correcta:"float"},{id:"c6",pre:"La función",post:"() es el punto de inicio de todo programa en C++.",correcta:"main"},{id:"c7",pre:"Al final de la función main escribimos",post:"; para indicar que el programa terminó correctamente.",correcta:"return 0"}];
+const EJS_P4=[{id:"e1",pts:6,titulo:"Ejercicio 1 — Hola personalizado",enunciado:"Escribe un programa en C++ que le pida al usuario su nombre y su edad, y que luego muestre en pantalla un mensaje como:\n\n  ¡Hola, [nombre]! Tienes [edad] años.\n\nUsa cout para mostrar y cin para leer los datos.",pista:"Recuerda declarar las variables, usar cin >> para leer y cout << para mostrar.",placeholder:"#include <iostream>\nusing namespace std;\n\nint main() {\n    string nombre;\n    int edad;\n    cout << \"¿Cómo te llamas? \";\n    cin >> nombre;\n    cout << \"¿Cuántos años tienes? \";\n    cin >> edad;\n    cout << \"¡Hola, \" << nombre << \"! Tienes \" << edad << \" años.\" << endl;\n    return 0;\n}"},{id:"e2",pts:8,titulo:"Ejercicio 2 — Calculadora de venta con IVA",enunciado:"Escribe un programa en C++ que:\n1. Pida el precio de un producto (float)\n2. Pida la cantidad de unidades (int)\n3. Calcule: subtotal = precio * cantidad\n4. Calcule: IVA = subtotal * 0.12\n5. Calcule: total = subtotal + IVA\n6. Muestre subtotal, IVA y total con cout",pista:"Usa float para los cálculos con decimales.",placeholder:"#include <iostream>\nusing namespace std;\n\nint main() {\n    float precio, subtotal, iva, total;\n    int cantidad;\n    // Tu código aquí\n    return 0;\n}"}];
+function calcP4(r){let p=0;PM_P4.forEach(q=>{if(r.multiple?.[q.id]===q.correcta)p++;});PVF_P4.forEach(q=>{if(r.vf?.[q.id]===q.correcta)p++;});PC_P4.forEach(q=>{if((r.completar?.[q.id]||"").toLowerCase().trim()===q.correcta)p++;});return p;}
+
+const PM_C5=[{id:"m1",txt:"¿Cuál es la diferencia principal entre =CONTAR() y =CONTAR.SI()?",opts:["CONTAR suma valores; CONTAR.SI los multiplica","CONTAR cuenta todos los números; CONTAR.SI solo los que cumplen una condición","CONTAR.SI es más lenta que CONTAR","No hay diferencia, son la misma función"],correcta:1},{id:"m2",txt:"En un SI anidado, ¿por qué siempre debes empezar por la condición MÁS ALTA?",opts:["Porque Excel lee de derecha a izquierda","Porque si empiezas por la más baja, Excel se detiene en la primera condición que se cumpla","Porque las condiciones altas son más importantes","No importa el orden en un SI anidado"],correcta:1},{id:"m3",txt:"¿Qué produce esta fórmula si A1 = 75?\n=SI(A1>=90;\"Excelente\";SI(A1>=75;\"Muy Bueno\";SI(A1>=60;\"Bueno\";\"Reprobado\")))",opts:["Excelente","Muy Bueno","Bueno","Reprobado"],correcta:1},{id:"m4",txt:"El signo + al inicio de una fórmula en Excel (+SUMA(A1:A5)):",opts:["Causa un error de sintaxis","Es igual de válido que usar el signo =","Solo funciona con la función SUMA","Suma un valor adicional al resultado"],correcta:1},{id:"m5",txt:"¿Cuál de estas fórmulas tiene la sintaxis CORRECTA en Excel en español?",opts:["=SI(A1>60,\"Aprobado\",\"Reprobado\")","=SI(A1>60;\"Aprobado\";\"Reprobado\")","=SI(A1=\"mayor a 60\";\"Aprobado\";\"Reprobado\")","=SI A1>60 ENTONCES \"Aprobado\""],correcta:1},{id:"m6",txt:"¿Qué operador usarías para que una condición sea VERDADERA cuando el valor es exactamente 100?",opts:[">=","<=","=","<>"],correcta:2},{id:"m7",txt:"¿Qué significa el operador <> en Excel?",opts:["Menor que","Mayor que","Diferente de","Menor o igual que"],correcta:2},{id:"m8",txt:"Una función avanzada que 4to Bach NO estudia pero 5to Bach sí es:",opts:["SUMA","PROMEDIO","BUSCARV","MAX"],correcta:2},{id:"m9",txt:"=CONTAR.SI(B2:B8;\">70\") — ¿Qué hace esta fórmula?",opts:["Suma todos los valores mayores a 70","Cuenta cuántas celdas en B2:B8 tienen un valor mayor a 70","Muestra los valores mayores a 70","Calcula el promedio de valores mayores a 70"],correcta:1},{id:"m10",txt:"¿Cuál es el error en esta fórmula: =SI(A1>60;Aprobado;Reprobado)?",opts:["Falta el signo = al inicio","La condición A1>60 está mal escrita","Los textos Aprobado y Reprobado deben ir entre comillas","El punto y coma debe ser una coma"],correcta:2}];
+const PVF_C5=[{id:"vf1",txt:"En Excel, una fórmula escrita como SUMA(A1:A5) sin ningún signo al inicio funciona correctamente.",correcta:false},{id:"vf2",txt:"El signo + puede usarse en lugar del = para iniciar una fórmula en Excel.",correcta:true},{id:"vf3",txt:"En un SI anidado con 4 niveles se necesitan exactamente 4 paréntesis de cierre al final.",correcta:true},{id:"vf4",txt:"La condición =SI(A1=\"mayor a 60\";...) es una forma válida de escribir una prueba lógica.",correcta:false},{id:"vf5",txt:"=CONTAR.SI puede contar celdas que cumplan una condición como ser mayor que un número.",correcta:true},{id:"vf6",txt:"En Excel en español, los argumentos de las funciones siempre se separan con coma (,).",correcta:false}];
+const PFORM_C5=[{id:"f1",erronea:'SI(A1>50;"Aprobado";"Reprobado")',correcta:'=SI(A1>50;"Aprobado";"Reprobado")'},{id:"f2",erronea:'=SI(A1="mayor a 50";"Aprobado";"Reprobado")',correcta:'=SI(A1>50;"Aprobado";"Reprobado")'},{id:"f3",erronea:"=SI(A1>=50;Aprobado;Reprobado)",correcta:'=SI(A1>=50;"Aprobado";"Reprobado")'},{id:"f4",erronea:'=SI(A1>=60;"Bueno";SI(A1>=80;"Muy Bueno";"Excelente"))',correcta:'=SI(A1>=90;"Excelente";SI(A1>=80;"Muy Bueno";SI(A1>=60;"Bueno";"Reprobado")))'}];
+const EJ_C5={pts:8,titulo:"Ejercicio práctico — Sistema de empleados",instrucciones:["Abre Excel y nómbralo con tu nombre.","Crea tabla: Nombre | Salario | Categoría | Bono (6 empleados).","Categoría con SI anidado: Q8,000+ → Alto | Q4,000–Q7,999 → Medio | <Q4,000 → Bajo.","Bono con SI: Alto→15% | Medio→10% | Bajo→5%.","Agrega CONTAR.SI para cada categoría.","Agrega PROMEDIO, MAX y MIN del salario."]};
+function calcC5(r){let p=0;PM_C5.forEach(q=>{if(r.multiple?.[q.id]===q.correcta)p++;});PVF_C5.forEach(q=>{if(r.vf?.[q.id]===q.correcta)p++;});return p;}
+
+const maxAuto=id=>({comp1:31,lab1:25,prog4:25,py5:18,comp5:16})[id]||0;
+
+// ── JSONBIN ───────────────────────────────────────────
+const JB_URL=()=>`https://api.jsonbin.io/v3/b/${window.JSONBIN_BIN}`;
+const JB_H=()=>({"Content-Type":"application/json","X-Master-Key":window.JSONBIN_KEY,"X-Bin-Versioning":"false"});
+async function fbGuardar(resp){try{const g=await fetch(JB_URL(),{headers:JB_H()});const d=await g.json();const a=Array.isArray(d.record)?d.record:[];await fetch(JB_URL(),{method:"PUT",headers:JB_H(),body:JSON.stringify([...a,resp])});return true;}catch(e){return false;}}
+async function fbEscuchar(cb){try{const g=await fetch(JB_URL(),{headers:JB_H()});const d=await g.json();cb(Array.isArray(d.record)?d.record:[]);}catch(e){cb([]);}}
+
+// ── ESTILOS ───────────────────────────────────────────
+const btn=(e={})=>({background:"rgba(255,255,255,0.08)",border:"1px solid rgba(255,255,255,0.15)",borderRadius:10,padding:"9px 20px",color:"#fff",cursor:"pointer",fontSize:13,...e});
+const card={background:"rgba(255,255,255,0.04)",border:"1px solid rgba(255,255,255,0.07)",borderRadius:12,padding:16,marginBottom:12};
+
+function SecHeader({title,pts,inst,color="#003366"}){return(<div style={{marginBottom:16}}><div style={{background:color,borderRadius:8,padding:"8px 16px",display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:6}}><span style={{fontWeight:700,fontSize:13,textTransform:"uppercase"}}>{title}</span><span style={{fontSize:11,background:"rgba(255,255,255,0.2)",padding:"2px 10px",borderRadius:10}}>{pts}</span></div><div style={{fontSize:12,color:"rgba(255,255,255,0.5)",fontStyle:"italic"}}>{inst}</div></div>);}
+
+// ── LOGIN ─────────────────────────────────────────────
+function Login({onStart}){
+  const [nombre,setNombre]=useState("");
+  const [cursoId,setCursoId]=useState("");
+  const [pass,setPass]=useState("");
+  const [modo,setModo]=useState("alumno");
+  const [err,setErr]=useState("");
+  const submit=()=>{
+    if(modo==="maestro"){if(pass!==PASS_MAESTRO)return setErr("Contraseña incorrecta.");return onStart("__MAESTRO__","maestro");}
+    if(!nombre.trim())return setErr("Escribe tu nombre completo.");
+    if(!cursoId)return setErr("Selecciona tu curso.");
+    setErr("");onStart(nombre.trim(),cursoId);
+  };
+  return(
+    <div style={{minHeight:"100vh",background:"linear-gradient(135deg,#0a0a1a,#0a1628)",display:"flex",alignItems:"center",justifyContent:"center",padding:20}}>
+      <div style={{background:"rgba(255,255,255,0.05)",border:"1px solid rgba(255,255,255,0.1)",borderRadius:20,padding:"40px 36px",width:"100%",maxWidth:500,color:"#fff"}}>
+        <div style={{textAlign:"center",marginBottom:24}}>
+          <div style={{fontSize:38,marginBottom:8}}>🏫</div>
+          <div style={{fontSize:12,color:"rgba(255,255,255,0.4)"}}>Liceo Santa María · Ciclo 2026</div>
+          <h1 style={{fontSize:22,fontWeight:800,background:"linear-gradient(90deg,#00d4ff,#7b2ff7)",WebkitBackgroundClip:"text",WebkitTextFillColor:"transparent",margin:"6px 0"}}>Plataforma de Exámenes</h1>
+          <div style={{fontSize:12,color:"rgba(255,255,255,0.4)"}}>Unidad 1 · 30 puntos</div>
+        </div>
+        <div style={{display:"flex",gap:6,marginBottom:20,background:"rgba(255,255,255,0.05)",borderRadius:10,padding:4}}>
+          {["alumno","maestro"].map(m=>(
+            <button key={m} onClick={()=>{setModo(m);setErr("");}}
+              style={{flex:1,background:modo===m?"rgba(0,212,255,0.2)":"transparent",border:modo===m?"1px solid rgba(0,212,255,0.4)":"1px solid transparent",borderRadius:8,padding:"7px",color:modo===m?"#00d4ff":"rgba(255,255,255,0.5)",cursor:"pointer",fontSize:13,fontWeight:modo===m?700:400}}>
+              {m==="alumno"?"👨‍🎓 Alumno":"👩‍🏫 Maestro"}
+            </button>
+          ))}
+        </div>
+        {modo==="alumno"?(<>
+          <div style={{marginBottom:14}}>
+            <label style={{fontSize:12,color:"rgba(255,255,255,0.6)",display:"block",marginBottom:6}}>Nombre completo</label>
+            <input value={nombre} onChange={e=>setNombre(e.target.value)} placeholder="Ej: María García López"
+              style={{width:"100%",background:"rgba(255,255,255,0.08)",border:"1px solid rgba(255,255,255,0.15)",borderRadius:10,padding:"10px 14px",color:"#fff",fontSize:14,outline:"none"}}/>
+          </div>
+          <div style={{marginBottom:12}}>
+            <label style={{fontSize:12,color:"rgba(255,255,255,0.6)",display:"block",marginBottom:6}}>Selecciona tu curso</label>
+            <div style={{display:"flex",flexDirection:"column",gap:8}}>
+              {CURSOS.map(c=>(
+                <button key={c.id} onClick={()=>setCursoId(c.id)}
+                  style={{background:cursoId===c.id?c.bg:"rgba(255,255,255,0.04)",border:`1px solid ${cursoId===c.id?c.color:"rgba(255,255,255,0.1)"}`,borderRadius:10,padding:"10px 16px",color:cursoId===c.id?c.color:"rgba(255,255,255,0.7)",cursor:"pointer",fontSize:13,textAlign:"left",fontWeight:cursoId===c.id?700:400,transition:"all .2s"}}>
+                  {c.label}
+                </button>
+              ))}
+            </div>
+          </div>
+        </>):(
+          <div style={{marginBottom:18}}>
+            <label style={{fontSize:12,color:"rgba(255,255,255,0.6)",display:"block",marginBottom:6}}>Contraseña del catedrático</label>
+            <input type="password" value={pass} onChange={e=>setPass(e.target.value)} placeholder="••••••••"
+              onKeyDown={e=>e.key==="Enter"&&submit()}
+              style={{width:"100%",background:"rgba(255,255,255,0.08)",border:"1px solid rgba(255,255,255,0.15)",borderRadius:10,padding:"10px 14px",color:"#fff",fontSize:14,outline:"none"}}/>
+          </div>
+        )}
+        {err&&<div style={{background:"rgba(255,80,80,0.15)",border:"1px solid rgba(255,80,80,0.3)",borderRadius:8,padding:"8px 12px",fontSize:12,color:"#ff8080",marginBottom:12}}>{err}</div>}
+        <button onClick={submit} style={{width:"100%",background:"linear-gradient(90deg,#00d4ff,#7b2ff7)",border:"none",borderRadius:12,padding:"12px",color:"#fff",fontWeight:700,fontSize:15,cursor:"pointer",marginTop:6}}>
+          {modo==="alumno"?"Iniciar examen →":"Entrar al panel →"}
+        </button>
+      </div>
+    </div>
+  );
+}
+
+// ── SHARED UI ─────────────────────────────────────────
+function useTimer(s){const [t,setT]=useState(s);useEffect(()=>{const x=setInterval(()=>setT(p=>p>0?p-1:0),1000);return()=>clearInterval(x);},[]);const mm=String(Math.floor(t/60)).padStart(2,"0"),ss=String(t%60).padStart(2,"0");return{mm,ss,color:t<300?"#ff5050":t<600?"#ffaa00":"#00ff88"};}
+function TopBar({cursoId,nombre,mm,ss,timerColor}){const c=getCurso(cursoId)||{label:"Examen",color:"#00d4ff"};return(<div style={{background:"rgba(0,0,0,0.5)",borderBottom:"1px solid rgba(255,255,255,0.1)",padding:"10px 20px",display:"flex",justifyContent:"space-between",alignItems:"center",position:"sticky",top:0,zIndex:10}}><div><div style={{fontSize:13,fontWeight:700}}>{c.label}</div><div style={{fontSize:11,color:c.color}}>{nombre}</div></div><div style={{background:"rgba(0,0,0,0.3)",border:`1px solid ${timerColor}`,borderRadius:8,padding:"5px 14px",fontFamily:"monospace",fontSize:16,fontWeight:700,color:timerColor}}>⏱ {mm}:{ss}</div></div>);}
+function ProgBar({sec,total}){return(<div style={{height:3,background:"rgba(255,255,255,0.1)"}}><div style={{height:"100%",width:`${(sec/total)*100}%`,background:"linear-gradient(90deg,#00d4ff,#7b2ff7)",transition:"width .4s"}}/></div>);}
+function TabsBar({tabs,sec,setSec,color}){return(<div style={{display:"flex",gap:4,padding:"10px 20px 0",borderBottom:"1px solid rgba(255,255,255,0.08)",overflowX:"auto"}}>{tabs.map((t,i)=><button key={i} onClick={()=>setSec(i)} style={{background:sec===i?"rgba(0,0,0,0.3)":"transparent",border:sec===i?`1px solid ${color}`:"1px solid transparent",color:sec===i?color:"rgba(255,255,255,0.5)",borderRadius:"8px 8px 0 0",padding:"7px 12px",cursor:"pointer",fontSize:12,fontWeight:sec===i?700:400,whiteSpace:"nowrap"}}>{i+1}. {t}</button>)}</div>);}
+function PregMultiple({q,qi,sel,onSel,color}){return(<div style={card}><div style={{fontSize:14,marginBottom:10,lineHeight:1.5,whiteSpace:"pre-line"}}><span style={{fontWeight:700,color}}>{qi+1}.</span> {q.txt}</div><div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:8}}>{q.opts.map((o,oi)=><button key={oi} onClick={()=>onSel(oi)} style={{background:sel===oi?"rgba(0,212,255,0.15)":"rgba(255,255,255,0.05)",border:sel===oi?"1px solid #00d4ff":"1px solid rgba(255,255,255,0.1)",borderRadius:8,padding:"8px 12px",color:sel===oi?"#00d4ff":"rgba(255,255,255,0.8)",cursor:"pointer",fontSize:12,textAlign:"left",display:"flex",gap:6}}><span style={{fontWeight:700,flexShrink:0}}>{["A","B","C","D"][oi]})</span>{o}</button>)}</div></div>);}
+function PregVF({q,qi,sel,onSel}){return(<div style={{...card,display:"flex",justifyContent:"space-between",alignItems:"center",gap:12}}><div style={{fontSize:13,lineHeight:1.5,flex:1}}><span style={{fontWeight:700,color:"#a78bff"}}>{qi+1}.</span> {q.txt}</div><div style={{display:"flex",gap:8,flexShrink:0}}>{[true,false].map(v=><button key={String(v)} onClick={()=>onSel(v)} style={{background:sel===v?(v?"rgba(0,255,136,0.2)":"rgba(255,80,80,0.2)"):"rgba(255,255,255,0.07)",border:sel===v?(v?"1px solid #00ff88":"1px solid #ff5050"):"1px solid rgba(255,255,255,0.1)",borderRadius:8,padding:"7px 14px",color:sel===v?(v?"#00ff88":"#ff5050"):"rgba(255,255,255,0.6)",cursor:"pointer",fontWeight:700,fontSize:13}}>{v?"V":"F"}</button>)}</div></div>);}
+function BancoPalabras({banco}){return(<div style={{background:"rgba(255,255,255,0.04)",borderRadius:10,padding:12,marginBottom:14,border:"1px dashed rgba(255,255,255,0.2)"}}><div style={{fontSize:11,color:"rgba(255,255,255,0.5)",marginBottom:8,fontWeight:700}}>BANCO DE PALABRAS:</div><div style={{display:"flex",flexWrap:"wrap",gap:8}}>{banco.map(w=><span key={w} style={{background:"rgba(0,212,255,0.1)",border:"1px solid rgba(0,212,255,0.2)",borderRadius:6,padding:"3px 10px",fontSize:12,color:"#00d4ff"}}>{w}</span>)}</div></div>);}
+function PregCompletar({q,qi,val,onChange}){return(<div style={card}><div style={{fontSize:13,lineHeight:2,display:"flex",flexWrap:"wrap",alignItems:"center",gap:4}}><span style={{fontWeight:700,color:"#a78bff"}}>{qi+1}.</span><span>{q.pre}</span><input value={val} onChange={e=>onChange(e.target.value)} placeholder="escribe aquí..." style={{background:"rgba(255,255,255,0.08)",border:"none",borderBottom:"2px solid rgba(0,212,255,0.5)",padding:"2px 8px",color:"#00d4ff",fontSize:13,outline:"none",minWidth:160,borderRadius:"4px 4px 0 0"}}/><span>{q.post}</span></div></div>);}
+function BotonEnviar({confirm,setConfirm,enviando,enviar}){if(!confirm)return(<button onClick={()=>setConfirm(true)} style={{width:"100%",marginTop:8,background:"linear-gradient(90deg,#00d4ff,#7b2ff7)",border:"none",borderRadius:12,padding:14,color:"#fff",fontWeight:700,fontSize:15,cursor:"pointer"}}>Enviar examen 📨</button>);return(<div style={{background:"rgba(255,170,0,0.1)",border:"1px solid rgba(255,170,0,0.4)",borderRadius:12,padding:16,textAlign:"center",marginTop:8}}><div style={{fontSize:14,color:"#ffaa00",marginBottom:12}}>¿Confirmas el envío? No podrás modificar tus respuestas.</div><div style={{display:"flex",gap:10,justifyContent:"center"}}><button onClick={()=>setConfirm(false)} style={btn()}>Revisar primero</button><button onClick={enviar} disabled={enviando} style={{background:"#00ff88",border:"none",borderRadius:8,padding:"9px 20px",color:"#000",fontWeight:700,cursor:"pointer",fontSize:13}}>{enviando?"Enviando...":"Sí, enviar ✓"}</button></div></div>);}
+function NavBotones({sec,setSec,max}){return(<div style={{display:"flex",justifyContent:"space-between",marginTop:16}}>{sec>0&&<button onClick={()=>setSec(s=>s-1)} style={btn()}>← Anterior</button>}{sec<max&&<button onClick={()=>setSec(s=>s+1)} style={{...btn({marginLeft:"auto"}),background:"rgba(0,212,255,0.15)",border:"1px solid rgba(0,212,255,0.3)",color:"#00d4ff",fontWeight:600}}>Siguiente →</button>}</div>);}
+function Enviado({nombre}){return(<div style={{minHeight:"100vh",background:"linear-gradient(135deg,#0a0a1a,#0a1628)",display:"flex",alignItems:"center",justifyContent:"center"}}><div style={{textAlign:"center"}}><div style={{fontSize:60,marginBottom:16}}>✅</div><h2 style={{fontSize:24,fontWeight:800,color:"#00ff88",marginBottom:8}}>¡Examen enviado!</h2><p style={{color:"rgba(255,255,255,0.6)"}}>Tus respuestas fueron guardadas, {nombre.split(" ")[0]}.</p><p style={{fontSize:13,color:"rgba(255,255,255,0.4)",marginTop:8}}>Puedes cerrar esta ventana.</p></div></div>);}
+function SecRelacionar({izq,der,sel,onSel,color}){const [selIzq,setSelIzq]=useState(null);const linked=sel||{};const hI=id=>{if(linked[id]){const n={...linked};delete n[id];onSel(n);}else setSelIzq(id);};const hD=id=>{if(!selIzq)return;const n={...linked};Object.keys(n).forEach(k=>{if(n[k]===id)delete n[k];});n[selIzq]=id;onSel(n);setSelIzq(null);};return(<div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:12,marginTop:8}}><div><div style={{fontSize:11,color:"rgba(255,255,255,0.4)",marginBottom:8,fontWeight:700}}>Columna A</div>{izq.map(item=>{const a=linked[item.id],s=selIzq===item.id;return(<div key={item.id} onClick={()=>hI(item.id)} style={{background:s?"rgba(0,212,255,0.2)":a?"rgba(0,255,136,0.1)":"rgba(255,255,255,0.05)",border:s?`2px solid ${color}`:a?"1px solid #00ff88":"1px solid rgba(255,255,255,0.1)",borderRadius:8,padding:"9px 12px",fontSize:13,cursor:"pointer",marginBottom:8,display:"flex",justifyContent:"space-between",alignItems:"center",color:s?color:a?"#00ff88":"rgba(255,255,255,0.85)"}}><span>{item.txt}</span>{a&&<span style={{fontSize:11,fontWeight:700,background:"rgba(0,255,136,0.15)",padding:"1px 7px",borderRadius:8}}>→{a}</span>}{s&&<span>👆</span>}</div>);})}</div><div><div style={{fontSize:11,color:"rgba(255,255,255,0.4)",marginBottom:8,fontWeight:700}}>Columna B</div>{der.map(item=>{const u=Object.values(linked).includes(item.id);return(<div key={item.id} onClick={()=>hD(item.id)} style={{background:u?"rgba(0,255,136,0.1)":"rgba(255,255,255,0.05)",border:u?"1px solid #00ff88":"1px solid rgba(255,255,255,0.1)",borderRadius:8,padding:"9px 12px",fontSize:13,cursor:selIzq?"pointer":"default",marginBottom:8,color:u?"#00ff88":"rgba(255,255,255,0.75)",opacity:selIzq||u?1:0.6}}>{item.txt}</div>);})}</div></div>);}
+
+// Bloque reutilizable de ejercicios de código
+function BloqueEjercicios({ejercicios,vals,onChange,color,dark}){
+  return(<>
+    {ejercicios.map((ej,i)=>(
+      <div key={ej.id} style={{...card,marginBottom:20,border:`1px solid ${color}44`}}>
+        <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:10}}>
+          <span style={{fontWeight:700,fontSize:14,color}}>{ej.titulo}</span>
+          <span style={{fontSize:11,background:`${color}22`,border:`1px solid ${color}66`,color,padding:"2px 10px",borderRadius:8}}>{ej.pts} pts</span>
+        </div>
+        <div style={{background:"rgba(0,0,0,0.3)",borderRadius:8,padding:"12px 14px",fontSize:13,lineHeight:1.8,color:"rgba(255,255,255,0.85)",whiteSpace:"pre-line",marginBottom:12,borderLeft:`3px solid ${color}`}}>
+          {ej.enunciado}
+        </div>
+        <div style={{background:`${color}11`,borderRadius:6,padding:"7px 12px",fontSize:11,color:`${color}cc`,marginBottom:10}}>
+          💡 Pista: {ej.pista}
+        </div>
+        <label style={{fontSize:12,color:"rgba(255,255,255,0.5)",display:"block",marginBottom:6}}>📝 Escribe tu código aquí:</label>
+        <textarea value={vals[ej.id]||""} onChange={e=>onChange(ej.id,e.target.value)}
+          rows={10} placeholder={ej.placeholder}
+          style={{width:"100%",background:"#0d1117",border:`1px solid ${color}55`,borderRadius:10,padding:"12px 14px",color:"#a8ff78",fontSize:13,outline:"none",resize:"vertical",lineHeight:1.7,fontFamily:"'Consolas',monospace"}}/>
+        <div style={{fontSize:11,color:"rgba(255,255,255,0.25)",textAlign:"right",marginTop:4}}>{(vals[ej.id]||"").length} caracteres</div>
+      </div>
+    ))}
+  </>);
+}
+
+// ── EXAMEN PYTHON ─────────────────────────────────────
+function ExamenPY({nombre,onEnviar}){
+  const c=getCurso("py5");
+  const [sec,setSec]=useState(0);
+  const [multiple,setMultiple]=useState({});
+  const [vf,setVf]=useState({});
+  const [ejercicios,setEjercicios]=useState({});
+  const [enviado,setEnviado]=useState(false);
+  const [confirm,setConfirm]=useState(false);
+  const [enviando,setEnviando]=useState(false);
+  const {mm,ss,color:tc}=useTimer(40*60);
+  const setEj=(id,v)=>setEjercicios(p=>({...p,[id]:v}));
+  const enviar=async()=>{setEnviando(true);await onEnviar({nombre,cursoId:"py5",curso:c.label,fecha:new Date().toLocaleString("es-GT"),multiple,vf,ejercicios});setEnviado(true);};
+  if(enviado)return<Enviado nombre={nombre}/>;
+  const tabs=["Selección Múltiple","Verdadero o Falso","Ejercicios de Código"];
+  return(
+    <div style={{minHeight:"100vh",background:"linear-gradient(135deg,#0a0a1a,#1a1500)"}}>
+      <TopBar cursoId="py5" nombre={nombre} mm={mm} ss={ss} timerColor={tc}/>
+      <ProgBar sec={sec} total={2}/>
+      <TabsBar tabs={tabs} sec={sec} setSec={setSec} color={c.color}/>
+      <div style={{maxWidth:800,margin:"0 auto",padding:"20px 20px 100px"}}>
+        {sec===0&&<>
+          <SecHeader title="Selección Múltiple" pts="10 pts · 1 pt c/u" inst="Selecciona la respuesta correcta." color={c.dark}/>
+          {PM_PY.map((q,i)=><PregMultiple key={q.id} q={q} qi={i} sel={multiple[q.id]} onSel={v=>setMultiple(p=>({...p,[q.id]:v}))} color={c.color}/>)}
+        </>}
+        {sec===1&&<>
+          <SecHeader title="Verdadero o Falso" pts="8 pts · 1 pt c/u" inst="Selecciona V o F según corresponda." color={c.dark}/>
+          {PVF_PY.map((q,i)=><PregVF key={q.id} q={q} qi={i} sel={vf[q.id]} onSel={v=>setVf(p=>({...p,[q.id]:v}))}/>)}
+        </>}
+        {sec===2&&<>
+          <SecHeader title="Ejercicios de Programación" pts="12 pts · revisar en Python" inst="Lee cada ejercicio, escribe tu solución y copiala aquí." color={c.dark}/>
+          <BloqueEjercicios ejercicios={EJS_PY} vals={ejercicios} onChange={setEj} color={c.color} dark={c.dark}/>
+          <BotonEnviar confirm={confirm} setConfirm={setConfirm} enviando={enviando} enviar={enviar}/>
+        </>}
+        <NavBotones sec={sec} setSec={setSec} max={2}/>
+      </div>
+    </div>
+  );
+}
+
+// ── EXAMEN C++ ────────────────────────────────────────
+function ExamenP4({nombre,onEnviar}){
+  const c=getCurso("prog4");
+  const [sec,setSec]=useState(0);
+  const [multiple,setMultiple]=useState({});
+  const [vf,setVf]=useState({});
+  const [completar,setCompletar]=useState({});
+  const [ejercicios,setEjercicios]=useState({});
+  const [enviado,setEnviado]=useState(false);
+  const [confirm,setConfirm]=useState(false);
+  const [enviando,setEnviando]=useState(false);
+  const {mm,ss,color:tc}=useTimer(40*60);
+  const setEj=(id,v)=>setEjercicios(p=>({...p,[id]:v}));
+  const enviar=async()=>{setEnviando(true);await onEnviar({nombre,cursoId:"prog4",curso:c.label,fecha:new Date().toLocaleString("es-GT"),multiple,vf,completar,ejercicios});setEnviado(true);};
+  if(enviado)return<Enviado nombre={nombre}/>;
+  const tabs=["Selección Múltiple","Verdadero o Falso","Completar","Ejercicios de Código"];
+  return(
+    <div style={{minHeight:"100vh",background:"linear-gradient(135deg,#0a0a1a,#1a0a00)"}}>
+      <TopBar cursoId="prog4" nombre={nombre} mm={mm} ss={ss} timerColor={tc}/>
+      <ProgBar sec={sec} total={3}/>
+      <TabsBar tabs={tabs} sec={sec} setSec={setSec} color={c.color}/>
+      <div style={{maxWidth:800,margin:"0 auto",padding:"20px 20px 100px"}}>
+        {sec===0&&<><SecHeader title="Selección Múltiple" pts="10 pts · 1 pt c/u" inst="Selecciona la respuesta correcta." color={c.dark}/>{PM_P4.map((q,i)=><PregMultiple key={q.id} q={q} qi={i} sel={multiple[q.id]} onSel={v=>setMultiple(p=>({...p,[q.id]:v}))} color={c.color}/>)}</>}
+        {sec===1&&<><SecHeader title="Verdadero o Falso" pts="8 pts · 1 pt c/u" inst="Selecciona V o F según corresponda." color={c.dark}/>{PVF_P4.map((q,i)=><PregVF key={q.id} q={q} qi={i} sel={vf[q.id]} onSel={v=>setVf(p=>({...p,[q.id]:v}))}/>)}</>}
+        {sec===2&&<><SecHeader title="Completar espacios" pts="7 pts · 1 pt c/u" inst="Escribe la palabra del banco que corresponde." color={c.dark}/><BancoPalabras banco={BANCO_P4}/>{PC_P4.map((q,i)=><PregCompletar key={q.id} q={q} qi={i} val={completar[q.id]||""} onChange={v=>setCompletar(p=>({...p,[q.id]:v}))}/>)}</>}
+        {sec===3&&<>
+          <SecHeader title="Ejercicios de Programación" pts="14 pts" inst="Escribe tu código C++ en Dev-C++ y luego cópialo aquí." color={c.dark}/>
+          <BloqueEjercicios ejercicios={EJS_P4} vals={ejercicios} onChange={setEj} color={c.color} dark={c.dark}/>
+          <BotonEnviar confirm={confirm} setConfirm={setConfirm} enviando={enviando} enviar={enviar}/>
+        </>}
+        <NavBotones sec={sec} setSec={setSec} max={3}/>
+      </div>
+    </div>
+  );
+}
+
+// ── EXAMEN COMP I ─────────────────────────────────────
+function ExamenC1({nombre,onEnviar}){
+  const c=getCurso("comp1");
+  const [sec,setSec]=useState(0);
+  const [multiple,setMultiple]=useState({});
+  const [vf,setVf]=useState({});
+  const [completar,setCompletar]=useState({});
+  const [relacionar,setRelacionar]=useState({});
+  const [enviado,setEnviado]=useState(false);
+  const [confirm,setConfirm]=useState(false);
+  const [enviando,setEnviando]=useState(false);
+  const {mm,ss,color:tc}=useTimer(40*60);
+  const enviar=async()=>{setEnviando(true);await onEnviar({nombre,cursoId:"comp1",curso:c.label,fecha:new Date().toLocaleString("es-GT"),multiple,vf,completar,relacionar});setEnviado(true);};
+  if(enviado)return<Enviado nombre={nombre}/>;
+  const tabs=["Selección Múltiple","Verdadero o Falso","Completar","Relacionar"];
+  return(
+    <div style={{minHeight:"100vh",background:"linear-gradient(135deg,#0a0a1a,#001a26)"}}>
+      <TopBar cursoId="comp1" nombre={nombre} mm={mm} ss={ss} timerColor={tc}/>
+      <ProgBar sec={sec} total={3}/>
+      <TabsBar tabs={tabs} sec={sec} setSec={setSec} color={c.color}/>
+      <div style={{maxWidth:800,margin:"0 auto",padding:"20px 20px 100px"}}>
+        {sec===0&&<><SecHeader title="Selección Múltiple" pts="10 pts · 1 pt c/u" inst="Selecciona la respuesta correcta." color={c.dark}/>{PM_C1.map((q,i)=><PregMultiple key={q.id} q={q} qi={i} sel={multiple[q.id]} onSel={v=>setMultiple(p=>({...p,[q.id]:v}))} color={c.color}/>)}</>}
+        {sec===1&&<><SecHeader title="Verdadero o Falso" pts="8 pts · 1 pt c/u" inst="Selecciona V o F." color={c.dark}/>{PVF_C1.map((q,i)=><PregVF key={q.id} q={q} qi={i} sel={vf[q.id]} onSel={v=>setVf(p=>({...p,[q.id]:v}))}/>)}</>}
+        {sec===2&&<><SecHeader title="Completar espacios" pts="7 pts · 1 pt c/u" inst="Escribe la palabra del banco." color={c.dark}/><BancoPalabras banco={BANCO_C1}/>{PC_C1.map((q,i)=><PregCompletar key={q.id} q={q} qi={i} val={completar[q.id]||""} onChange={v=>setCompletar(p=>({...p,[q.id]:v}))}/>)}</>}
+        {sec===3&&<>
+          <SecHeader title="Relacionar columnas" pts="6 pts · 1 pt c/u" inst="Clic en Columna A, luego en su par de Columna B." color={c.dark}/>
+          <div style={card}><SecRelacionar izq={REL_C1_IZQ} der={REL_C1_DER} sel={relacionar} onSel={setRelacionar} color={c.color}/></div>
+          {Object.keys(relacionar).length===REL_C1_IZQ.length&&<div style={{background:"rgba(0,255,136,0.08)",border:"1px solid rgba(0,255,136,0.3)",borderRadius:8,padding:"8px 14px",fontSize:12,color:"#00ff88",marginBottom:12}}>✅ Todos relacionados.</div>}
+          <BotonEnviar confirm={confirm} setConfirm={setConfirm} enviando={enviando} enviar={enviar}/>
+        </>}
+        <NavBotones sec={sec} setSec={setSec} max={3}/>
+      </div>
+    </div>
+  );
+}
+
+// ── EXAMEN LAB I ──────────────────────────────────────
+function ExamenL1({nombre,onEnviar}){
+  const c=getCurso("lab1");
+  const [sec,setSec]=useState(0);
+  const [multiple,setMultiple]=useState({});
+  const [vf,setVf]=useState({});
+  const [completar,setCompletar]=useState({});
+  const [desarrollo,setDesarrollo]=useState({});
+  const [enviado,setEnviado]=useState(false);
+  const [confirm,setConfirm]=useState(false);
+  const [enviando,setEnviando]=useState(false);
+  const {mm,ss,color:tc}=useTimer(40*60);
+  const enviar=async()=>{setEnviando(true);await onEnviar({nombre,cursoId:"lab1",curso:c.label,fecha:new Date().toLocaleString("es-GT"),multiple,vf,completar,desarrollo});setEnviado(true);};
+  if(enviado)return<Enviado nombre={nombre}/>;
+  const tabs=["Selección Múltiple","Verdadero o Falso","Completar","Desarrollo"];
+  return(
+    <div style={{minHeight:"100vh",background:"linear-gradient(135deg,#0a0a1a,#0a0120)"}}>
+      <TopBar cursoId="lab1" nombre={nombre} mm={mm} ss={ss} timerColor={tc}/>
+      <ProgBar sec={sec} total={3}/>
+      <TabsBar tabs={tabs} sec={sec} setSec={setSec} color={c.color}/>
+      <div style={{maxWidth:800,margin:"0 auto",padding:"20px 20px 100px"}}>
+        {sec===0&&<><SecHeader title="Selección Múltiple" pts="10 pts · 1 pt c/u" inst="Selecciona la respuesta correcta." color={c.dark}/>{PM_L1.map((q,i)=><PregMultiple key={q.id} q={q} qi={i} sel={multiple[q.id]} onSel={v=>setMultiple(p=>({...p,[q.id]:v}))} color={c.color}/>)}</>}
+        {sec===1&&<><SecHeader title="Verdadero o Falso" pts="8 pts · 1 pt c/u" inst="Selecciona V o F." color={c.dark}/>{PVF_L1.map((q,i)=><PregVF key={q.id} q={q} qi={i} sel={vf[q.id]} onSel={v=>setVf(p=>({...p,[q.id]:v}))}/>)}</>}
+        {sec===2&&<><SecHeader title="Completar espacios" pts="7 pts · 1 pt c/u" inst="Escribe la palabra del banco." color={c.dark}/><BancoPalabras banco={BANCO_L1}/>{PC_L1.map((q,i)=><PregCompletar key={q.id} q={q} qi={i} val={completar[q.id]||""} onChange={v=>setCompletar(p=>({...p,[q.id]:v}))}/>)}</>}
+        {sec===3&&<>
+          <SecHeader title="Desarrollo" pts="5 pts" inst="Responde con tus propias palabras." color={c.dark}/>
+          {PD_L1.map((q,i)=>(<div key={q.id} style={{...card,marginBottom:16}}><div style={{fontSize:13,lineHeight:1.6,marginBottom:10}}><span style={{fontWeight:700,color:"#ffaa00"}}>{i+1}. ({q.pts} pts)</span> {q.txt}</div><textarea value={desarrollo[q.id]||""} onChange={e=>setDesarrollo(p=>({...p,[q.id]:e.target.value}))} rows={5} placeholder="Escribe tu respuesta aquí..." style={{width:"100%",background:"rgba(255,255,255,0.06)",border:"1px solid rgba(255,255,255,0.15)",borderRadius:10,padding:"10px 14px",color:"#fff",fontSize:13,outline:"none",resize:"vertical",lineHeight:1.6}}/><div style={{fontSize:11,color:"rgba(255,255,255,0.3)",textAlign:"right",marginTop:4}}>{(desarrollo[q.id]||"").length} chars</div></div>))}
+          <BotonEnviar confirm={confirm} setConfirm={setConfirm} enviando={enviando} enviar={enviar}/>
+        </>}
+        <NavBotones sec={sec} setSec={setSec} max={3}/>
+      </div>
+    </div>
+  );
+}
+
+// ── EXAMEN COMP APLICADA 5TO ──────────────────────────
+function ExamenC5({nombre,onEnviar}){
+  const c=getCurso("comp5");
+  const [sec,setSec]=useState(0);
+  const [multiple,setMultiple]=useState({});
+  const [vf,setVf]=useState({});
+  const [formulas,setFormulas]=useState({});
+  const [ejercicio,setEjercicio]=useState("");
+  const [enviado,setEnviado]=useState(false);
+  const [confirm,setConfirm]=useState(false);
+  const [enviando,setEnviando]=useState(false);
+  const {mm,ss,color:tc}=useTimer(40*60);
+  const enviar=async()=>{setEnviando(true);await onEnviar({nombre,cursoId:"comp5",curso:c.label,fecha:new Date().toLocaleString("es-GT"),multiple,vf,formulas,ejercicio});setEnviado(true);};
+  if(enviado)return<Enviado nombre={nombre}/>;
+  const tabs=["Selección Múltiple","Verdadero o Falso","Corregir Fórmulas","Ejercicio Excel"];
+  return(
+    <div style={{minHeight:"100vh",background:"linear-gradient(135deg,#0a0a1a,#041a12)"}}>
+      <TopBar cursoId="comp5" nombre={nombre} mm={mm} ss={ss} timerColor={tc}/>
+      <ProgBar sec={sec} total={3}/>
+      <TabsBar tabs={tabs} sec={sec} setSec={setSec} color={c.color}/>
+      <div style={{maxWidth:800,margin:"0 auto",padding:"20px 20px 100px"}}>
+        {sec===0&&<><SecHeader title="Selección Múltiple" pts="10 pts · 1 pt c/u" inst="Selecciona la respuesta correcta." color={c.dark}/>{PM_C5.map((q,i)=><PregMultiple key={q.id} q={q} qi={i} sel={multiple[q.id]} onSel={v=>setMultiple(p=>({...p,[q.id]:v}))} color={c.color}/>)}</>}
+        {sec===1&&<><SecHeader title="Verdadero o Falso" pts="6 pts · 1 pt c/u" inst="Selecciona V o F." color={c.dark}/>{PVF_C5.map((q,i)=><PregVF key={q.id} q={q} qi={i} sel={vf[q.id]} onSel={v=>setVf(p=>({...p,[q.id]:v}))}/>)}</>}
+        {sec===2&&<>
+          <SecHeader title="Corregir fórmulas" pts="6 pts · 1.5 pts c/u" inst="Identifica el error y escribe la corrección." color={c.dark}/>
+          {PFORM_C5.map((q,i)=>(<div key={q.id} style={card}><div style={{fontSize:13,marginBottom:8}}><span style={{fontWeight:700,color:c.color}}>{i+1}.</span> Corrige el error:</div><div style={{background:"#1e1e1e",borderRadius:6,padding:"8px 14px",fontFamily:"monospace",fontSize:13,color:"#ff6b6b",marginBottom:10}}>❌ {q.erronea}</div><div style={{marginBottom:8}}><label style={{fontSize:12,color:"rgba(255,255,255,0.5)",display:"block",marginBottom:4}}>¿Cuál es el error?</label><input value={formulas[q.id+"_e"]||""} onChange={e=>setFormulas(p=>({...p,[q.id+"_e"]:e.target.value}))} placeholder="Describe el error..." style={{width:"100%",background:"rgba(255,255,255,0.06)",border:"1px solid rgba(255,255,255,0.12)",borderRadius:8,padding:"8px 12px",color:"#fff",fontSize:13,outline:"none"}}/></div><div><label style={{fontSize:12,color:"rgba(255,255,255,0.5)",display:"block",marginBottom:4}}>Fórmula corregida:</label><input value={formulas[q.id+"_c"]||""} onChange={e=>setFormulas(p=>({...p,[q.id+"_c"]:e.target.value}))} placeholder="=SI(..." style={{width:"100%",background:"rgba(0,168,107,0.08)",border:"1px solid rgba(0,168,107,0.3)",borderRadius:8,padding:"8px 12px",color:"#00ff99",fontSize:13,outline:"none",fontFamily:"monospace"}}/></div></div>))}
+        </>}
+        {sec===3&&<>
+          <SecHeader title="Ejercicio Práctico en Excel" pts={`${EJ_C5.pts} pts`} inst="Realiza el ejercicio en Excel y escribe aquí las fórmulas que usaste." color={c.dark}/>
+          <div style={{...card,background:"rgba(0,168,107,0.06)",border:"1px solid rgba(0,168,107,0.2)"}}><div style={{fontWeight:700,fontSize:14,color:c.color,marginBottom:12}}>📊 {EJ_C5.titulo}</div>{EJ_C5.instrucciones.map((inst,i)=>(<div key={i} style={{display:"flex",gap:10,marginBottom:10,alignItems:"flex-start"}}><div style={{background:"rgba(0,168,107,0.3)",borderRadius:"50%",width:22,height:22,display:"flex",alignItems:"center",justifyContent:"center",fontSize:11,fontWeight:700,flexShrink:0,color:"#00ff99"}}>{i+1}</div><p style={{fontSize:13,lineHeight:1.6,color:"rgba(255,255,255,0.85)"}}>{inst}</p></div>))}</div>
+          <div style={card}><div style={{fontSize:13,fontWeight:700,color:c.color,marginBottom:8}}>✅ Fórmulas utilizadas</div><textarea value={ejercicio} onChange={e=>setEjercicio(e.target.value)} rows={6} placeholder={"Categoría: =SI(B2>=8000;\"Alto\";...)\nBono: =SI(C2=\"Alto\";B2*0.15;...)"} style={{width:"100%",background:"rgba(0,0,0,0.3)",border:"1px solid rgba(0,168,107,0.3)",borderRadius:10,padding:"10px 14px",color:"#00ff99",fontSize:12,outline:"none",resize:"vertical",lineHeight:1.6,fontFamily:"monospace"}}/></div>
+          <BotonEnviar confirm={confirm} setConfirm={setConfirm} enviando={enviando} enviar={enviar}/>
+        </>}
+        <NavBotones sec={sec} setSec={setSec} max={3}/>
+      </div>
+    </div>
+  );
+}
+
+// ── PANEL MAESTRO ─────────────────────────────────────
+function Bloque({title,color,children}){return(<div style={{...card,marginBottom:12}}><div style={{fontWeight:700,fontSize:13,color,marginBottom:10,borderBottom:"1px solid rgba(255,255,255,0.08)",paddingBottom:8}}>{title}</div>{children}</div>);}
+function ItemDet({num,txt,ok,resp,correcta}){return(<div style={{padding:"7px 0",borderBottom:"1px solid rgba(255,255,255,0.05)",fontSize:12}}><div style={{color:"rgba(255,255,255,0.7)",marginBottom:3,whiteSpace:"pre-line"}}>{num}. {txt}</div><span style={{color:ok?"#00ff88":"#ff8080"}}>{ok?"✓":"✗"} {resp}</span>{correcta&&<span style={{color:"rgba(255,255,255,0.4)",marginLeft:10}}>→ {correcta}</span>}</div>);}
+
+function DetallePY({r,onBack}){
+  const auto=calcPY(r);
+  return(<div>
+    <button onClick={onBack} style={{...btn(),marginBottom:14}}>← Volver</button>
+    <div style={{...card,display:"flex",justifyContent:"space-between",flexWrap:"wrap",gap:10,marginBottom:14}}>
+      <div><div style={{fontSize:18,fontWeight:800}}>{r.nombre}</div><div style={{fontSize:13,color:"rgba(255,255,255,0.5)"}}>{r.curso} · {r.fecha}</div></div>
+      <div style={{textAlign:"right"}}><div style={{fontSize:20,fontWeight:800,color:"#f7ca18"}}>{auto}/18 <span style={{fontSize:12,color:"rgba(255,255,255,0.4)"}}>auto</span></div><div style={{fontSize:12,color:"rgba(255,255,255,0.4)"}}>+ 12 pts ejercicios manual</div></div>
+    </div>
+    <Bloque title="Selección Múltiple" color="#f7ca18">{PM_PY.map((q,i)=>{const resp=r.multiple?.[q.id];const ok=resp===q.correcta;return<ItemDet key={q.id} num={i+1} txt={q.txt} ok={ok} resp={resp!=null?`${["A","B","C","D"][resp]}) ${q.opts[resp]}`:"Sin responder"} correcta={ok?null:`${["A","B","C","D"][q.correcta]}) ${q.opts[q.correcta]}`}/>;})}</Bloque>
+    <Bloque title="Verdadero o Falso" color="#a78bff">{PVF_PY.map((q,i)=>{const resp=r.vf?.[q.id];const ok=resp===q.correcta;return<ItemDet key={q.id} num={i+1} txt={q.txt} ok={ok} resp={resp==null?"Sin responder":resp?"Verdadero":"Falso"} correcta={ok?null:q.correcta?"Verdadero":"Falso"}/>;})}</Bloque>
+    <Bloque title="Ejercicios de Programación — revisar manualmente" color="#f7ca18">
+      {EJS_PY.map((ej,i)=>(<div key={ej.id} style={{padding:"10px 0",borderBottom:"1px solid rgba(255,255,255,0.05)"}}><div style={{fontSize:12,color:"rgba(255,255,255,0.5)",marginBottom:6}}>{i+1}. ({ej.pts} pts) {ej.titulo}</div><div style={{background:"#0d1117",borderRadius:8,padding:"10px 14px",fontSize:12,lineHeight:1.8,whiteSpace:"pre-wrap",fontFamily:"monospace",color:"#a8ff78",border:"1px solid rgba(247,202,24,0.2)"}}>{r.ejercicios?.[ej.id]||<span style={{color:"rgba(255,255,255,0.3)",fontStyle:"normal",fontFamily:"inherit"}}>Sin respuesta</span>}</div></div>))}
+    </Bloque>
+  </div>);
+}
+
+function DetalleP4({r,onBack}){
+  const auto=calcP4(r);
+  return(<div>
+    <button onClick={onBack} style={{...btn(),marginBottom:14}}>← Volver</button>
+    <div style={{...card,display:"flex",justifyContent:"space-between",flexWrap:"wrap",gap:10,marginBottom:14}}>
+      <div><div style={{fontSize:18,fontWeight:800}}>{r.nombre}</div><div style={{fontSize:13,color:"rgba(255,255,255,0.5)"}}>{r.curso} · {r.fecha}</div></div>
+      <div style={{textAlign:"right"}}><div style={{fontSize:20,fontWeight:800,color:"#f7971e"}}>{auto}/25 <span style={{fontSize:12,color:"rgba(255,255,255,0.4)"}}>auto</span></div><div style={{fontSize:12,color:"rgba(255,255,255,0.4)"}}>+ 14 pts ejercicios manual</div></div>
+    </div>
+    <Bloque title="Selección Múltiple" color="#f7971e">{PM_P4.map((q,i)=>{const resp=r.multiple?.[q.id];const ok=resp===q.correcta;return<ItemDet key={q.id} num={i+1} txt={q.txt} ok={ok} resp={resp!=null?`${["A","B","C","D"][resp]}) ${q.opts[resp]}`:"Sin responder"} correcta={ok?null:`${["A","B","C","D"][q.correcta]}) ${q.opts[q.correcta]}`}/>;})}</Bloque>
+    <Bloque title="Verdadero o Falso" color="#a78bff">{PVF_P4.map((q,i)=>{const resp=r.vf?.[q.id];const ok=resp===q.correcta;return<ItemDet key={q.id} num={i+1} txt={q.txt} ok={ok} resp={resp==null?"Sin responder":resp?"Verdadero":"Falso"} correcta={ok?null:q.correcta?"Verdadero":"Falso"}/>;})}</Bloque>
+    <Bloque title="Completar" color="#ffaa00">{PC_P4.map((q,i)=>{const resp=(r.completar?.[q.id]||"").toLowerCase().trim();const ok=resp===q.correcta;return<ItemDet key={q.id} num={i+1} txt={`${q.pre} ___ ${q.post}`} ok={ok} resp={r.completar?.[q.id]||"Sin responder"} correcta={ok?null:q.correcta}/>;})}</Bloque>
+    <Bloque title="Ejercicios C++ — revisar manualmente" color="#f7971e">{EJS_P4.map((ej,i)=>(<div key={ej.id} style={{padding:"10px 0",borderBottom:"1px solid rgba(255,255,255,0.05)"}}><div style={{fontSize:12,color:"rgba(255,255,255,0.5)",marginBottom:6}}>{i+1}. ({ej.pts} pts) {ej.titulo}</div><div style={{background:"#0d1117",borderRadius:8,padding:"10px 14px",fontSize:12,lineHeight:1.8,whiteSpace:"pre-wrap",fontFamily:"monospace",color:"#a8ff78",border:"1px solid rgba(247,151,30,0.2)"}}>{r.ejercicios?.[ej.id]||<span style={{color:"rgba(255,255,255,0.3)",fontStyle:"normal",fontFamily:"inherit"}}>Sin respuesta</span>}</div></div>))}</Bloque>
+  </div>);
+}
+
+function DetalleC1({r,onBack}){const auto=calcC1(r);return(<div><button onClick={onBack} style={{...btn(),marginBottom:14}}>← Volver</button><div style={{...card,display:"flex",justifyContent:"space-between",flexWrap:"wrap",gap:10,marginBottom:14}}><div><div style={{fontSize:18,fontWeight:800}}>{r.nombre}</div><div style={{fontSize:13,color:"rgba(255,255,255,0.5)"}}>{r.curso} · {r.fecha}</div></div><div><div style={{fontSize:20,fontWeight:800,color:"#00d2ff"}}>{auto}/31</div></div></div><Bloque title="Selección Múltiple" color="#00d2ff">{PM_C1.map((q,i)=>{const resp=r.multiple?.[q.id];const ok=resp===q.correcta;return<ItemDet key={q.id} num={i+1} txt={q.txt} ok={ok} resp={resp!=null?`${["A","B","C","D"][resp]}) ${q.opts[resp]}`:"Sin responder"} correcta={ok?null:`${["A","B","C","D"][q.correcta]}) ${q.opts[q.correcta]}`}/>;})}</Bloque><Bloque title="Verdadero o Falso" color="#a78bff">{PVF_C1.map((q,i)=>{const resp=r.vf?.[q.id];const ok=resp===q.correcta;return<ItemDet key={q.id} num={i+1} txt={q.txt} ok={ok} resp={resp==null?"Sin responder":resp?"Verdadero":"Falso"} correcta={ok?null:q.correcta?"Verdadero":"Falso"}/>;})}</Bloque><Bloque title="Completar" color="#ffaa00">{PC_C1.map((q,i)=>{const resp=(r.completar?.[q.id]||"").toLowerCase().trim();const ok=resp===q.correcta;return<ItemDet key={q.id} num={i+1} txt={`${q.pre} ___ ${q.post}`} ok={ok} resp={r.completar?.[q.id]||"Sin responder"} correcta={ok?null:q.correcta}/>;})}</Bloque><Bloque title="Relacionar columnas" color="#00d2ff">{REL_C1_IZQ.map((item,i)=>{const resp=r.relacionar?.[item.id];const ok=resp===REL_C1_OK[item.id];const di=REL_C1_DER.find(d=>d.id===resp);return<ItemDet key={item.id} num={i+1} txt={item.txt} ok={ok} resp={di?di.txt:"Sin responder"} correcta={ok?null:REL_C1_DER.find(d=>d.id===REL_C1_OK[item.id])?.txt}/>;})}</Bloque></div>);}
+function DetalleL1({r,onBack}){const auto=calcL1(r);return(<div><button onClick={onBack} style={{...btn(),marginBottom:14}}>← Volver</button><div style={{...card,display:"flex",justifyContent:"space-between",flexWrap:"wrap",gap:10,marginBottom:14}}><div><div style={{fontSize:18,fontWeight:800}}>{r.nombre}</div><div style={{fontSize:13,color:"rgba(255,255,255,0.5)"}}>{r.curso} · {r.fecha}</div></div><div><div style={{fontSize:20,fontWeight:800,color:"#7b2ff7"}}>{auto}/25</div><div style={{fontSize:12,color:"rgba(255,255,255,0.4)"}}>+ 5 pts manual</div></div></div><Bloque title="Selección Múltiple" color="#00d4ff">{PM_L1.map((q,i)=>{const resp=r.multiple?.[q.id];const ok=resp===q.correcta;return<ItemDet key={q.id} num={i+1} txt={q.txt} ok={ok} resp={resp!=null?`${["A","B","C","D"][resp]}) ${q.opts[resp]}`:"Sin responder"} correcta={ok?null:`${["A","B","C","D"][q.correcta]}) ${q.opts[q.correcta]}`}/>;})}</Bloque><Bloque title="Verdadero o Falso" color="#a78bff">{PVF_L1.map((q,i)=>{const resp=r.vf?.[q.id];const ok=resp===q.correcta;return<ItemDet key={q.id} num={i+1} txt={q.txt} ok={ok} resp={resp==null?"Sin responder":resp?"Verdadero":"Falso"} correcta={ok?null:q.correcta?"Verdadero":"Falso"}/>;})}</Bloque><Bloque title="Completar" color="#ffaa00">{PC_L1.map((q,i)=>{const resp=(r.completar?.[q.id]||"").toLowerCase().trim();const ok=resp===q.correcta;return<ItemDet key={q.id} num={i+1} txt={`${q.pre} ___ ${q.post}`} ok={ok} resp={r.completar?.[q.id]||"Sin responder"} correcta={ok?null:q.correcta}/>;})}</Bloque><Bloque title="Desarrollo — revisar manualmente" color="#ff8080">{PD_L1.map((q,i)=>(<div key={q.id} style={{padding:"10px 0",borderBottom:"1px solid rgba(255,255,255,0.05)"}}><div style={{fontSize:12,color:"rgba(255,255,255,0.5)",marginBottom:6}}>{i+1}. ({q.pts} pts) {q.txt}</div><div style={{background:"rgba(255,255,255,0.05)",borderRadius:8,padding:"10px 14px",fontSize:13,lineHeight:1.6,whiteSpace:"pre-wrap"}}>{r.desarrollo?.[q.id]||<span style={{color:"rgba(255,255,255,0.3)",fontStyle:"italic"}}>Sin respuesta</span>}</div></div>))}</Bloque></div>);}
+function DetalleC5({r,onBack}){const auto=calcC5(r);return(<div><button onClick={onBack} style={{...btn(),marginBottom:14}}>← Volver</button><div style={{...card,display:"flex",justifyContent:"space-between",flexWrap:"wrap",gap:10,marginBottom:14}}><div><div style={{fontSize:18,fontWeight:800}}>{r.nombre}</div><div style={{fontSize:13,color:"rgba(255,255,255,0.5)"}}>{r.curso} · {r.fecha}</div></div><div><div style={{fontSize:20,fontWeight:800,color:"#00a86b"}}>{auto}/16</div><div style={{fontSize:12,color:"rgba(255,255,255,0.4)"}}>+ 14 pts manual</div></div></div><Bloque title="Selección Múltiple" color="#00d4ff">{PM_C5.map((q,i)=>{const resp=r.multiple?.[q.id];const ok=resp===q.correcta;return<ItemDet key={q.id} num={i+1} txt={q.txt} ok={ok} resp={resp!=null?`${["A","B","C","D"][resp]}) ${q.opts[resp]}`:"Sin responder"} correcta={ok?null:`${["A","B","C","D"][q.correcta]}) ${q.opts[q.correcta]}`}/>;})}</Bloque><Bloque title="Verdadero o Falso" color="#a78bff">{PVF_C5.map((q,i)=>{const resp=r.vf?.[q.id];const ok=resp===q.correcta;return<ItemDet key={q.id} num={i+1} txt={q.txt} ok={ok} resp={resp==null?"Sin responder":resp?"Verdadero":"Falso"} correcta={ok?null:q.correcta?"Verdadero":"Falso"}/>;})}</Bloque><Bloque title="Corregir fórmulas — revisar manualmente" color="#00a86b">{PFORM_C5.map((q,i)=>(<div key={q.id} style={{padding:"10px 0",borderBottom:"1px solid rgba(255,255,255,0.05)"}}><div style={{fontSize:12,color:"rgba(255,255,255,0.5)",marginBottom:3}}>{i+1}. <span style={{color:"#ff8080",fontFamily:"monospace"}}>{q.erronea}</span></div><div style={{fontSize:12}}>Error: <span style={{color:"#fff"}}>{r.formulas?.[q.id+"_e"]||"—"}</span></div><div style={{fontSize:12}}>Corrección: <span style={{color:"#00ff99",fontFamily:"monospace"}}>{r.formulas?.[q.id+"_c"]||"—"}</span></div><div style={{fontSize:11,color:"rgba(0,168,107,0.7)",marginTop:3}}>✅ <span style={{fontFamily:"monospace"}}>{q.correcta}</span></div></div>))}</Bloque><Bloque title="Ejercicio Excel — revisar archivo" color="#ffaa00"><div style={{background:"rgba(255,255,255,0.05)",borderRadius:8,padding:"10px 14px",fontSize:12,lineHeight:1.8,whiteSpace:"pre-wrap",fontFamily:"monospace",color:"#00ff99"}}>{r.ejercicio||<span style={{color:"rgba(255,255,255,0.3)",fontStyle:"normal",fontFamily:"inherit"}}>Sin respuesta</span>}</div></Bloque></div>);}
+
+function PanelMaestro({onSalir}){
+  const [respuestas,setRespuestas]=useState([]);
+  const [filtro,setFiltro]=useState("todos");
+  const [alumnoVer,setAlumnoVer]=useState(null);
+  const [cargando,setCargando]=useState(true);
+  useEffect(()=>{fbEscuchar(d=>{setRespuestas(d);setCargando(false);});const t=setInterval(()=>fbEscuchar(setRespuestas),20000);return()=>clearInterval(t);},[]);
+  const filtradas=filtro==="todos"?respuestas:respuestas.filter(r=>r.cursoId===filtro);
+  const calcAuto=r=>({comp1:calcC1,lab1:calcL1,prog4:calcP4,py5:calcPY,comp5:calcC5}[r.cursoId]||calcPY)(r);
+  return(
+    <div style={{minHeight:"100vh",background:"#0d1117",color:"#fff"}}>
+      <div style={{background:"rgba(0,0,0,0.5)",borderBottom:"1px solid rgba(255,255,255,0.1)",padding:"12px 24px",display:"flex",justifyContent:"space-between",alignItems:"center"}}>
+        <div><div style={{fontWeight:800,fontSize:16}}>📊 Panel del Catedrático</div><div style={{fontSize:12,color:"rgba(255,255,255,0.4)"}}>Plataforma de Exámenes · {respuestas.length} respuestas</div></div>
+        <button onClick={onSalir} style={btn()}>← Salir</button>
+      </div>
+      <div style={{padding:"20px 24px"}}>
+        <div style={{display:"flex",gap:8,marginBottom:16,flexWrap:"wrap"}}>
+          <button onClick={()=>{setFiltro("todos");setAlumnoVer(null);}} style={{background:filtro==="todos"?"rgba(0,212,255,0.15)":"rgba(255,255,255,0.05)",border:filtro==="todos"?"1px solid #00d4ff":"1px solid rgba(255,255,255,0.1)",borderRadius:20,padding:"6px 14px",color:filtro==="todos"?"#00d4ff":"rgba(255,255,255,0.6)",cursor:"pointer",fontSize:12}}>Todos ({respuestas.length})</button>
+          {CURSOS.map(c=><button key={c.id} onClick={()=>{setFiltro(c.id);setAlumnoVer(null);}} style={{background:filtro===c.id?c.bg:"rgba(255,255,255,0.05)",border:filtro===c.id?`1px solid ${c.color}`:"1px solid rgba(255,255,255,0.1)",borderRadius:20,padding:"6px 14px",color:filtro===c.id?c.color:"rgba(255,255,255,0.6)",cursor:"pointer",fontSize:12}}>{c.label} ({respuestas.filter(r=>r.cursoId===c.id).length})</button>)}
+        </div>
+        <div style={{display:"grid",gridTemplateColumns:"repeat(4,1fr)",gap:10,marginBottom:16}}>
+          {[{label:"Enviados",val:filtradas.length,color:"#00d4ff"},{label:"Promedio",val:filtradas.length?Math.round(filtradas.reduce((a,r)=>a+calcAuto(r),0)/filtradas.length):"—",color:"#00ff88"},{label:"Más alto",val:filtradas.length?Math.max(...filtradas.map(r=>calcAuto(r))):"—",color:"#a78bff"},{label:"Más bajo",val:filtradas.length?Math.min(...filtradas.map(r=>calcAuto(r))):"—",color:"#ff8080"}].map(s=><div key={s.label} style={{background:"rgba(255,255,255,0.04)",border:"1px solid rgba(255,255,255,0.08)",borderRadius:12,padding:"12px",textAlign:"center"}}><div style={{fontSize:20,fontWeight:800,color:s.color}}>{s.val}</div><div style={{fontSize:11,color:"rgba(255,255,255,0.4)",marginTop:3}}>{s.label}</div></div>)}
+        </div>
+        {cargando?<div style={{textAlign:"center",padding:40,color:"rgba(255,255,255,0.4)"}}>Cargando...</div>
+        :alumnoVer?(
+          {comp1:<DetalleC1/>,lab1:<DetalleL1/>,prog4:<DetalleP4/>,py5:<DetallePY/>,comp5:<DetalleC5/>}[alumnoVer.cursoId]
+          ? React.createElement({comp1:DetalleC1,lab1:DetalleL1,prog4:DetalleP4,py5:DetallePY,comp5:DetalleC5}[alumnoVer.cursoId],{r:alumnoVer,onBack:()=>setAlumnoVer(null)})
+          : null
+        ):filtradas.length===0?(
+          <div style={{textAlign:"center",padding:40,color:"rgba(255,255,255,0.3)"}}><div style={{fontSize:36,marginBottom:8}}>📭</div><div>Aún no hay respuestas.</div></div>
+        ):(
+          <div>
+            <div style={{display:"grid",gridTemplateColumns:"2fr 2fr 1fr 1fr 70px",gap:8,padding:"6px 12px",fontSize:11,color:"rgba(255,255,255,0.4)",fontWeight:700,textTransform:"uppercase"}}>
+              <span>Alumno</span><span>Curso</span><span>Hora</span><span>Auto</span><span></span>
+            </div>
+            {filtradas.map((r,i)=>{
+              const c=getCurso(r.cursoId)||{color:"#fff",label:r.curso,bg:"rgba(255,255,255,0.1)"};
+              const pts=calcAuto(r),mx=maxAuto(r.cursoId),pct=Math.round((pts/mx)*100);
+              return(<div key={i} style={{background:"rgba(255,255,255,0.04)",border:"1px solid rgba(255,255,255,0.07)",borderRadius:10,padding:"10px 12px",display:"grid",gridTemplateColumns:"2fr 2fr 1fr 1fr 70px",gap:8,alignItems:"center",marginBottom:6}}>
+                <span style={{fontWeight:600,fontSize:13}}>{r.nombre}</span>
+                <span style={{fontSize:11,color:c.color,background:c.bg,borderRadius:6,padding:"2px 8px"}}>{c.label}</span>
+                <span style={{fontSize:11,color:"rgba(255,255,255,0.4)"}}>{(r.fecha||"").split(",")[1]||(r.fecha||"")}</span>
+                <span style={{fontSize:13,fontWeight:700,color:pct>=70?"#00ff88":pct>=50?"#ffaa00":"#ff8080"}}>{pts}/{mx}</span>
+                <button onClick={()=>setAlumnoVer(r)} style={{...btn({padding:"5px 10px",fontSize:12}),color:"#00d4ff",borderColor:"rgba(0,212,255,0.3)",background:"rgba(0,212,255,0.1)"}}>Ver →</button>
+              </div>);
+            })}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+// ── APP ───────────────────────────────────────────────
+function App(){
+  const [vista,setVista]=useState("login");
+  const [usuario,setUsuario]=useState(null);
+  const handleStart=(nombre,cursoId)=>{if(nombre==="__MAESTRO__"){setVista("maestro");return;}setUsuario({nombre,cursoId});setVista("examen");};
+  const handleEnviar=async resp=>{await fbGuardar(resp);};
+  if(vista==="examen"&&usuario){
+    const map={comp1:ExamenC1,lab1:ExamenL1,prog4:ExamenP4,py5:ExamenPY,comp5:ExamenC5};
+    const Ex=map[usuario.cursoId];
+    return Ex?<Ex nombre={usuario.nombre} onEnviar={handleEnviar}/>:null;
+  }
+  if(vista==="maestro")return<PanelMaestro onSalir={()=>setVista("login")}/>;
+  return<Login onStart={handleStart}/>;
+}
+ReactDOM.createRoot(document.getElementById("root")).render(<App/>);
+</script>
+</body>
+</html>
