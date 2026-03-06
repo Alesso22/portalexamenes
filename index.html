@@ -8,8 +8,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.2/babel.min.js"></script>
 <script>
-  window.JSONBIN_KEY = "$2a$10$OB7oQ1plqhl6U1zTDwo6TuVzfJz5ReX4QSxwVz.dW01lNWPd4Br5K";
-  window.JSONBIN_BIN = "699fb9c4ae596e708f4ab394";
+  window.JSONBIN_KEY = "TU_MASTER_KEY_AQUI";
+  window.JSONBIN_BIN = "TU_BIN_ID_AQUI";
 </script>
 <style>
   *{margin:0;padding:0;box-sizing:border-box;}
@@ -201,32 +201,38 @@ function calcP4(r){
 
 // ══ PREGUNTAS COMP APLICADA ══
 const PM_C5=[
-  {id:"m1",txt:"¿Cuál es la diferencia principal entre =CONTAR() y =CONTAR.SI()?",opts:["CONTAR suma valores; CONTAR.SI los multiplica","CONTAR cuenta todos los números; CONTAR.SI solo los que cumplen una condición","CONTAR.SI es más lenta que CONTAR","No hay diferencia, son la misma función"],correcta:1},
-  {id:"m2",txt:"En un SI anidado, ¿por qué siempre debes empezar por la condición MÁS ALTA?",opts:["Porque Excel lee de derecha a izquierda","Porque si empiezas por la más baja, Excel se detiene en la primera condición que se cumpla","Porque las condiciones altas son más importantes","No importa el orden en un SI anidado"],correcta:1},
-  {id:"m3",txt:"¿Qué produce esta fórmula si A1 = 75?\n=SI(A1>=90;\"Excelente\";SI(A1>=75;\"Muy Bueno\";SI(A1>=60;\"Bueno\";\"Reprobado\")))",opts:["Excelente","Muy Bueno","Bueno","Reprobado"],correcta:1},
-  {id:"m4",txt:"El signo + al inicio de una fórmula en Excel (+SUMA(A1:A5)):",opts:["Causa un error de sintaxis","Es igual de válido que usar el signo =","Solo funciona con la función SUMA","Suma un valor adicional al resultado"],correcta:1},
-  {id:"m5",txt:"¿Cuál de estas fórmulas tiene la sintaxis CORRECTA en Excel en español?",opts:["=SI(A1>60,\"Aprobado\",\"Reprobado\")","=SI(A1>60;\"Aprobado\";\"Reprobado\")","=SI(A1=\"mayor a 60\";\"Aprobado\";\"Reprobado\")","=SI A1>60 ENTONCES \"Aprobado\""],correcta:1},
-  {id:"m6",txt:"¿Qué operador usarías para que una condición sea VERDADERA cuando el valor es exactamente 100?",opts:[">=","<=","=","<>"],correcta:2},
-  {id:"m7",txt:"¿Qué significa el operador <> en Excel?",opts:["Menor que","Mayor que","Diferente de","Menor o igual que"],correcta:2},
-  {id:"m8",txt:"Una función avanzada que 4to Bach NO estudia pero 5to Bach sí es:",opts:["SUMA","PROMEDIO","BUSCARV","MAX"],correcta:2},
-  {id:"m9",txt:"=CONTAR.SI(B2:B8;\">70\") — ¿Qué hace esta fórmula?",opts:["Suma todos los valores mayores a 70","Cuenta cuántas celdas en B2:B8 tienen un valor mayor a 70","Muestra los valores mayores a 70","Calcula el promedio de valores mayores a 70"],correcta:1},
-  {id:"m10",txt:"¿Cuál es el error en esta fórmula: =SI(A1>60;Aprobado;Reprobado)?",opts:["Falta el signo = al inicio","La condición A1>60 está mal escrita","Los textos Aprobado y Reprobado deben ir entre comillas","El punto y coma debe ser una coma"],correcta:2},
+  {id:"m1",txt:"¿Cuál es la sintaxis correcta de la función SI en Excel (español)?",opts:["=SI(condición, valor_si_verdadero, valor_si_falso)","=SI(condición; valor_si_verdadero; valor_si_falso)","=SI[condición; valor_si_verdadero; valor_si_falso]","=SI{condición; valor_si_verdadero; valor_si_falso}"],correcta:1},
+  {id:"m2",txt:"¿Qué resultado da esta fórmula si la nota en A1 es 55?\n=SI(A1>=60;\"Aprobado\";\"Reprobado\")",opts:["Aprobado","Reprobado","55","Error"],correcta:1},
+  {id:"m3",txt:"En un SI anidado, ¿por qué debes empezar siempre por la condición MÁS ALTA?",opts:["Porque Excel lee de derecha a izquierda","Porque si empiezas por la más baja, Excel se detiene en la primera condición verdadera","Porque las condiciones altas tienen más prioridad matemática","No importa el orden en un SI anidado"],correcta:1},
+  {id:"m4",txt:"¿Qué produce esta fórmula si A1 = 75?\n=SI(A1>=90;\"Excelente\";SI(A1>=75;\"Muy Bueno\";SI(A1>=60;\"Bueno\";\"Reprobado\")))",opts:["Excelente","Muy Bueno","Bueno","Reprobado"],correcta:1},
+  {id:"m5",txt:"¿Cuál es el error en esta fórmula?\n=SI(A1>60;Aprobado;Reprobado)",opts:["Falta el signo = al inicio","La condición A1>60 está mal escrita","Los textos Aprobado y Reprobado deben ir entre comillas (\"\")","El punto y coma debe ser una coma"],correcta:2},
+  {id:"m6",txt:"Un empleado gana Q6,500. ¿Qué categoría le asigna esta fórmula?\n=SI(B2>=8000;\"Alto\";SI(B2>=4000;\"Medio\";\"Bajo\"))",opts:["Alto","Medio","Bajo","Error"],correcta:1},
+  {id:"m7",txt:"¿Cuántos paréntesis de cierre necesita un SI anidado con 3 niveles?",opts:["1","2","3","4"],correcta:2},
+  {id:"m8",txt:"¿Qué operador usarías para verificar si un salario es DIFERENTE de Q5,000?",opts:["=",">=","<>","<="],correcta:2},
+  {id:"m9",txt:"¿Cuál de estas fórmulas asigna bono correctamente según categoría?\nAlto→15% | Medio→10% | Bajo→5%",opts:['=SI(C2="Alto";B2*15%;SI(C2="Medio";B2*10%;B2*5%))','=SI(C2="Alto",B2*0.15,SI(C2="Medio",B2*0.10,B2*0.05))','=SI(C2>Alto;B2*0.15;SI(C2>Medio;B2*0.10;B2*0.05))','=SI(C2="Alto";15%;SI(C2="Medio";10%;5%))'],correcta:0},
+  {id:"m10",txt:"¿Qué pasa si el SI anidado evalúa: nota=90, con esta fórmula?\n=SI(A1>=60;\"Bueno\";SI(A1>=75;\"Muy Bueno\";SI(A1>=90;\"Excelente\";\"Reprobado\")))",opts:["Excelente — encontró 90>=90","Muy Bueno — encontró 90>=75 primero","Bueno — encontró 90>=60 primero y se detuvo","Reprobado — ninguna condición se cumplió"],correcta:2},
 ];
 const PVF_C5=[
-  {id:"vf1",txt:"En Excel, una fórmula escrita como SUMA(A1:A5) sin ningún signo al inicio funciona correctamente.",correcta:false},
-  {id:"vf2",txt:"El signo + puede usarse en lugar del = para iniciar una fórmula en Excel.",correcta:true},
-  {id:"vf3",txt:"En un SI anidado con 4 niveles se necesitan exactamente 4 paréntesis de cierre al final.",correcta:true},
-  {id:"vf4",txt:"La condición =SI(A1=\"mayor a 60\";...) es una forma válida de escribir una prueba lógica.",correcta:false},
-  {id:"vf5",txt:"=CONTAR.SI puede contar celdas que cumplan una condición como ser mayor que un número.",correcta:true},
-  {id:"vf6",txt:"En Excel en español, los argumentos de las funciones siempre se separan con coma (,).",correcta:false},
+  {id:"vf1",txt:"La función SI puede devolver tanto texto como números según el resultado de la condición.",correcta:true},
+  {id:"vf2",txt:"En Excel en español los argumentos de la función SI se separan con punto y coma (;).",correcta:true},
+  {id:"vf3",txt:"=SI(A1>=60;\"Aprobado\";\"Reprobado\") mostrará \"Aprobado\" si A1 vale exactamente 60.",correcta:true},
+  {id:"vf4",txt:"En un SI anidado con 3 niveles, el último valor_si_falso puede omitirse sin problema.",correcta:false},
+  {id:"vf5",txt:"El orden de las condiciones en un SI anidado no afecta el resultado final.",correcta:false},
+  {id:"vf6",txt:"Un SI anidado con 4 niveles necesita 4 paréntesis de cierre al final de la fórmula.",correcta:true},
 ];
 const PFORM_C5=[
-  {id:"f1",erronea:'SI(A1>50;"Aprobado";"Reprobado")',correcta:'=SI(A1>50;"Aprobado";"Reprobado")'},
-  {id:"f2",erronea:'=SI(A1="mayor a 50";"Aprobado";"Reprobado")',correcta:'=SI(A1>50;"Aprobado";"Reprobado")'},
-  {id:"f3",erronea:"=SI(A1>=50;Aprobado;Reprobado)",correcta:'=SI(A1>=50;"Aprobado";"Reprobado")'},
-  {id:"f4",erronea:'=SI(A1>=60;"Bueno";SI(A1>=80;"Muy Bueno";"Excelente"))',correcta:'=SI(A1>=90;"Excelente";SI(A1>=80;"Muy Bueno";SI(A1>=60;"Bueno";"Reprobado")))'},
+  {id:"f1",erronea:'=SI(A1>60;"Aprobado","Reprobado")',correcta:'=SI(A1>60;"Aprobado";"Reprobado")',tip:"Revisa los separadores de argumentos"},
+  {id:"f2",erronea:'=SI(A1="mayor a 60";"Aprobado";"Reprobado")',correcta:'=SI(A1>60;"Aprobado";"Reprobado")',tip:"Revisa cómo se escribe la condición lógica"},
+  {id:"f3",erronea:'=SI(A1>=50;Aprobado;Reprobado)',correcta:'=SI(A1>=50;"Aprobado";"Reprobado")',tip:"Revisa cómo deben ir los textos en Excel"},
+  {id:"f4",erronea:'=SI(A1>=60;"Bueno";SI(A1>=80;"Muy Bueno";"Excelente"))',correcta:'=SI(A1>=90;"Excelente";SI(A1>=80;"Muy Bueno";SI(A1>=60;"Bueno";"Reprobado")))',tip:"Revisa el orden de las condiciones en el SI anidado"},
 ];
-const EJ_C5={pts:8,titulo:"Ejercicio práctico — Sistema de empleados",instrucciones:["Abre Excel y nómbralo con tu nombre.","Crea tabla: Nombre | Salario | Categoría | Bono (6 empleados).","Categoría con SI anidado: Q8,000+ → Alto | Q4,000–Q7,999 → Medio | <Q4,000 → Bajo.","Bono con SI: Alto→15% | Medio→10% | Bajo→5%.","Agrega CONTAR.SI para cada categoría.","Agrega PROMEDIO, MAX y MIN del salario."]};
+const EJ_C5={pts:8,titulo:"Ejercicio práctico — Planilla de empleados",instrucciones:[
+  "Abre Excel y guarda el archivo con tu nombre completo.",
+  "Crea una tabla con las columnas: Nombre | Salario | Categoría | Bono. Ingresa 6 empleados con salarios variados.",
+  "En la columna Categoría usa SI anidado: Q8,000 o más → \"Alto\" | Q4,000 a Q7,999 → \"Medio\" | menos de Q4,000 → \"Bajo\".",
+  "En la columna Bono usa SI anidado: si es \"Alto\" → 15% del salario | si es \"Medio\" → 10% | si es \"Bajo\" → 5%.",
+  "Debajo de la tabla agrega: el salario PROMEDIO, el salario MÁS ALTO (MAX) y el MÁS BAJO (MIN).",
+]};
 function calcC5(r){
   let p=0;
   PM_C5.forEach(q=>{if(r.multiple?.[q.id]===q.correcta)p++;});
@@ -594,7 +600,7 @@ function ExamenC5({nombre,cursoId,onEnviar}){
         {sec===1&&<><SecHeader title="Verdadero o Falso" pts="6 pts · 1 pt c/u" inst="Selecciona V o F." color={c.dark}/>{PVF_C5.map((q,i)=><PregVF key={q.id} q={q} qi={i} sel={vf[q.id]} onSel={v=>setVf(p=>({...p,[q.id]:v}))}/>)}</>}
         {sec===2&&<>
           <SecHeader title="Corregir fórmulas" pts="6 pts · 1.5 pts c/u" inst="Identifica el error y escribe la corrección." color={c.dark}/>
-          {PFORM_C5.map((q,i)=>(<div key={q.id} style={card}><div style={{fontSize:13,marginBottom:8}}><span style={{fontWeight:700,color:c.color}}>{i+1}.</span> Corrige el error:</div><div style={{background:"#1e1e1e",borderRadius:6,padding:"8px 14px",fontFamily:"monospace",fontSize:13,color:"#ff6b6b",marginBottom:10}}>❌ {q.erronea}</div><div style={{marginBottom:8}}><label style={{fontSize:12,color:"rgba(255,255,255,0.5)",display:"block",marginBottom:4}}>¿Cuál es el error?</label><input value={formulas[q.id+"_e"]||""} onChange={e=>setFormulas(p=>({...p,[q.id+"_e"]:e.target.value}))} placeholder="Describe el error..." style={{width:"100%",background:"rgba(255,255,255,0.06)",border:"1px solid rgba(255,255,255,0.12)",borderRadius:8,padding:"8px 12px",color:"#fff",fontSize:13,outline:"none"}}/></div><div><label style={{fontSize:12,color:"rgba(255,255,255,0.5)",display:"block",marginBottom:4}}>Fórmula corregida:</label><input value={formulas[q.id+"_c"]||""} onChange={e=>setFormulas(p=>({...p,[q.id+"_c"]:e.target.value}))} placeholder="=SI(..." style={{width:"100%",background:"rgba(0,168,107,0.08)",border:"1px solid rgba(0,168,107,0.3)",borderRadius:8,padding:"8px 12px",color:"#00ff99",fontSize:13,outline:"none",fontFamily:"monospace"}}/></div></div>))}
+          {PFORM_C5.map((q,i)=>(<div key={q.id} style={card}><div style={{fontSize:13,marginBottom:8}}><span style={{fontWeight:700,color:c.color}}>{i+1}.</span> Identifica y corrige el error:</div><div style={{background:"#1e1e1e",borderRadius:6,padding:"8px 14px",fontFamily:"monospace",fontSize:13,color:"#ff6b6b",marginBottom:6}}>❌ {q.erronea}</div><div style={{background:`${c.color}11`,borderRadius:6,padding:"5px 12px",fontSize:11,color:`${c.color}bb`,marginBottom:10}}>💡 Pista: {q.tip}</div><div style={{marginBottom:8}}><label style={{fontSize:12,color:"rgba(255,255,255,0.5)",display:"block",marginBottom:4}}>¿Cuál es el error?</label><input value={formulas[q.id+"_e"]||""} onChange={e=>setFormulas(p=>({...p,[q.id+"_e"]:e.target.value}))} placeholder="Describe el error..." style={{width:"100%",background:"rgba(255,255,255,0.06)",border:"1px solid rgba(255,255,255,0.12)",borderRadius:8,padding:"8px 12px",color:"#fff",fontSize:13,outline:"none"}}/></div><div><label style={{fontSize:12,color:"rgba(255,255,255,0.5)",display:"block",marginBottom:4}}>Fórmula corregida:</label><input value={formulas[q.id+"_c"]||""} onChange={e=>setFormulas(p=>({...p,[q.id+"_c"]:e.target.value}))} placeholder="=SI(..." style={{width:"100%",background:"rgba(0,168,107,0.08)",border:"1px solid rgba(0,168,107,0.3)",borderRadius:8,padding:"8px 12px",color:"#00ff99",fontSize:13,outline:"none",fontFamily:"monospace"}}/></div></div>))}
         </>}
         {sec===3&&<>
           <SecHeader title="Ejercicio Práctico en Excel" pts={`${EJ_C5.pts} pts`} inst="Realiza el ejercicio en Excel y escribe aquí las fórmulas que usaste." color={c.dark}/>
