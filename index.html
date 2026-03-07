@@ -8,8 +8,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.2/babel.min.js"></script>
 <script>
-  window.JSONBIN_KEY = "TU_MASTER_KEY_AQUI";
-  window.JSONBIN_BIN = "TU_BIN_ID_AQUI";
+  window.JSONBIN_KEY = "$2a$10$OB7oQ1plqhl6U1zTDwo6TuVzfJz5ReX4QSxwVz.dW01lNWPd4Br5K";
+  window.JSONBIN_BIN = "699fb9c4ae596e708f4ab394";
 </script>
 <style>
   *{margin:0;padding:0;box-sizing:border-box;}
@@ -23,17 +23,81 @@
 const {useState,useEffect}=React;
 
 const CURSOS=[
-  {id:"comp1", label:"4to Bach — Computación I",         color:"#00d2ff",bg:"rgba(0,210,255,0.15)",  dark:"#005f7a"},
-  {id:"lab1",  label:"4to Bach — Laboratorio I",         color:"#7b2ff7",bg:"rgba(123,47,247,0.15)", dark:"#3a006e"},
-  {id:"prog4", label:"4to Perito — Programación C++",    color:"#f7971e",bg:"rgba(247,151,30,0.15)", dark:"#7a4500"},
-  {id:"py5",   label:"5to Perito — Programación Python", color:"#f7ca18",bg:"rgba(247,202,24,0.15)", dark:"#7a6200"},
-  {id:"comp5", label:"5to Bach — Computación Aplicada",  color:"#00a86b",bg:"rgba(0,168,107,0.15)",  dark:"#005c3a"},
+  {id:"comp1", label:"4to Bach — Computación I",              color:"#00d2ff",bg:"rgba(0,210,255,0.15)",  dark:"#005f7a"},
+  {id:"lab1",  label:"4to Bach — Laboratorio I",              color:"#7b2ff7",bg:"rgba(123,47,247,0.15)", dark:"#3a006e"},
+  {id:"prog4", label:"4to Perito — Programación C++",         color:"#f7971e",bg:"rgba(247,151,30,0.15)", dark:"#7a4500"},
+  {id:"py5",   label:"5to Perito — Programación Python",      color:"#f7ca18",bg:"rgba(247,202,24,0.15)", dark:"#7a6200"},
+  {id:"comp5", label:"5to Bach — Computación Aplicada",       color:"#00a86b",bg:"rgba(0,168,107,0.15)",  dark:"#005c3a"},
+  {id:"mad1",  label:"Madurez — Computación e Informática",   color:"#ff6b9d",bg:"rgba(255,107,157,0.15)",dark:"#7a0035"},
 ];
 const getCurso=id=>CURSOS.find(c=>c.id===id);
 const PASS_MAESTRO="liceo2026";
 
-// Puntos máximos automáticos por curso
-const MAX_AUTO={comp1:31,lab1:25,prog4:25,py5:18,comp5:16};
+const MAX_AUTO={comp1:31,lab1:25,prog4:25,py5:18,comp5:16,mad1:25};
+
+// ══════════════════════════════════════════════════════════
+// ══ PREGUNTAS MADUREZ — Computación e Informática ════════
+// ══════════════════════════════════════════════════════════
+
+const PM_MAD=[
+  {id:"m1",txt:"¿Qué significan las siglas TIC?",
+   opts:["Tecnologías de Información y Computación","Tecnologías de la Información y Comunicación","Técnicas de Internet y Computadoras","Tecnología Internacional de Comunicación"],
+   correcta:1},
+  {id:"m2",txt:"¿Cuál de estos es un ejemplo de HARDWARE?",
+   opts:["Microsoft Word","Windows 11","El teclado y el mouse","Google Chrome"],
+   correcta:2},
+  {id:"m3",txt:"¿Cuál de estos es un ejemplo de SOFTWARE?",
+   opts:["La impresora","El disco duro","La memoria RAM","El sistema operativo Windows"],
+   correcta:3},
+  {id:"m4",txt:"El monitor y la impresora son dispositivos de:",
+   opts:["Entrada","Almacenamiento","Salida","Procesamiento"],
+   correcta:2},
+  {id:"m5",txt:"¿Cuánto espacio de almacenamiento gratuito ofrece Google Drive?",
+   opts:["5 GB","10 GB","15 GB","20 GB"],
+   correcta:2},
+  {id:"m6",txt:"¿Cuál es la ventaja PRINCIPAL del almacenamiento en la nube?",
+   opts:["Es más rápido que el disco duro local","Se puede acceder desde cualquier dispositivo con internet","No necesita contraseña para acceder","Funciona sin conexión a internet"],
+   correcta:1},
+  {id:"m7",txt:"En Excel, ¿cómo se llama la intersección entre una fila y una columna?",
+   opts:["Tabla","Fila","Rango","Celda"],
+   correcta:3},
+  {id:"m8",txt:"¿Con qué símbolo deben comenzar TODAS las fórmulas en Excel?",
+   opts:["+","#","=","@"],
+   correcta:2},
+  {id:"m9",txt:"¿Qué hace la fórmula =SUMA(B2:B6) en Excel?",
+   opts:["Multiplica los valores de B2 hasta B6","Suma todos los valores desde B2 hasta B6","Calcula el promedio de B2 a B6","Cuenta cuántas celdas hay entre B2 y B6"],
+   correcta:1},
+  {id:"m10",txt:"¿Qué hace la fórmula =PROMEDIO(B2:B5)?",
+   opts:["Suma B2 y B5 solamente","Muestra el valor más alto","Suma todos los valores y los divide entre la cantidad","Resta B5 de B2"],
+   correcta:2},
+  {id:"m11",txt:"¿Cuál es la forma CORRECTA de nombrar un archivo de trabajo?",
+   opts:["documento1","mi archivo final FINAL","Reporte_Ventas_Ene2026","informe (copia) nuevo"],
+   correcta:2},
+  {id:"m12",txt:"OneDrive es el servicio de almacenamiento en la nube de:",
+   opts:["Google","Apple","Amazon","Microsoft"],
+   correcta:3},
+];
+
+const PVF_MAD=[
+  {id:"vf1",txt:"Las TIC incluyen hardware, software, redes e internet.",correcta:true},
+  {id:"vf2",txt:"El teclado es un dispositivo de salida porque envía datos al computador.",correcta:false},
+  {id:"vf3",txt:"Google Drive ofrece 15 GB de almacenamiento gratuito.",correcta:true},
+  {id:"vf4",txt:"En Excel, las columnas se identifican con números (1, 2, 3…).",correcta:false},
+  {id:"vf5",txt:"Toda fórmula en Excel debe comenzar con el signo igual (=).",correcta:true},
+  {id:"vf6",txt:"=SUMA(B2:B5) y =B2+B3+B4+B5 producen el mismo resultado.",correcta:true},
+  {id:"vf7",txt:"El almacenamiento en la nube requiere conexión a internet para acceder a los archivos.",correcta:true},
+  {id:"vf8",txt:"Un buen nombre de archivo es: 'documento final FINAL nuevo (3)'.",correcta:false},
+];
+
+const BANCO_MAD=["TIC","hardware","software","celda","nube","SUMA","PROMEDIO","salida","entrada","sistema operativo"];
+
+const PC_MAD=[
+  {id:"c1",pre:"Las",post:"son herramientas, redes y servicios que permiten crear, procesar y compartir información digital.",correcta:"TIC"},
+  {id:"c2",pre:"El monitor muestra resultados al usuario, por eso es un dispositivo de",post:".",correcta:"salida"},
+  {id:"c3",pre:"Windows y Linux son ejemplos de",post:".",correcta:"sistema operativo"},
+  {id:"c4",pre:"La intersección entre una fila y una columna en Excel se llama",post:".",correcta:"celda"},
+  {id:"c5",pre:"La función",post:"en Excel suma automáticamente un rango de celdas.",correcta:"SUMA"},
+];
 
 // ══ PREGUNTAS PYTHON ══
 const PM_PY=[
@@ -240,9 +304,17 @@ function calcC5(r){
   return p;
 }
 
-// ── FUNCIÓN CENTRAL DE CÁLCULO ────────────────────────
+// ── FUNCIÓN CENTRAL CALC ──────────────────────────────
+function calcMAD(r){
+  let p=0;
+  PM_MAD.forEach(q=>{if(r.multiple?.[q.id]===q.correcta)p++;});
+  PVF_MAD.forEach(q=>{if(r.vf?.[q.id]===q.correcta)p++;});
+  PC_MAD.forEach(q=>{if((r.completar?.[q.id]||"").toLowerCase().trim()===q.correcta.toLowerCase())p++;});
+  return p;
+}
+
 function calcAuto(r){
-  const fns={comp1:calcC1,lab1:calcL1,prog4:calcP4,py5:calcPY,comp5:calcC5};
+  const fns={comp1:calcC1,lab1:calcL1,prog4:calcP4,py5:calcPY,comp5:calcC5,mad1:calcMAD};
   const fn=fns[r.cursoId];
   return fn?fn(r):0;
 }
@@ -283,7 +355,6 @@ function SecHeader({title,pts,inst,color="#003366"}){
   );
 }
 
-// ── SHARED UI ─────────────────────────────────────────
 function useTimer(s){
   const [t,setT]=useState(s);
   useEffect(()=>{const x=setInterval(()=>setT(p=>p>0?p-1:0),1000);return()=>clearInterval(x);},[]);
@@ -353,72 +424,117 @@ function BloqueEjercicios({ejercicios,vals,onChange,color}){
   </>);
 }
 
-// ── LOGIN ─────────────────────────────────────────────
-function Login({onStart}){
-  const [nombre,setNombre]=useState("");
-  const [cursoId,setCursoId]=useState("");
-  const [pass,setPass]=useState("");
-  const [modo,setModo]=useState("alumno");
-  const [err,setErr]=useState("");
-  const submit=()=>{
-    if(modo==="maestro"){if(pass!==PASS_MAESTRO)return setErr("Contraseña incorrecta.");return onStart("__MAESTRO__","maestro");}
-    if(!nombre.trim())return setErr("Escribe tu nombre completo.");
-    if(!cursoId)return setErr("Selecciona tu curso.");
-    setErr("");
-    onStart(nombre.trim(), cursoId);
+// ══════════════════════════════════════════════════════
+// ══ EXAMEN MADUREZ ════════════════════════════════════
+// ══════════════════════════════════════════════════════
+function ExamenMAD({nombre,cursoId,onEnviar}){
+  const c=getCurso(cursoId);
+  const [sec,setSec]=useState(0);
+  const [multiple,setMultiple]=useState({});
+  const [vf,setVf]=useState({});
+  const [completar,setCompletar]=useState({});
+  const [enviado,setEnviado]=useState(false);
+  const [confirm,setConfirm]=useState(false);
+  const [enviando,setEnviando]=useState(false);
+  const {mm,ss,color:tc}=useTimer(40*60);
+
+  const enviar=async()=>{
+    setEnviando(true);
+    await onEnviar({nombre,cursoId,curso:c.label,fecha:new Date().toLocaleString("es-GT"),multiple,vf,completar});
+    setEnviado(true);
   };
+
+  if(enviado)return<Enviado nombre={nombre}/>;
+  const tabs=["Selección Múltiple","Verdadero o Falso","Completar espacios"];
+
   return(
-    <div style={{minHeight:"100vh",background:"linear-gradient(135deg,#0a0a1a,#0a1628)",display:"flex",alignItems:"center",justifyContent:"center",padding:20}}>
-      <div style={{background:"rgba(255,255,255,0.05)",border:"1px solid rgba(255,255,255,0.1)",borderRadius:20,padding:"40px 36px",width:"100%",maxWidth:500,color:"#fff"}}>
-        <div style={{textAlign:"center",marginBottom:24}}>
-          <div style={{fontSize:38,marginBottom:8}}>🏫</div>
-          <div style={{fontSize:12,color:"rgba(255,255,255,0.4)"}}>Liceo Santa María · Ciclo 2026</div>
-          <h1 style={{fontSize:22,fontWeight:800,background:"linear-gradient(90deg,#00d4ff,#7b2ff7)",WebkitBackgroundClip:"text",WebkitTextFillColor:"transparent",margin:"6px 0"}}>Plataforma de Exámenes</h1>
-          <div style={{fontSize:12,color:"rgba(255,255,255,0.4)"}}>Unidad 1 · 30 puntos</div>
-        </div>
-        <div style={{display:"flex",gap:6,marginBottom:20,background:"rgba(255,255,255,0.05)",borderRadius:10,padding:4}}>
-          {["alumno","maestro"].map(m=>(
-            <button key={m} onClick={()=>{setModo(m);setErr("");}}
-              style={{flex:1,background:modo===m?"rgba(0,212,255,0.2)":"transparent",border:modo===m?"1px solid rgba(0,212,255,0.4)":"1px solid transparent",borderRadius:8,padding:"7px",color:modo===m?"#00d4ff":"rgba(255,255,255,0.5)",cursor:"pointer",fontSize:13,fontWeight:modo===m?700:400}}>
-              {m==="alumno"?"👨‍🎓 Alumno":"👩‍🏫 Maestro"}
-            </button>
+    <div style={{minHeight:"100vh",background:"linear-gradient(135deg,#0a0a1a,#1a0010)"}}>
+      <TopBar cursoId={cursoId} nombre={nombre} mm={mm} ss={ss} timerColor={tc}/>
+      <ProgBar sec={sec} total={2}/>
+      <TabsBar tabs={tabs} sec={sec} setSec={setSec} color={c.color}/>
+      <div style={{maxWidth:800,margin:"0 auto",padding:"20px 20px 100px"}}>
+
+        {sec===0&&<>
+          <SecHeader title="Selección Múltiple" pts="12 pts · 1 pt c/u" inst="Selecciona la respuesta correcta para cada pregunta." color={c.dark}/>
+          {PM_MAD.map((q,i)=>(
+            <PregMultiple key={q.id} q={q} qi={i} sel={multiple[q.id]} onSel={v=>setMultiple(p=>({...p,[q.id]:v}))} color={c.color}/>
           ))}
-        </div>
-        {modo==="alumno"?(<>
-          <div style={{marginBottom:14}}>
-            <label style={{fontSize:12,color:"rgba(255,255,255,0.6)",display:"block",marginBottom:6}}>Nombre completo</label>
-            <input value={nombre} onChange={e=>setNombre(e.target.value)} placeholder="Ej: María García López"
-              style={{width:"100%",background:"rgba(255,255,255,0.08)",border:"1px solid rgba(255,255,255,0.15)",borderRadius:10,padding:"10px 14px",color:"#fff",fontSize:14,outline:"none"}}/>
+        </>}
+
+        {sec===1&&<>
+          <SecHeader title="Verdadero o Falso" pts="8 pts · 1 pt c/u" inst="Selecciona V si el enunciado es verdadero, o F si es falso." color={c.dark}/>
+          {PVF_MAD.map((q,i)=>(
+            <PregVF key={q.id} q={q} qi={i} sel={vf[q.id]} onSel={v=>setVf(p=>({...p,[q.id]:v}))}/>
+          ))}
+        </>}
+
+        {sec===2&&<>
+          <SecHeader title="Completar espacios" pts="10 pts · 2 pts c/u" inst="Escribe la palabra correcta del banco en cada espacio." color={c.dark}/>
+          <BancoPalabras banco={BANCO_MAD}/>
+          {PC_MAD.map((q,i)=>(
+            <PregCompletar key={q.id} q={q} qi={i} val={completar[q.id]||""} onChange={v=>setCompletar(p=>({...p,[q.id]:v}))}/>
+          ))}
+          <div style={{background:"rgba(255,107,157,0.06)",border:"1px solid rgba(255,107,157,0.2)",borderRadius:10,padding:"10px 14px",fontSize:12,color:"rgba(255,107,157,0.8)",marginBottom:16,marginTop:4}}>
+            📝 Las respuestas de completar no distinguen mayúsculas ni minúsculas.
           </div>
-          <div style={{marginBottom:12}}>
-            <label style={{fontSize:12,color:"rgba(255,255,255,0.6)",display:"block",marginBottom:6}}>Selecciona tu curso</label>
-            <div style={{display:"flex",flexDirection:"column",gap:8}}>
-              {CURSOS.map(c=>(
-                <button key={c.id} onClick={()=>setCursoId(c.id)}
-                  style={{background:cursoId===c.id?c.bg:"rgba(255,255,255,0.04)",border:`1px solid ${cursoId===c.id?c.color:"rgba(255,255,255,0.1)"}`,borderRadius:10,padding:"10px 16px",color:cursoId===c.id?c.color:"rgba(255,255,255,0.7)",cursor:"pointer",fontSize:13,textAlign:"left",fontWeight:cursoId===c.id?700:400,transition:"all .2s"}}>
-                  {c.label}
-                </button>
-              ))}
-            </div>
-          </div>
-        </>):(
-          <div style={{marginBottom:18}}>
-            <label style={{fontSize:12,color:"rgba(255,255,255,0.6)",display:"block",marginBottom:6}}>Contraseña del catedrático</label>
-            <input type="password" value={pass} onChange={e=>setPass(e.target.value)} placeholder="••••••••"
-              onKeyDown={e=>e.key==="Enter"&&submit()}
-              style={{width:"100%",background:"rgba(255,255,255,0.08)",border:"1px solid rgba(255,255,255,0.15)",borderRadius:10,padding:"10px 14px",color:"#fff",fontSize:14,outline:"none"}}/>
-          </div>
-        )}
-        {err&&<div style={{background:"rgba(255,80,80,0.15)",border:"1px solid rgba(255,80,80,0.3)",borderRadius:8,padding:"8px 12px",fontSize:12,color:"#ff8080",marginBottom:12}}>{err}</div>}
-        <button onClick={submit} style={{width:"100%",background:"linear-gradient(90deg,#00d4ff,#7b2ff7)",border:"none",borderRadius:12,padding:"12px",color:"#fff",fontWeight:700,fontSize:15,cursor:"pointer",marginTop:6}}>
-          {modo==="alumno"?"Iniciar examen →":"Entrar al panel →"}
-        </button>
+          <BotonEnviar confirm={confirm} setConfirm={setConfirm} enviando={enviando} enviar={enviar}/>
+        </>}
+
+        <NavBotones sec={sec} setSec={setSec} max={2}/>
       </div>
     </div>
   );
 }
 
-// ── EXÁMENES ──────────────────────────────────────────
+// ══ DETALLE MADUREZ PANEL ════════════════════════════
+function DetalleMAD({r,onBack}){
+  const auto=calcMAD(r);
+  return(
+    <div>
+      <button onClick={onBack} style={{...btn(),marginBottom:14}}>← Volver</button>
+      <div style={{...card,display:"flex",justifyContent:"space-between",flexWrap:"wrap",gap:10,marginBottom:14}}>
+        <div>
+          <div style={{fontSize:18,fontWeight:800}}>{r.nombre}</div>
+          <div style={{fontSize:13,color:"rgba(255,255,255,0.5)"}}>{r.curso} · {r.fecha}</div>
+        </div>
+        <div style={{textAlign:"right"}}>
+          <div style={{fontSize:20,fontWeight:800,color:"#ff6b9d"}}>{auto}/{MAX_AUTO.mad1} <span style={{fontSize:12,color:"rgba(255,255,255,0.4)"}}>puntos automáticos</span></div>
+          <div style={{fontSize:12,color:"rgba(255,255,255,0.4)"}}>Examen de 30 pts · Completar se revisa aquí</div>
+        </div>
+      </div>
+
+      <Bloque title="Selección Múltiple" color="#ff6b9d">
+        {PM_MAD.map((q,i)=>{
+          const resp=r.multiple?.[q.id];const ok=resp===q.correcta;
+          return<ItemDet key={q.id} num={i+1} txt={q.txt} ok={ok}
+            resp={resp!=null?`${["A","B","C","D"][resp]}) ${q.opts[resp]}`:"Sin responder"}
+            correcta={ok?null:`${["A","B","C","D"][q.correcta]}) ${q.opts[q.correcta]}`}/>;
+        })}
+      </Bloque>
+
+      <Bloque title="Verdadero o Falso" color="#a78bff">
+        {PVF_MAD.map((q,i)=>{
+          const resp=r.vf?.[q.id];const ok=resp===q.correcta;
+          return<ItemDet key={q.id} num={i+1} txt={q.txt} ok={ok}
+            resp={resp==null?"Sin responder":resp?"Verdadero":"Falso"}
+            correcta={ok?null:q.correcta?"Verdadero":"Falso"}/>;
+        })}
+      </Bloque>
+
+      <Bloque title="Completar espacios" color="#ffaa00">
+        {PC_MAD.map((q,i)=>{
+          const resp=(r.completar?.[q.id]||"").toLowerCase().trim();
+          const ok=resp===q.correcta.toLowerCase();
+          return<ItemDet key={q.id} num={i+1} txt={`${q.pre} ___ ${q.post}`} ok={ok}
+            resp={r.completar?.[q.id]||"Sin responder"}
+            correcta={ok?null:q.correcta}/>;
+        })}
+      </Bloque>
+    </div>
+  );
+}
+
+// ══ OTROS EXÁMENES ════════════════════════════════════
 function ExamenPY({nombre,cursoId,onEnviar}){
   const c=getCurso(cursoId);
   const [sec,setSec]=useState(0);
@@ -614,7 +730,7 @@ function ExamenC5({nombre,cursoId,onEnviar}){
   );
 }
 
-// ── DETALLES PANEL MAESTRO ────────────────────────────
+// ── PANEL MAESTRO — DETALLES ──────────────────────────
 function Bloque({title,color,children}){return(<div style={{...card,marginBottom:12}}><div style={{fontWeight:700,fontSize:13,color,marginBottom:10,borderBottom:"1px solid rgba(255,255,255,0.08)",paddingBottom:8}}>{title}</div>{children}</div>);}
 function ItemDet({num,txt,ok,resp,correcta}){return(<div style={{padding:"7px 0",borderBottom:"1px solid rgba(255,255,255,0.05)",fontSize:12}}><div style={{color:"rgba(255,255,255,0.7)",marginBottom:3,whiteSpace:"pre-line"}}>{num}. {txt}</div><span style={{color:ok?"#00ff88":"#ff8080"}}>{ok?"✓":"✗"} {resp}</span>{correcta&&<span style={{color:"rgba(255,255,255,0.4)",marginLeft:10}}>→ {correcta}</span>}</div>);}
 
@@ -623,6 +739,71 @@ function DetalleP4({r,onBack}){const auto=calcP4(r);return(<div><button onClick=
 function DetalleC1({r,onBack}){const auto=calcC1(r);return(<div><button onClick={onBack} style={{...btn(),marginBottom:14}}>← Volver</button><div style={{...card,display:"flex",justifyContent:"space-between",flexWrap:"wrap",gap:10,marginBottom:14}}><div><div style={{fontSize:18,fontWeight:800}}>{r.nombre}</div><div style={{fontSize:13,color:"rgba(255,255,255,0.5)"}}>{r.curso} · {r.fecha}</div></div><div><div style={{fontSize:20,fontWeight:800,color:"#00d2ff"}}>{auto}/{MAX_AUTO.comp1}</div></div></div><Bloque title="Selección Múltiple" color="#00d2ff">{PM_C1.map((q,i)=>{const resp=r.multiple?.[q.id];const ok=resp===q.correcta;return<ItemDet key={q.id} num={i+1} txt={q.txt} ok={ok} resp={resp!=null?`${["A","B","C","D"][resp]}) ${q.opts[resp]}`:"Sin responder"} correcta={ok?null:`${["A","B","C","D"][q.correcta]}) ${q.opts[q.correcta]}`}/>;})}</Bloque><Bloque title="Verdadero o Falso" color="#a78bff">{PVF_C1.map((q,i)=>{const resp=r.vf?.[q.id];const ok=resp===q.correcta;return<ItemDet key={q.id} num={i+1} txt={q.txt} ok={ok} resp={resp==null?"Sin responder":resp?"Verdadero":"Falso"} correcta={ok?null:q.correcta?"Verdadero":"Falso"}/>;})}</Bloque><Bloque title="Completar" color="#ffaa00">{PC_C1.map((q,i)=>{const resp=(r.completar?.[q.id]||"").toLowerCase().trim();const ok=resp===q.correcta;return<ItemDet key={q.id} num={i+1} txt={`${q.pre} ___ ${q.post}`} ok={ok} resp={r.completar?.[q.id]||"Sin responder"} correcta={ok?null:q.correcta}/>;})}</Bloque><Bloque title="Relacionar columnas" color="#00d2ff">{REL_C1_IZQ.map((item,i)=>{const resp=r.relacionar?.[item.id];const ok=resp===REL_C1_OK[item.id];const di=REL_C1_DER.find(d=>d.id===resp);return<ItemDet key={item.id} num={i+1} txt={item.txt} ok={ok} resp={di?di.txt:"Sin responder"} correcta={ok?null:REL_C1_DER.find(d=>d.id===REL_C1_OK[item.id])?.txt}/>;})}</Bloque></div>);}
 function DetalleL1({r,onBack}){const auto=calcL1(r);return(<div><button onClick={onBack} style={{...btn(),marginBottom:14}}>← Volver</button><div style={{...card,display:"flex",justifyContent:"space-between",flexWrap:"wrap",gap:10,marginBottom:14}}><div><div style={{fontSize:18,fontWeight:800}}>{r.nombre}</div><div style={{fontSize:13,color:"rgba(255,255,255,0.5)"}}>{r.curso} · {r.fecha}</div></div><div><div style={{fontSize:20,fontWeight:800,color:"#7b2ff7"}}>{auto}/{MAX_AUTO.lab1}</div><div style={{fontSize:12,color:"rgba(255,255,255,0.4)"}}>+ 5 pts manual</div></div></div><Bloque title="Selección Múltiple" color="#00d4ff">{PM_L1.map((q,i)=>{const resp=r.multiple?.[q.id];const ok=resp===q.correcta;return<ItemDet key={q.id} num={i+1} txt={q.txt} ok={ok} resp={resp!=null?`${["A","B","C","D"][resp]}) ${q.opts[resp]}`:"Sin responder"} correcta={ok?null:`${["A","B","C","D"][q.correcta]}) ${q.opts[q.correcta]}`}/>;})}</Bloque><Bloque title="Verdadero o Falso" color="#a78bff">{PVF_L1.map((q,i)=>{const resp=r.vf?.[q.id];const ok=resp===q.correcta;return<ItemDet key={q.id} num={i+1} txt={q.txt} ok={ok} resp={resp==null?"Sin responder":resp?"Verdadero":"Falso"} correcta={ok?null:q.correcta?"Verdadero":"Falso"}/>;})}</Bloque><Bloque title="Completar" color="#ffaa00">{PC_L1.map((q,i)=>{const resp=(r.completar?.[q.id]||"").toLowerCase().trim();const ok=resp===q.correcta;return<ItemDet key={q.id} num={i+1} txt={`${q.pre} ___ ${q.post}`} ok={ok} resp={r.completar?.[q.id]||"Sin responder"} correcta={ok?null:q.correcta}/>;})}</Bloque><Bloque title="Desarrollo — revisar manualmente" color="#ff8080">{PD_L1.map((q,i)=>(<div key={q.id} style={{padding:"10px 0",borderBottom:"1px solid rgba(255,255,255,0.05)"}}><div style={{fontSize:12,color:"rgba(255,255,255,0.5)",marginBottom:6}}>{i+1}. ({q.pts} pts) {q.txt}</div><div style={{background:"rgba(255,255,255,0.05)",borderRadius:8,padding:"10px 14px",fontSize:13,lineHeight:1.6,whiteSpace:"pre-wrap"}}>{r.desarrollo?.[q.id]||<span style={{color:"rgba(255,255,255,0.3)",fontStyle:"italic"}}>Sin respuesta</span>}</div></div>))}</Bloque></div>);}
 function DetalleC5({r,onBack}){const auto=calcC5(r);return(<div><button onClick={onBack} style={{...btn(),marginBottom:14}}>← Volver</button><div style={{...card,display:"flex",justifyContent:"space-between",flexWrap:"wrap",gap:10,marginBottom:14}}><div><div style={{fontSize:18,fontWeight:800}}>{r.nombre}</div><div style={{fontSize:13,color:"rgba(255,255,255,0.5)"}}>{r.curso} · {r.fecha}</div></div><div><div style={{fontSize:20,fontWeight:800,color:"#00a86b"}}>{auto}/{MAX_AUTO.comp5}</div><div style={{fontSize:12,color:"rgba(255,255,255,0.4)"}}>+ 14 pts manual</div></div></div><Bloque title="Selección Múltiple" color="#00d4ff">{PM_C5.map((q,i)=>{const resp=r.multiple?.[q.id];const ok=resp===q.correcta;return<ItemDet key={q.id} num={i+1} txt={q.txt} ok={ok} resp={resp!=null?`${["A","B","C","D"][resp]}) ${q.opts[resp]}`:"Sin responder"} correcta={ok?null:`${["A","B","C","D"][q.correcta]}) ${q.opts[q.correcta]}`}/>;})}</Bloque><Bloque title="Verdadero o Falso" color="#a78bff">{PVF_C5.map((q,i)=>{const resp=r.vf?.[q.id];const ok=resp===q.correcta;return<ItemDet key={q.id} num={i+1} txt={q.txt} ok={ok} resp={resp==null?"Sin responder":resp?"Verdadero":"Falso"} correcta={ok?null:q.correcta?"Verdadero":"Falso"}/>;})}</Bloque><Bloque title="Corregir fórmulas — revisar manualmente" color="#00a86b">{PFORM_C5.map((q,i)=>(<div key={q.id} style={{padding:"10px 0",borderBottom:"1px solid rgba(255,255,255,0.05)"}}><div style={{fontSize:12,color:"rgba(255,255,255,0.5)",marginBottom:3}}>{i+1}. <span style={{color:"#ff8080",fontFamily:"monospace"}}>{q.erronea}</span></div><div style={{fontSize:12}}>Error: <span style={{color:"#fff"}}>{r.formulas?.[q.id+"_e"]||"—"}</span></div><div style={{fontSize:12}}>Corrección: <span style={{color:"#00ff99",fontFamily:"monospace"}}>{r.formulas?.[q.id+"_c"]||"—"}</span></div><div style={{fontSize:11,color:"rgba(0,168,107,0.7)",marginTop:3}}>✅ <span style={{fontFamily:"monospace"}}>{q.correcta}</span></div></div>))}</Bloque><Bloque title="Ejercicio Excel — revisar archivo" color="#ffaa00"><div style={{background:"rgba(255,255,255,0.05)",borderRadius:8,padding:"10px 14px",fontSize:12,lineHeight:1.8,whiteSpace:"pre-wrap",fontFamily:"monospace",color:"#00ff99"}}>{r.ejercicio||<span style={{color:"rgba(255,255,255,0.3)"}}>Sin respuesta</span>}</div></Bloque></div>);}
+
+// ── LOGIN ─────────────────────────────────────────────
+function Login({onStart}){
+  const [nombre,setNombre]=useState("");
+  const [cursoId,setCursoId]=useState("");
+  const [pass,setPass]=useState("");
+  const [modo,setModo]=useState("alumno");
+  const [err,setErr]=useState("");
+  const submit=()=>{
+    if(modo==="maestro"){if(pass!==PASS_MAESTRO)return setErr("Contraseña incorrecta.");return onStart("__MAESTRO__","maestro");}
+    if(!nombre.trim())return setErr("Escribe tu nombre completo.");
+    if(!cursoId)return setErr("Selecciona tu curso.");
+    setErr("");
+    onStart(nombre.trim(), cursoId);
+  };
+  return(
+    <div style={{minHeight:"100vh",background:"linear-gradient(135deg,#0a0a1a,#0a1628)",display:"flex",alignItems:"center",justifyContent:"center",padding:20}}>
+      <div style={{background:"rgba(255,255,255,0.05)",border:"1px solid rgba(255,255,255,0.1)",borderRadius:20,padding:"40px 36px",width:"100%",maxWidth:500,color:"#fff"}}>
+        <div style={{textAlign:"center",marginBottom:24}}>
+          <div style={{fontSize:38,marginBottom:8}}>🏫</div>
+          <div style={{fontSize:12,color:"rgba(255,255,255,0.4)"}}>Liceo Santa María · Ciclo 2026</div>
+          <h1 style={{fontSize:22,fontWeight:800,background:"linear-gradient(90deg,#00d4ff,#7b2ff7)",WebkitBackgroundClip:"text",WebkitTextFillColor:"transparent",margin:"6px 0"}}>Plataforma de Exámenes</h1>
+          <div style={{fontSize:12,color:"rgba(255,255,255,0.4)"}}>Unidad 1 · 30 puntos</div>
+        </div>
+        <div style={{display:"flex",gap:6,marginBottom:20,background:"rgba(255,255,255,0.05)",borderRadius:10,padding:4}}>
+          {["alumno","maestro"].map(m=>(
+            <button key={m} onClick={()=>{setModo(m);setErr("");}}
+              style={{flex:1,background:modo===m?"rgba(0,212,255,0.2)":"transparent",border:modo===m?"1px solid rgba(0,212,255,0.4)":"1px solid transparent",borderRadius:8,padding:"7px",color:modo===m?"#00d4ff":"rgba(255,255,255,0.5)",cursor:"pointer",fontSize:13,fontWeight:modo===m?700:400}}>
+              {m==="alumno"?"👨‍🎓 Alumno":"👩‍🏫 Maestro"}
+            </button>
+          ))}
+        </div>
+        {modo==="alumno"?(<>
+          <div style={{marginBottom:14}}>
+            <label style={{fontSize:12,color:"rgba(255,255,255,0.6)",display:"block",marginBottom:6}}>Nombre completo</label>
+            <input value={nombre} onChange={e=>setNombre(e.target.value)} placeholder="Ej: María García López"
+              style={{width:"100%",background:"rgba(255,255,255,0.08)",border:"1px solid rgba(255,255,255,0.15)",borderRadius:10,padding:"10px 14px",color:"#fff",fontSize:14,outline:"none"}}/>
+          </div>
+          <div style={{marginBottom:12}}>
+            <label style={{fontSize:12,color:"rgba(255,255,255,0.6)",display:"block",marginBottom:6}}>Selecciona tu curso</label>
+            <div style={{display:"flex",flexDirection:"column",gap:8}}>
+              {CURSOS.map(c=>(
+                <button key={c.id} onClick={()=>setCursoId(c.id)}
+                  style={{background:cursoId===c.id?c.bg:"rgba(255,255,255,0.04)",border:`1px solid ${cursoId===c.id?c.color:"rgba(255,255,255,0.1)"}`,borderRadius:10,padding:"10px 16px",color:cursoId===c.id?c.color:"rgba(255,255,255,0.7)",cursor:"pointer",fontSize:13,textAlign:"left",fontWeight:cursoId===c.id?700:400,transition:"all .2s"}}>
+                  {c.label}
+                </button>
+              ))}
+            </div>
+          </div>
+        </>):(
+          <div style={{marginBottom:18}}>
+            <label style={{fontSize:12,color:"rgba(255,255,255,0.6)",display:"block",marginBottom:6}}>Contraseña del catedrático</label>
+            <input type="password" value={pass} onChange={e=>setPass(e.target.value)} placeholder="••••••••"
+              onKeyDown={e=>e.key==="Enter"&&submit()}
+              style={{width:"100%",background:"rgba(255,255,255,0.08)",border:"1px solid rgba(255,255,255,0.15)",borderRadius:10,padding:"10px 14px",color:"#fff",fontSize:14,outline:"none"}}/>
+          </div>
+        )}
+        {err&&<div style={{background:"rgba(255,80,80,0.15)",border:"1px solid rgba(255,80,80,0.3)",borderRadius:8,padding:"8px 12px",fontSize:12,color:"#ff8080",marginBottom:12}}>{err}</div>}
+        <button onClick={submit} style={{width:"100%",background:"linear-gradient(90deg,#00d4ff,#7b2ff7)",border:"none",borderRadius:12,padding:"12px",color:"#fff",fontWeight:700,fontSize:15,cursor:"pointer",marginTop:6}}>
+          {modo==="alumno"?"Iniciar examen →":"Entrar al panel →"}
+        </button>
+      </div>
+    </div>
+  );
+}
 
 // ── PANEL MAESTRO ─────────────────────────────────────
 function PanelMaestro({onSalir}){
@@ -638,18 +819,14 @@ function PanelMaestro({onSalir}){
   },[]);
 
   const filtradas=filtro==="todos"?respuestas:respuestas.filter(r=>r.cursoId===filtro);
-
-  // ✅ CORRECCIÓN CENTRAL: calcAuto usa la función correcta según cursoId
-  const getAuto=r=>calcAuto(r);
   const getMax=r=>MAX_AUTO[r.cursoId]||"?";
 
   const verAlumno=r=>{
-    // Compatibilidad con respuestas del archivo 1 (sin cursoId)
     if(!r.cursoId&&r.clase) setAlumnoVer({...r,cursoId:"lab1",curso:"4to Bach — Laboratorio I"});
     else setAlumnoVer(r);
   };
 
-  const DetalleMap={comp1:DetalleC1,lab1:DetalleL1,prog4:DetalleP4,py5:DetallePY,comp5:DetalleC5};
+  const DetalleMap={comp1:DetalleC1,lab1:DetalleL1,prog4:DetalleP4,py5:DetallePY,comp5:DetalleC5,mad1:DetalleMAD};
 
   return(
     <div style={{minHeight:"100vh",background:"#0d1117",color:"#fff"}}>
@@ -661,24 +838,23 @@ function PanelMaestro({onSalir}){
         <button onClick={onSalir} style={btn()}>← Salir</button>
       </div>
       <div style={{padding:"20px 24px"}}>
-        {/* Filtros */}
         <div style={{display:"flex",gap:8,marginBottom:16,flexWrap:"wrap"}}>
           <button onClick={()=>{setFiltro("todos");setAlumnoVer(null);}} style={{background:filtro==="todos"?"rgba(0,212,255,0.15)":"rgba(255,255,255,0.05)",border:filtro==="todos"?"1px solid #00d4ff":"1px solid rgba(255,255,255,0.1)",borderRadius:20,padding:"6px 14px",color:filtro==="todos"?"#00d4ff":"rgba(255,255,255,0.6)",cursor:"pointer",fontSize:12}}>
             Todos ({respuestas.length})
           </button>
           {CURSOS.map(c=>(
             <button key={c.id} onClick={()=>{setFiltro(c.id);setAlumnoVer(null);}} style={{background:filtro===c.id?c.bg:"rgba(255,255,255,0.05)",border:filtro===c.id?`1px solid ${c.color}`:"1px solid rgba(255,255,255,0.1)",borderRadius:20,padding:"6px 14px",color:filtro===c.id?c.color:"rgba(255,255,255,0.6)",cursor:"pointer",fontSize:12}}>
-              {c.label} ({respuestas.filter(r=>r.cursoId===c.id).length})
+              {c.label.split("—")[1]?.trim()||c.label} ({respuestas.filter(r=>r.cursoId===c.id).length})
             </button>
           ))}
         </div>
-        {/* Stats */}
+
         <div style={{display:"grid",gridTemplateColumns:"repeat(4,1fr)",gap:10,marginBottom:16}}>
           {[
             {label:"Enviados",val:filtradas.length,color:"#00d4ff"},
-            {label:"Promedio",val:filtradas.length?Math.round(filtradas.reduce((a,r)=>a+getAuto(r),0)/filtradas.length):"—",color:"#00ff88"},
-            {label:"Más alto",val:filtradas.length?Math.max(...filtradas.map(r=>getAuto(r))):"—",color:"#a78bff"},
-            {label:"Más bajo",val:filtradas.length?Math.min(...filtradas.map(r=>getAuto(r))):"—",color:"#ff8080"},
+            {label:"Promedio",val:filtradas.length?Math.round(filtradas.reduce((a,r)=>a+calcAuto(r),0)/filtradas.length):"—",color:"#00ff88"},
+            {label:"Más alto",val:filtradas.length?Math.max(...filtradas.map(r=>calcAuto(r))):"—",color:"#a78bff"},
+            {label:"Más bajo",val:filtradas.length?Math.min(...filtradas.map(r=>calcAuto(r))):"—",color:"#ff8080"},
           ].map(s=>(
             <div key={s.label} style={{background:"rgba(255,255,255,0.04)",border:"1px solid rgba(255,255,255,0.08)",borderRadius:12,padding:"12px",textAlign:"center"}}>
               <div style={{fontSize:20,fontWeight:800,color:s.color}}>{s.val}</div>
@@ -686,14 +862,11 @@ function PanelMaestro({onSalir}){
             </div>
           ))}
         </div>
-        {/* Contenido */}
+
         {cargando?(
           <div style={{textAlign:"center",padding:40,color:"rgba(255,255,255,0.4)"}}>Cargando respuestas...</div>
         ):alumnoVer?(
-          (() => {
-            const Comp=DetalleMap[alumnoVer.cursoId];
-            return Comp?<Comp r={alumnoVer} onBack={()=>setAlumnoVer(null)}/>:<div style={{color:"#ff8080"}}>Tipo de examen no reconocido.</div>;
-          })()
+          (()=>{const Comp=DetalleMap[alumnoVer.cursoId];return Comp?<Comp r={alumnoVer} onBack={()=>setAlumnoVer(null)}/>:<div style={{color:"#ff8080"}}>Tipo no reconocido.</div>;})()
         ):filtradas.length===0?(
           <div style={{textAlign:"center",padding:40,color:"rgba(255,255,255,0.3)"}}><div style={{fontSize:36,marginBottom:8}}>📭</div><div>Aún no hay respuestas.</div></div>
         ):(
@@ -702,15 +875,14 @@ function PanelMaestro({onSalir}){
               <span>Alumno</span><span>Curso</span><span>Hora</span><span>Auto</span><span></span>
             </div>
             {filtradas.map((r,i)=>{
-              // ✅ Fallback robusto para cursoId faltante o desconocido
               const c=getCurso(r.cursoId)||{color:"#aaa",label:r.curso||r.clase||"—",bg:"rgba(255,255,255,0.08)"};
-              const pts=getAuto(r);
+              const pts=calcAuto(r);
               const mx=getMax(r);
               const pct=typeof mx==="number"&&mx>0?Math.round((pts/mx)*100):0;
               return(
                 <div key={i} style={{background:"rgba(255,255,255,0.04)",border:"1px solid rgba(255,255,255,0.07)",borderRadius:10,padding:"10px 12px",display:"grid",gridTemplateColumns:"2fr 2fr 1fr 1fr 70px",gap:8,alignItems:"center",marginBottom:6}}>
                   <span style={{fontWeight:600,fontSize:13}}>{r.nombre||"—"}</span>
-                  <span style={{fontSize:11,color:c.color,background:c.bg,borderRadius:6,padding:"2px 8px",overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{c.label}</span>
+                  <span style={{fontSize:11,color:c.color,background:c.bg,borderRadius:6,padding:"2px 8px",overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{c.label.split("—")[1]?.trim()||c.label}</span>
                   <span style={{fontSize:11,color:"rgba(255,255,255,0.4)"}}>{(r.fecha||"").split(",")[1]||(r.fecha||"")}</span>
                   <span style={{fontSize:13,fontWeight:700,color:pct>=70?"#00ff88":pct>=50?"#ffaa00":"#ff8080"}}>{pts}/{mx}</span>
                   <button onClick={()=>verAlumno(r)} style={{...btn({padding:"5px 10px",fontSize:12}),color:"#00d4ff",borderColor:"rgba(0,212,255,0.3)",background:"rgba(0,212,255,0.1)"}}>Ver →</button>
@@ -729,21 +901,17 @@ function App(){
   const [vista,setVista]=useState("login");
   const [usuario,setUsuario]=useState(null);
 
-  // ✅ CORRECCIÓN CLAVE: cursoId se pasa correctamente desde login
   const handleStart=(nombre,cursoId)=>{
     if(nombre==="__MAESTRO__"){setVista("maestro");return;}
     setUsuario({nombre,cursoId});
     setVista("examen");
   };
 
-  const handleEnviar=async resp=>{
-    await fbGuardar(resp);
-  };
+  const handleEnviar=async resp=>{ await fbGuardar(resp); };
 
   if(vista==="examen"&&usuario){
-    const ExMap={comp1:ExamenC1,lab1:ExamenL1,prog4:ExamenP4,py5:ExamenPY,comp5:ExamenC5};
+    const ExMap={comp1:ExamenC1,lab1:ExamenL1,prog4:ExamenP4,py5:ExamenPY,comp5:ExamenC5,mad1:ExamenMAD};
     const Ex=ExMap[usuario.cursoId];
-    // ✅ Se pasa cursoId explícitamente a cada examen
     return Ex?<Ex nombre={usuario.nombre} cursoId={usuario.cursoId} onEnviar={handleEnviar}/>:null;
   }
   if(vista==="maestro")return<PanelMaestro onSalir={()=>setVista("login")}/>;
