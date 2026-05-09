@@ -36,43 +36,7 @@ const PASS_MAESTRO="liceo2026";
 // ══ BANCOS DE PREGUNTAS ══
 
 const EXAMENES_LAB1={
-  parcial:{titulo:"Parcial — Laboratorio I",subtitulo:"Unidad I · Seguridad Informática",tiempo:40*60,
-    multiple:[
-      {id:"m1",txt:"¿Cuál es la característica principal de un virus informático?",opts:["Pide dinero a cambio de tus archivos bloqueados","Se adjunta a archivos y se replica al ejecutarse","Espía tus contraseñas sin que lo notes","Se propaga solo por la red sin archivos"],correcta:1},
-      {id:"m2",txt:"El malware que bloquea archivos y exige pago para recuperarlos se llama:",opts:["Spyware","Gusano (Worm)","Ransomware","Troyano"],correcta:2},
-      {id:"m3",txt:"¿Cuál es una señal de alerta de un correo de phishing?",opts:["El remitente usa un dominio institucional conocido","El correo te saluda por tu nombre completo","Pide que actúes urgentemente y hagas clic en un enlace","El correo no tiene archivos adjuntos"],correcta:2},
-      {id:"m4",txt:"¿Cuál de estas contraseñas es la MÁS segura?",opts:["juan2010","password123","MiCasa#GT2026!","liceo2026"],correcta:2},
-      {id:"m5",txt:"El malware que se disfraza de programa legítimo para abrir acceso oculto es:",opts:["Ransomware","Troyano","Virus","Spyware"],correcta:1},
-      {id:"m6",txt:"¿Qué significa 2FA?",opts:["Dos Firewalls Activos","Doble Factor de Autenticación","Segunda Fase de Acceso","Doble Filtro Antivirus"],correcta:1},
-      {id:"m7",txt:"¿Cuántos caracteres mínimos debe tener una contraseña segura?",opts:["6 caracteres","8 caracteres","10 caracteres","12 caracteres"],correcta:3},
-      {id:"m8",txt:"El virus ILOVEYOU en el año 2000:",opts:["Bloqueó servidores del gobierno de EE.UU.","Afectó 50 millones de computadoras por correo","Robó millones de contraseñas bancarias","Fue el primer ransomware"],correcta:1},
-      {id:"m9",txt:"¿Cuál es un ejemplo del método Passphrase?",opts:["abc123456","MgDeEt@l3! (de: Mi gato duerme en el techo a las 3)","Liceo2026","qwerty!"],correcta:1},
-      {id:"m10",txt:"¿Cuál es el segundo factor más seguro para el 2FA?",opts:["Código por SMS","Pregunta de seguridad","App autenticadora (Google Authenticator)","Correo de verificación"],correcta:2},
-    ],
-    vf:[
-      {id:"vf1",txt:"Un gusano (worm) necesita que el usuario ejecute un archivo para propagarse.",correcta:false},
-      {id:"vf2",txt:"El phishing busca engañar al usuario para robar sus datos personales.",correcta:true},
-      {id:"vf3",txt:"Una contraseña de 6 caracteres simples puede ser descifrada en menos de 1 segundo.",correcta:true},
-      {id:"vf4",txt:"El spyware bloquea los archivos del usuario y pide rescate.",correcta:false},
-      {id:"vf5",txt:"Activar el 2FA hace más difícil acceder a tu cuenta aunque roben tu contraseña.",correcta:true},
-      {id:"vf6",txt:"Es recomendable usar la misma contraseña segura en todas tus cuentas.",correcta:false},
-      {id:"vf7",txt:"Los correos de phishing usan urgencia y amenazas para presionar al usuario.",correcta:true},
-      {id:"vf8",txt:"Un troyano siempre se propaga solo por la red sin intervención del usuario.",correcta:false},
-    ],
-    completar:{banco:["phishing","ransomware","autenticación","passphrase","spyware","mayúsculas","troyano","seguridad informática"],preguntas:[
-      {id:"c1",pre:"La",post:"es la disciplina que protege sistemas, redes e información digital de ataques.",correcta:"seguridad informática"},
-      {id:"c2",pre:"El",post:"es un malware que cifra los archivos del usuario y exige pago para recuperarlos.",correcta:"ransomware"},
-      {id:"c3",pre:"Un correo falso que imita a un banco para robar contraseñas es un ataque de",post:".",correcta:"phishing"},
-      {id:"c4",pre:"El",post:"se esconde y espía las actividades del usuario sin que este lo note.",correcta:"spyware"},
-      {id:"c5",pre:"Una contraseña segura debe contener letras",post:", minúsculas, números y caracteres especiales.",correcta:"mayúsculas"},
-      {id:"c6",pre:"El método",post:"consiste en tomar iniciales de una frase personal para crear una contraseña.",correcta:"passphrase"},
-      {id:"c7",pre:"El doble factor de",post:"(2FA) agrega una segunda capa de verificación.",correcta:"autenticación"},
-    ]},
-    desarrollo:[
-      {id:"d1",pts:2,txt:"Explica qué es el phishing y menciona DOS señales de alerta que indican que un correo podría ser falso."},
-      {id:"d2",pts:3,txt:"Crea una contraseña usando el método Passphrase. Escribe: a) la frase que usaste, b) la contraseña resultante y c) explica por qué es segura."},
-    ],
-  },
+
   final:{titulo:"Examen Parcial  — Laboratorio I",subtitulo:"Unidad II · Privacidad Digital y Navegación Segura",tiempo:40*60,
     multiple:[
       {id:"m1",txt:"¿Qué tipo de cookie desaparece automáticamente al cerrar el navegador?",opts:["Cookie persistente","Cookie de terceros","Cookie de sesión","Cookie cifrada"],correcta:2},
@@ -134,54 +98,30 @@ const EXAMENES_COMP1={
 };
 
 const EXAMENES_PY5={
-  parcial:{titulo:"Parcial — Programación Python",subtitulo:"Variables, tipos de datos y operadores",tiempo:40*60,
-    multiple:[
-      {id:"m1",txt:"¿Qué hace la función print() en Python?",opts:["Lee datos del teclado","Guarda un valor en una variable","Muestra información en pantalla","Convierte texto a número"],correcta:2},
-      {id:"m2",txt:"¿Cuál es el tipo de dato que devuelve SIEMPRE la función input()?",opts:["int","float","bool","str (texto)"],correcta:3},
-      {id:"m3",txt:"¿Cuál es el resultado de: 10 % 3 en Python?",opts:["3","0","1","2"],correcta:2},
-      {id:"m4",txt:"¿Qué función usarías para convertir el texto '25' al número entero 25?",opts:["str()","float()","int()","num()"],correcta:2},
-      {id:"m5",txt:"¿Cuál de estas variables está correctamente declarada en Python?",opts:["int nombre = 'Ana'","nombre = 'Ana'","var nombre = 'Ana'","string nombre = 'Ana'"],correcta:1},
-      {id:"m6",txt:"¿Qué operador se usa en Python para calcular una POTENCIA?",opts:["^","**","^^","//"],correcta:1},
-      {id:"m7",txt:"¿Cuál es el resultado de: 10 // 3 en Python?",opts:["3.33","1","3","0"],correcta:2},
-      {id:"m8",txt:"¿Qué tipo de dato es: aprobado = True?",opts:["str","int","float","bool"],correcta:3},
+  parcial_u2:{
+    tipo:"practico",
+    titulo:"Parcial Práctico — Programación Python · Unidad II",
+    subtitulo:"Condicional if / else / elif",
+    programa:"IDLE, Thonny o VS Code",
+    entregable:"Parcial U.II — Condicionales Python",
+    tiempo:40*60,
+    tabla:{
+      titulo:"📋 Archivos que debes crear y entregar",
+      headers:["#","Archivo","Descripción","Puntos"],
+      rows:[
+        ["1","ejercicio1.py","¿Aprobado o reprobado? — if/else con nota >= 60","25 pts"],
+        ["2","ejercicio2.py","Mayor o menor de edad — if/else, calcular años faltantes","25 pts"],
+        ["3","ejercicio3.py","Clasificador de notas — if/elif/else con 5 rangos","25 pts"],
+        ["4","ejercicio4.py","Calculadora de descuentos — if/elif/else con rangos en quetzales","25 pts"],
+      ]
+    },
+    incisos:[
+      {id:"i1",pts:25,letra:"a",txt:"Crea ejercicio1.py: pide la nota final (0-100) con input() y convierte con float(). Usa if/else: si nota >= 60 imprime 'Felicidades, aprobaste con X puntos.' Si no, imprime 'Lo sentimos, reprobaste con X puntos.' Prueba con: 75, 45 y 60."},
+      {id:"i2",pts:25,letra:"b",txt:"Crea ejercicio2.py: pide la edad con input() y convierte con int(). Usa if/else: si edad >= 18 imprime 'Eres mayor de edad.' Si es menor, calcula 18 - edad e imprime 'Eres menor de edad. Te faltan X años.' Prueba con: 20, 15 y 18."},
+      {id:"i3",pts:25,letra:"c",txt:"Crea ejercicio3.py: pide una nota con input() y conviértela con float(). Usa if/elif/else con 5 rangos: 90-100 → Excelente, 80-89 → Muy bien, 70-79 → Bien, 60-69 → Aprobado, 0-59 → Reprobado. Imprime: 'Nota: X — Clasificación'. Prueba con: 95, 82, 65 y 40."},
+      {id:"i4",pts:25,letra:"d",txt:"Crea ejercicio4.py: pide el total de una compra en quetzales con input() y convierte con float(). Usa if/elif/else: Q200 o más → 20% descuento, Q100 a Q199.99 → 10% descuento, menos de Q100 → sin descuento. Calcula e imprime el monto de descuento y el total a pagar. Prueba con: Q250, Q150 y Q80."},
     ],
-    vf:[
-      {id:"vf1",txt:"Python es un lenguaje de programación gratuito y de código abierto.",correcta:true},
-      {id:"vf2",txt:"La función input() siempre devuelve un número entero (int).",correcta:false},
-      {id:"vf3",txt:"Para mostrar texto en pantalla en Python se usa la función print().",correcta:true},
-      {id:"vf4",txt:"El operador // en Python devuelve solo la parte entera de la división.",correcta:true},
-      {id:"vf5",txt:"En Python, una variable debe declararse con la palabra 'var'.",correcta:false},
-      {id:"vf6",txt:"El operador % (módulo) devuelve el residuo de una división.",correcta:true},
-    ],
-    completar:{banco:["print","input","int","float","str","bool","**","//"],preguntas:[
-      {id:"c1",pre:"Para mostrar información en pantalla usamos la función",post:"().",correcta:"print"},
-      {id:"c2",pre:"Para leer datos del teclado usamos la función",post:"().",correcta:"input"},
-      {id:"c3",pre:"Para convertir texto a número entero usamos",post:"().",correcta:"int"},
-      {id:"c4",pre:"El tipo de dato para valores verdadero/falso es",post:".",correcta:"bool"},
-    ]},
-    desarrollo:[{id:"d1",pts:5,txt:"Escribe un programa Python que pida nombre y edad al usuario y muestre: ¡Hola [nombre]! En 10 años tendrás [edad+10] años."}],
   },
-  final:{titulo:"Examen Parcial U. II — Programación Python",subtitulo:"Condicionales if / else / elif",tiempo:40*60,
-    multiple:[
-      {id:"m1",txt:"¿Cuál es la sintaxis correcta de un if en Python?",opts:["if (x > 0) {","if x > 0:","if x > 0 then","if: x > 0"],correcta:1},
-      {id:"m2",txt:"¿Qué hace el bloque else en un if/else?",opts:["Ejecuta código si la condición es verdadera","Ejecuta código si la condición es falsa","Repite el bloque if","Termina el programa"],correcta:1},
-      {id:"m3",txt:"¿Cuándo se usa elif?",opts:["Para terminar un if","Para añadir una condición alternativa","Para repetir el if","Para comparar texto"],correcta:1},
-      {id:"m4",txt:"¿Qué operador compara si dos valores son IGUALES en Python?",opts:["=","!=","==",">="],correcta:2},
-      {id:"m5",txt:"nota = 75 — ¿Qué imprime: if nota >= 60: print('Aprobado') else: print('Reprobado')?",opts:["Reprobado","Aprobado","75","Error"],correcta:1},
-    ],
-    vf:[
-      {id:"vf1",txt:"En Python, el cuerpo del if debe estar indentado.",correcta:true},
-      {id:"vf2",txt:"elif se puede usar sin un if previo.",correcta:false},
-      {id:"vf3",txt:"El operador != significa diferente de.",correcta:true},
-      {id:"vf4",txt:"Se puede tener más de un elif en la misma estructura condicional.",correcta:true},
-    ],
-    completar:{banco:["if","else","elif","==","!=","True","False","input"],preguntas:[
-      {id:"c1",pre:"La palabra clave para una condición alternativa en Python es",post:".",correcta:"elif"},
-      {id:"c2",pre:"El operador para comparar si dos valores son iguales es",post:".",correcta:"=="},
-      {id:"c3",pre:"El bloque",post:"se ejecuta cuando ninguna condición anterior fue verdadera.",correcta:"else"},
-    ]},
-    desarrollo:[{id:"d1",pts:5,txt:"Escribe un programa Python que pida una nota (0-100) y la clasifique: 90-100 Excelente, 80-89 Muy bien, 70-79 Bien, 60-69 Aprobado, 0-59 Reprobado."}],
-  }
 };
 
 const EXAMENES_PROG4={
@@ -237,27 +177,30 @@ const EXAMENES_PROG4={
 };
 
 const EXAMENES_COMP5={
-
-
-  final:{titulo:"Examen Parcial U II — Computación 5to. Bachillerato",subtitulo:"CONTAR.SI, SUMAR.SI y BUSCARV",tiempo:40*60,
-    multiple:[
-      {id:"m1",txt:"¿Qué hace CONTAR.SI?",opts:["Suma celdas que cumplen una condición","Cuenta celdas que cumplen una condición","Busca un valor en una columna","Muestra el máximo de un rango"],correcta:1},
-      {id:"m2",txt:"¿Cuál es la sintaxis correcta de SUMAR.SI?",opts:["=SUMAR.SI(rango;criterio)","=SUMAR.SI(rango;criterio;rango_suma)","=SUMAR.SI(criterio;rango_suma)","=SUMAR.SI(rango_suma;criterio;rango)"],correcta:1},
-      {id:"m3",txt:"¿Qué hace el 4to argumento de BUSCARV cuando vale 0 (FALSO)?",opts:["Busca coincidencia aproximada","Busca coincidencia exacta","Ignora el resultado","Muestra error si no hay datos"],correcta:1},
-      {id:"m4",txt:"=CONTAR.SI(A1:A10,\"Aprobado\") — ¿qué cuenta?",opts:["Todas las celdas en A1:A10","Solo celdas vacías","Las celdas que contienen exactamente Aprobado","Las celdas con números"],correcta:2},
-      {id:"m5",txt:"En BUSCARV, ¿qué representa el indicador de columna?",opts:["La fila donde buscar","La columna del valor a devolver","El rango de búsqueda","El criterio de búsqueda"],correcta:1},
+  parcial:{
+    tipo:"practico",
+    titulo:"Mini Parcial Práctico — Excel Avanzado · Unidad II",
+    subtitulo:"CONTAR.SI.CONJUNTO · SUMAR.SI · SUMAR.SI.CONJUNTO · BUSCARV",
+    programa:"Microsoft Excel",
+    entregable:"Mini Parcial U.II — Excel Avanzado",
+    tiempo:40*60,
+    tabla:{
+      titulo:"📋 Archivos que debes crear y entregar",
+      headers:["#","Archivo","Descripción","Puntos"],
+      rows:[
+        ["1","parcial_ej1.xlsx","Inventario de tienda — CONTAR.SI.CONJUNTO con 2 y 3 condiciones","25 pts"],
+        ["2","parcial_ej2.xlsx","Planilla de empleados — SUMAR.SI y SUMAR.SI.CONJUNTO","25 pts"],
+        ["3","parcial_ej3.xlsx","Catálogo de cursos — BUSCARV + SI.ERROR","25 pts"],
+        ["4","parcial_ej4.xlsx","Registro de ventas — Integrador con las 3 funciones","25 pts"],
+      ]
+    },
+    incisos:[
+      {id:"i1",pts:25,letra:"a",txt:"Crea parcial_ej1.xlsx — Ingresa la tabla de inventario (Producto, Categoría, Proveedor, Stock, Estado) con 8 filas de datos. Luego en columna G crea 5 consultas con CONTAR.SI.CONJUNTO: a) Útiles disponibles b) Tecnología con bajo stock c) Proveedora B disponibles d) Stock > 10 y Disponible e) Útiles + Proveedora A + Disponible (3 condiciones)."},
+      {id:"i2",pts:25,letra:"b",txt:"Crea parcial_ej2.xlsx — Ingresa la tabla de empleados (Nombre, Depto, Puesto, Sueldo, Estado) con 8 filas. En columna G crea el resumen: total de sueldos por cada depto (Ventas, Admin, Bodega) con SUMAR.SI; total de Ventas solo Activos con SUMAR.SI.CONJUNTO; total de Activos con sueldo > Q4,000 con SUMAR.SI.CONJUNTO. Aplica formato Moneda (Q) a todos los resultados."},
+      {id:"i3",pts:25,letra:"c",txt:"Crea parcial_ej3.xlsx — Ingresa la tabla catálogo (Código, Curso, Costo, Duración) con 6 filas. En columna F crea consultas con BUSCARV: nombre del curso C03, costo de C06, duración de C01, costo de C04. Para el código C99 (inexistente) usa SI.ERROR con BUSCARV para mostrar 'Curso no registrado'. En F8 calcula el costo de 3 cursos C02 usando BUSCARV (no escribas el precio a mano). Aplica formato Moneda (Q) a los costos."},
+      {id:"i4",pts:25,letra:"d",txt:"Crea parcial_ej4.xlsx — Ingresa la tabla de ventas (Vendedor, Región, Producto, Cantidad, Total, Mes) con 8 filas. En una zona aparte crea el resumen completo: con CONTAR.SI.CONJUNTO cuenta ventas de Sofía en Norte, ventas de Laptop en Enero, y ventas de Marcos con cantidad > 10; con SUMAR.SI suma el total de Sofía y el total de Diego; con SUMAR.SI.CONJUNTO suma Laptop en Sur y Febrero en Norte; crea tabla auxiliar (Vendedor/Meta) y usa BUSCARV para traer la meta de Marcos y Diego. Aplica formato Moneda (Q) a todos los totales."},
     ],
-    vf:[
-      {id:"vf1",txt:"CONTAR.SI puede contar celdas que cumplan una condición de texto.",correcta:true},
-      {id:"vf2",txt:"BUSCARV busca el valor en la última columna del rango.",correcta:false},
-      {id:"vf3",txt:"SUMAR.SI.CONJUNTO puede aplicar múltiples criterios de suma.",correcta:true},
-      {id:"vf4",txt:"Si BUSCARV no encuentra el valor buscado, siempre muestra 0.",correcta:false},
-    ],
-    completar:{banco:["BUSCARV","CONTAR.SI","SUMAR.SI","criterio","rango","columna","exacta"],preguntas:[
-      {id:"c1",pre:"La función que suma celdas que cumplen una condición es",post:".",correcta:"SUMAR.SI"},
-      {id:"c2",pre:"La función que busca un valor y devuelve el dato de otra columna es",post:".",correcta:"BUSCARV"},
-    ]},desarrollo:[],
-  }
+  },
 };
 
 const EXAMENES_MAD1={
@@ -525,7 +468,7 @@ function PanelMaestro({onSalir}){
   if(detalle)return(<div style={{minHeight:"100vh",background:"#0d1117",color:"#fff"}}><div style={{background:"rgba(0,0,0,0.5)",borderBottom:"1px solid rgba(255,255,255,0.1)",padding:"12px 24px",display:"flex",justifyContent:"space-between",alignItems:"center"}}><div style={{fontWeight:800,fontSize:16}}>📊 Panel del Catedrático</div><button onClick={onSalir} style={btn()}>← Salir</button></div><div style={{padding:"20px 24px"}}><DetalleRespuesta r={detalle} onBack={()=>setDetalle(null)}/></div></div>);
   
   // Exámenes disponibles por curso incluyendo parcial_u2
-  const getTipos = (cid) => (cid==="mad1"||cid==="prog4")?["parcial","parcial_u2","final"]:["parcial","final"];
+  const getTipos = (cid) => (cid==="mad1"||cid==="prog4"||cid==="py5")?["parcial","parcial_u2","final"]:["parcial","final"];
   const getTipoLabel = (tipo) => tipo==="parcial"?"📝 Parcial Unidad I":tipo==="parcial_u2"?"💻 Parcial Unidad II":"📋 Examen Final";
 
   return(
