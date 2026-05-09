@@ -27,7 +27,7 @@ const CURSOS=[
   {id:"lab1",label:"4to Bach — Laboratorio I",color:"#7b2ff7",bg:"rgba(123,47,247,0.15)",dark:"#3a006e"},
   {id:"prog4",label:"4to Perito — Programación C++",color:"#f7971e",bg:"rgba(247,151,30,0.15)",dark:"#7a4500"},
   {id:"py5",label:"5to Perito — Programación Python",color:"#f7ca18",bg:"rgba(247,202,24,0.15)",dark:"#7a6200"},
-  {id:"comp5",label:"5to Bach — Computación Aplicada",color:"#00a86b",bg:"rgba(0,168,107,0.15)",dark:"#005c3a"},
+  {id:"comp5",label:"5to Bach — Excel Avanzado",color:"#00a86b",bg:"rgba(0,168,107,0.15)",dark:"#005c3a"},
   {id:"mad1",label:"Madurez — Computación e Informática",color:"#ff6b9d",bg:"rgba(255,107,157,0.15)",dark:"#7a0035"},
 ];
 const getCurso=id=>CURSOS.find(c=>c.id===id);
@@ -212,33 +212,42 @@ const EXAMENES_PY5={
 };
 
 const EXAMENES_PROG4={
-  parcial:{titulo:"Parcial — Programación C++",subtitulo:"Variables, tipos de datos y operadores",tiempo:40*60,
+  parcial:{titulo:"Parcial — Programación C++ · Unidad II",subtitulo:"Condicionales: if / if-else / else if / switch",tiempo:40*60,
     multiple:[
-      {id:"m1",txt:"¿Qué es un IDE?",opts:["Un tipo de variable en C++","Un Entorno de Desarrollo Integrado","Un operador matemático especial","Una librería de C++"],correcta:1},
-      {id:"m2",txt:"¿Qué hace #include <iostream>?",opts:["Declara la función main","Incluye la librería para entrada y salida de datos","Termina el programa correctamente","Declara variables enteras"],correcta:1},
-      {id:"m3",txt:"¿Cuál es el resultado de: 10 % 3?",opts:["3","0","1","2"],correcta:2},
-      {id:"m4",txt:"¿Qué instrucción muestra texto en pantalla en C++?",opts:["cin >>","print()","cout <<","display()"],correcta:2},
-      {id:"m5",txt:"¿Qué tipo de dato usarías para guardar un número CON decimales?",opts:["int","string","bool","float"],correcta:3},
-      {id:"m6",txt:"¿Qué hace el operador += en C++?",opts:["Suma dos números y los muestra","Suma un valor a la variable y guarda el resultado en ella","Compara si dos valores son iguales","Declara una nueva variable"],correcta:1},
-      {id:"m7",txt:"Si x = 10, ¿cuál es el valor de x después de x -= 3?",opts:["13","30","3","7"],correcta:3},
-      {id:"m8",txt:"¿Qué hace x++ en C++?",opts:["Multiplica x por x","Muestra x en pantalla","Incrementa x en 1","Decrementa x en 1"],correcta:2},
+      {id:"m1",txt:"¿Cuál es la sintaxis correcta de un if en C++?",opts:["if x > 0:","if (x > 0) {","if x > 0 then {","if: (x > 0)"],correcta:1},
+      {id:"m2",txt:"¿Qué sucede si la condición del if es FALSA y no existe un else?",opts:["El programa termina","Se ejecuta el bloque if igual","El programa continúa con la siguiente instrucción","Muestra un error"],correcta:2},
+      {id:"m3",txt:"¿Cuál es el resultado de este código si nota = 75?\nif (nota >= 60) cout << 'Aprobado'; else cout << 'Reprobado';",opts:["Reprobado","Aprobado","75","Error de compilación"],correcta:1},
+      {id:"m4",txt:"¿Para qué sirve else if en C++?",opts:["Para terminar el bloque if","Para agregar una condición alternativa cuando la anterior es falsa","Para repetir el bloque if","Para comparar cadenas de texto"],correcta:1},
+      {id:"m5",txt:"¿Cuál de estos operadores significa 'diferente de' en C++?",opts:["==",">=","!=","<="],correcta:2},
+      {id:"m6",txt:"¿Cuántos bloques else puede tener una estructura if en C++?",opts:["Ninguno — else es opcional en C++","Máximo 2","Solo 1 — else siempre va al final","Tantos como quieras"],correcta:2},
+      {id:"m7",txt:"¿Qué hace la palabra break dentro de un case en switch?",opts:["Reinicia el switch desde el principio","Sale del switch y continúa con el resto del programa","Termina todo el programa","Pasa al siguiente case automáticamente"],correcta:1},
+      {id:"m8",txt:"¿Qué estructura es más adecuada para clasificar el día de la semana según un número del 1 al 7?",opts:["if simple","if / else","else if en cadena","switch"],correcta:3},
+      {id:"m9",txt:"¿Cuál de estas condiciones es verdadera cuando x = 10 e y = 5?",opts:["x < y","x == y","x > y && y > 0","x != 10 || y == 5"],correcta:2},
+      {id:"m10",txt:"¿Qué muestra este código si mes = 3?\nswitch(mes){ case 1: cout<<'Enero'; break; case 2: cout<<'Febrero'; break; case 3: cout<<'Marzo'; break; default: cout<<'Otro'; }",opts:["Enero","Febrero","Marzo","Otro"],correcta:2},
     ],
     vf:[
-      {id:"vf1",txt:"El operador % (módulo) devuelve el cociente de una división.",correcta:false},
-      {id:"vf2",txt:"La función main() es donde inicia la ejecución de todo programa en C++.",correcta:true},
-      {id:"vf3",txt:"using namespace std; permite usar cout y cin sin escribir std:: antes.",correcta:true},
-      {id:"vf4",txt:"Para guardar el nombre de una persona usaríamos el tipo de dato int.",correcta:false},
-      {id:"vf5",txt:"Toda instrucción en C++ debe terminar con punto y coma (;).",correcta:true},
-      {id:"vf6",txt:"x *= 2 es equivalente a escribir x = x * 2.",correcta:true},
+      {id:"vf1",txt:"En C++, el cuerpo del if debe ir entre llaves { } si tiene más de una instrucción.",correcta:true},
+      {id:"vf2",txt:"El operador = y el operador == hacen lo mismo en C++.",correcta:false},
+      {id:"vf3",txt:"Se puede tener más de un else if en la misma estructura condicional.",correcta:true},
+      {id:"vf4",txt:"El bloque default en un switch es obligatorio.",correcta:false},
+      {id:"vf5",txt:"else if se puede usar sin un if previo en C++.",correcta:false},
+      {id:"vf6",txt:"Si se omite el break en un case, el código cae al siguiente case y lo ejecuta también.",correcta:true},
+      {id:"vf7",txt:"El operador && significa que AMBAS condiciones deben ser verdaderas.",correcta:true},
+      {id:"vf8",txt:"Una estructura switch puede comparar rangos de valores como >= o <=.",correcta:false},
     ],
-    completar:{banco:["cout","cin","int","float","return 0","main","iostream","endl"],preguntas:[
-      {id:"c1",pre:"La librería",post:"se incluye para poder usar cout y cin en C++.",correcta:"iostream"},
-      {id:"c2",pre:"Usamos",post:"para mostrar información en pantalla.",correcta:"cout"},
-      {id:"c3",pre:"Para leer datos del teclado usamos",post:".",correcta:"cin"},
-      {id:"c4",pre:"El tipo de dato",post:"se usa para números enteros.",correcta:"int"},
-      {id:"c5",pre:"La función",post:"() es el punto de inicio de todo programa en C++.",correcta:"main"},
+    completar:{banco:["if","else","else if","switch","break","default","==","!=","&&","||"],preguntas:[
+      {id:"c1",pre:"Para agregar una condición alternativa en C++ usamos",post:".",correcta:"else if"},
+      {id:"c2",pre:"El operador para comparar si dos valores son iguales en C++ es",post:".",correcta:"=="},
+      {id:"c3",pre:"El bloque",post:"se ejecuta cuando ninguna condición anterior fue verdadera.",correcta:"else"},
+      {id:"c4",pre:"En un switch, la instrucción",post:"evita que el código continúe ejecutando los siguientes cases.",correcta:"break"},
+      {id:"c5",pre:"El",post:"es el case especial que se ejecuta cuando ningún valor coincide en el switch.",correcta:"default"},
+      {id:"c6",pre:"El operador",post:"significa 'diferente de' en C++.",correcta:"!="},
+      {id:"c7",pre:"Para verificar que DOS condiciones se cumplan al mismo tiempo usamos el operador",post:".",correcta:"&&"},
     ]},
-    desarrollo:[{id:"d1",pts:5,txt:"Escribe un programa C++ que pida nombre y edad al usuario y muestre: ¡Hola, [nombre]! Tienes [edad] años."}],
+    desarrollo:[
+      {id:"d1",pts:3,txt:"Escribe un programa en C++ que pida una nota del 0 al 100 y la clasifique: 90-100 Excelente, 80-89 Muy bien, 70-79 Bien, 60-69 Aprobado, 0-59 Reprobado. Usa if / else if / else."},
+      {id:"d2",pts:2,txt:"Explica con tus palabras la diferencia entre usar if/else if y usar switch. ¿Cuándo conviene usar cada uno?"},
+    ],
   },
   final:{titulo:"Examen Final — Programación C++",subtitulo:"Condicionales if / else / else if",tiempo:40*60,
     multiple:[
@@ -264,24 +273,31 @@ const EXAMENES_PROG4={
 };
 
 const EXAMENES_COMP5={
-  parcial:{titulo:"Parcial — Computación Aplicada",subtitulo:"Función SI y SI anidado en Excel",tiempo:40*60,
+  parcial:{titulo:"Mini Parcial — Excel Avanzado",subtitulo:"Unidad II · CONTAR.SI.CONJUNTO · SUMAR.SI · BUSCARV",tiempo:40*60,
     multiple:[
-      {id:"m1",txt:"¿Cuál es la sintaxis correcta de la función SI en Excel?",opts:["=SI(condición, v_verdadero, v_falso)","=SI(condición; v_verdadero; v_falso)","=SI[condición; v_verdadero; v_falso]","=SI{condición; v_verdadero; v_falso}"],correcta:1},
-      {id:"m2",txt:"¿Qué resultado da si A1=55? =SI(A1>=60;\"Aprobado\";\"Reprobado\")",opts:["Aprobado","Reprobado","55","Error"],correcta:1},
-      {id:"m3",txt:"¿Por qué en un SI anidado debes empezar por la condición MÁS ALTA?",opts:["Porque Excel lee de derecha a izquierda","Porque Excel se detiene en la primera condición verdadera","Porque las altas tienen más prioridad","No importa el orden"],correcta:1},
-      {id:"m4",txt:"¿Cuántos paréntesis de cierre necesita un SI anidado con 3 niveles?",opts:["1","2","3","4"],correcta:2},
-      {id:"m5",txt:"¿Qué operador verifica si un salario es DIFERENTE de Q5,000?",opts:["=",">=","<>","<="],correcta:2},
+      {id:"m1",txt:"¿Cuál es la diferencia principal entre CONTAR.SI y CONTAR.SI.CONJUNTO?",opts:["CONTAR.SI suma valores; CONTAR.SI.CONJUNTO los cuenta","CONTAR.SI acepta solo una condición; CONTAR.SI.CONJUNTO acepta dos o más","CONTAR.SI trabaja con texto; CONTAR.SI.CONJUNTO con números","No hay diferencia, son la misma función"],correcta:1},
+      {id:"m2",txt:"¿Cuál es la sintaxis correcta de SUMAR.SI?",opts:["=SUMAR.SI(criterio;rango;rango_suma)","=SUMAR.SI(rango_suma;rango;criterio)","=SUMAR.SI(rango;criterio;rango_suma)","=SUMAR.SI(rango;rango_suma;criterio)"],correcta:2},
+      {id:"m3",txt:"En SUMAR.SI.CONJUNTO, ¿en qué posición va el rango de suma?",opts:["Al final, después de todos los criterios","En el segundo argumento","Al inicio, antes de los rangos de criterio","No importa la posición"],correcta:2},
+      {id:"m4",txt:"=BUSCARV(\"P003\";A2:D7;3;0) — ¿qué devuelve este BUSCARV?",opts:["El valor de la columna A donde encuentra P003","El valor de la 3ª columna de la tabla A2:D7 en la fila donde encuentra P003","El valor de la celda D7","El código P003 repetido"],correcta:1},
+      {id:"m5",txt:"¿Qué error muestra BUSCARV si el valor buscado no existe en la tabla?",opts:["#¡VALOR!","#DIV/0!","#N/A","#¿NOMBRE?"],correcta:2},
+      {id:"m6",txt:"¿Cuál fórmula cuenta cuántas ventas hizo Ana en categoría Útiles? (Datos en A2:A9 y C2:C9)",opts:["=CONTAR.SI(A2:A9;\"Ana\")","=CONTAR.SI.CONJUNTO(A2:A9;\"Ana\";C2:C9;\"Útiles\")","=SUMAR.SI(A2:A9;\"Ana\";C2:C9)","=BUSCARV(\"Ana\";A2:C9;2;0)"],correcta:1},
+      {id:"m7",txt:"Para evitar que BUSCARV muestre un error cuando no encuentra el valor, ¿qué función se combina con él?",opts:["SI","SI.ERROR","CONTAR.SI","SUMAR.SI"],correcta:1},
+      {id:"m8",txt:"=CONTAR.SI.CONJUNTO(C2:C9;\"Tecnología\";D2:D9;\">3\") — ¿qué cuenta esta fórmula?",opts:["El total de ventas de Tecnología","Las ventas de Tecnología cuya cantidad es mayor a 3","Las celdas con valor mayor a 3 en D2:D9","Las celdas de C que dicen Tecnología solamente"],correcta:1},
     ],
     vf:[
-      {id:"vf1",txt:"La función SI puede devolver tanto texto como números.",correcta:true},
-      {id:"vf2",txt:"En Excel español los argumentos de SI se separan con punto y coma (;).",correcta:true},
-      {id:"vf3",txt:"El orden de condiciones en un SI anidado no afecta el resultado.",correcta:false},
-      {id:"vf4",txt:"Un SI anidado con 4 niveles necesita 4 paréntesis de cierre.",correcta:true},
+      {id:"vf1",txt:"SUMAR.SI puede trabajar con más de una condición de criterio.",correcta:false},
+      {id:"vf2",txt:"En SUMAR.SI.CONJUNTO el rango de suma va en el primer argumento.",correcta:true},
+      {id:"vf3",txt:"BUSCARV busca el valor en la primera columna del rango de tabla que le indicamos.",correcta:true},
+      {id:"vf4",txt:"El cuarto argumento de BUSCARV debe ser 0 para obtener una coincidencia exacta.",correcta:true},
+      {id:"vf5",txt:"CONTAR.SI.CONJUNTO puede recibir hasta un máximo de 2 condiciones.",correcta:false},
+      {id:"vf6",txt:"=SI.ERROR(BUSCARV(...);\"No encontrado\") evita que aparezca el error #N/A.",correcta:true},
     ],
-    completar:{banco:["SI","punto y coma","comillas","anidado","condición","VERDADERO","FALSO"],preguntas:[
-      {id:"c1",pre:"En Excel español, los argumentos de SI se separan con",post:".",correcta:"punto y coma"},
-      {id:"c2",pre:"Cuando un SI está dentro de otro SI se llama SI",post:".",correcta:"anidado"},
-      {id:"c3",pre:"Los textos en una función SI deben ir entre",post:".",correcta:"comillas"},
+    completar:{banco:["CONTAR.SI.CONJUNTO","SUMAR.SI.CONJUNTO","BUSCARV","rango_suma","#N/A","exacta","primera","SI.ERROR"],preguntas:[
+      {id:"c1",pre:"La función",post:"cuenta celdas que cumplen dos o más condiciones al mismo tiempo.",correcta:"CONTAR.SI.CONJUNTO"},
+      {id:"c2",pre:"En SUMAR.SI.CONJUNTO el argumento",post:"va en la primera posición de la función.",correcta:"rango_suma"},
+      {id:"c3",pre:"La función",post:"busca un valor en la primera columna de una tabla y devuelve el dato de otra columna.",correcta:"BUSCARV"},
+      {id:"c4",pre:"Cuando BUSCARV no encuentra el valor buscado muestra el error",post:".",correcta:"#N/A"},
+      {id:"c5",pre:"Para evitar errores en BUSCARV se usa la función",post:".",correcta:"SI.ERROR"},
     ]},desarrollo:[],
   },
   final:{titulo:"Examen Final — Computación Aplicada",subtitulo:"CONTAR.SI, SUMAR.SI y BUSCARV",tiempo:40*60,
@@ -305,6 +321,9 @@ const EXAMENES_COMP5={
   }
 };
 
+// ══════════════════════════════════════════════════════
+// MADUREZ — PARCIAL UNIDAD II · Función SI + SUMA
+// ══════════════════════════════════════════════════════
 const EXAMENES_MAD1={
   parcial:{titulo:"Parcial — Computación e Informática",subtitulo:"TIC, Hardware, Software y Excel básico",tiempo:40*60,
     multiple:[
@@ -332,6 +351,51 @@ const EXAMENES_MAD1={
       {id:"c4",pre:"La intersección entre una fila y una columna en Excel se llama",post:".",correcta:"celda"},
     ]},desarrollo:[],
   },
+
+  // ── NUEVO: Parcial Unidad II — Función SI + SUMA ──
+  parcial_u2:{
+    titulo:"Parcial — Computación e Informática · Unidad II",
+    subtitulo:"Función SI y SUMA en Excel",
+    tiempo:40*60,
+    multiple:[
+      {id:"m1",txt:"¿Cuál es la sintaxis correcta de la función SUMA para sumar las celdas B2 hasta B8?",opts:["=SUMA(B2,B8)","=SUMA(B2;B8)","=SUMA(B2:B8)","=SUMA(B2+B8)"],correcta:2},
+      {id:"m2",txt:"¿Cuántos argumentos obligatorios tiene siempre la función SI?",opts:["1","2","3","4"],correcta:2},
+      {id:"m3",txt:"¿Qué muestra la siguiente función si el valor en B3 es 45?\n=SI(B3>=60, \"APROBADO\", \"REPROBADO\")",opts:["APROBADO","REPROBADO","45","Error"],correcta:1},
+      {id:"m4",txt:"¿Cuál de estas funciones SUMA es correcta?",opts:["=SUMA(A1-A5)","=SUMA(A1:A5)","=SUMA(A1,A5)","=SUMA A1:A5"],correcta:1},
+      {id:"m5",txt:"En la función =SI(C2>100, \"Alto\", \"Normal\"), ¿qué parte es la prueba lógica?",opts:["\"Alto\"","\"Normal\"","C2>100","SI"],correcta:2},
+      {id:"m6",txt:"¿Qué error aparece si escribes =SI(B2>=60, APROBADO, REPROBADO) sin comillas en el texto?",opts:["#DIV/0!","#¿NOMBRE?","#N/A","#¡VALOR!"],correcta:1},
+      {id:"m7",txt:"¿Cuál de estas fórmulas suma correctamente tres celdas separadas?",opts:["=SUMA(A1:A3)","=SUMA(A1,B1,C1)","=A1+B1+C1","Tanto B como C son correctas"],correcta:3},
+      {id:"m8",txt:"¿Qué devuelve =SI(5>10, \"Mayor\", \"Menor\")?",opts:["Mayor","Menor","5","Error"],correcta:1},
+      {id:"m9",txt:"¿Para qué sirve el tercer argumento de la función SI?",opts:["Es la condición que se evalúa","Es lo que muestra si la condición ES verdadera","Es lo que muestra si la condición NO es verdadera","Es el rango de celdas a evaluar"],correcta:2},
+      {id:"m10",txt:"¿Cuál es la diferencia entre =SUMA(B2:B6) y =B2+B3+B4+B5+B6?",opts:["SUMA solo funciona con números, la otra con texto también","SUMA da resultados diferentes","Ambas dan el mismo resultado, pero SUMA es más eficiente para rangos grandes","Solo SUMA puede usarse en Excel"],correcta:2},
+    ],
+    vf:[
+      {id:"vf1",txt:"La función SUMA puede sumar celdas que no son contiguas, por ejemplo =SUMA(A1,C3,E5).",correcta:true},
+      {id:"vf2",txt:"El texto dentro de la función SI debe ir entre comillas dobles.",correcta:true},
+      {id:"vf3",txt:"=SUMA(B2:B2) suma todos los valores desde B2 hasta el final de la columna.",correcta:false},
+      {id:"vf4",txt:"Una función SI puede mostrar texto, números o el resultado de otra fórmula.",correcta:true},
+      {id:"vf5",txt:"El segundo argumento de SI se ejecuta cuando la condición es FALSA.",correcta:false},
+      {id:"vf6",txt:"=SI(A1=0, \"Cero\", \"Diferente\") es una función SI correctamente escrita.",correcta:true},
+      {id:"vf7",txt:"La función SUMA ignora las celdas vacías dentro del rango.",correcta:true},
+      {id:"vf8",txt:"Si omites el tercer argumento de SI y la condición es falsa, Excel muestra FALSO.",correcta:true},
+    ],
+    completar:{
+      banco:["SUMA","SI","prueba lógica","verdadero","falso","comillas","rango","igual"],
+      preguntas:[
+        {id:"c1",pre:"La función",post:"en Excel suma automáticamente todos los valores de un rango de celdas.",correcta:"SUMA"},
+        {id:"c2",pre:"La función",post:"evalúa una condición y devuelve un valor distinto según si es verdadera o falsa.",correcta:"SI"},
+        {id:"c3",pre:"El primer argumento de la función SI se llama",post:"y es la condición que Excel evalúa.",correcta:"prueba lógica"},
+        {id:"c4",pre:"El texto dentro de la función SI siempre debe ir entre",post:"dobles (\"\").",correcta:"comillas"},
+        {id:"c5",pre:"El segundo argumento de SI es el valor que se muestra cuando la condición es",post:".",correcta:"verdadero"},
+        {id:"c6",pre:"El símbolo : en =SUMA(B2:B8) indica que se suman todas las celdas de ese",post:".",correcta:"rango"},
+      ]
+    },
+    desarrollo:[
+      {id:"d1",pts:3,txt:"Explica con tus propias palabras para qué sirve la función SI en Excel. Da un ejemplo real de la vida cotidiana donde se podría usar (no uses el ejemplo de notas)."},
+      {id:"d2",pts:2,txt:"Escribe la función SI que usarías en la celda C2 para mostrar 'Buena venta' si el total en B2 supera Q 500.00, o 'Venta baja' si no. Explica cada parte de tu respuesta."},
+    ],
+  },
+
   final:{titulo:"Examen Final — Computación e Informática",subtitulo:"Repaso general del ciclo",tiempo:40*60,
     multiple:[
       {id:"m1",txt:"¿Cuál de estos es un ejemplo de SOFTWARE?",opts:["La impresora","El disco duro","La memoria RAM","El sistema operativo Windows"],correcta:3},
@@ -450,6 +514,17 @@ function PanelMaestro({onSalir}){
   const toggleExamen=async(cursoId,tipo)=>{const key=`${cursoId}_${tipo}`;const nuevo={...estado,[key]:!(estado[key]||false)};setGuardando(true);await guardarEstado(nuevo);setEstado(nuevo);setGuardando(false);};
   const filtradas=respuestas.filter(r=>(filtroC==="todos"||r.cursoId===filtroC)&&(filtroT==="todos"||r.tipoExamen===filtroT));
   if(detalle)return(<div style={{minHeight:"100vh",background:"#0d1117",color:"#fff"}}><div style={{background:"rgba(0,0,0,0.5)",borderBottom:"1px solid rgba(255,255,255,0.1)",padding:"12px 24px",display:"flex",justifyContent:"space-between",alignItems:"center"}}><div style={{fontWeight:800,fontSize:16}}>📊 Panel del Catedrático</div><button onClick={onSalir} style={btn()}>← Salir</button></div><div style={{padding:"20px 24px"}}><DetalleRespuesta r={detalle} onBack={()=>setDetalle(null)}/></div></div>);
+
+  const getTipos=(cid)=>{
+    if(cid==="mad1") return ["parcial","parcial_u2","final"];
+    return ["parcial","final"];
+  };
+  const getTipoLabel=(tipo)=>{
+    if(tipo==="parcial") return "📝 Parcial Unidad I";
+    if(tipo==="parcial_u2") return "📝 Parcial Unidad II";
+    return "📋 Examen Final";
+  };
+
   return(
     <div style={{minHeight:"100vh",background:"#0d1117",color:"#fff"}}>
       <div style={{background:"rgba(0,0,0,0.5)",borderBottom:"1px solid rgba(255,255,255,0.1)",padding:"12px 24px",display:"flex",justifyContent:"space-between",alignItems:"center"}}>
@@ -463,10 +538,10 @@ function PanelMaestro({onSalir}){
             {CURSOS.map(c=>(
               <div key={c.id} style={{background:"rgba(255,255,255,0.03)",border:"1px solid rgba(255,255,255,0.08)",borderRadius:10,padding:12}}>
                 <div style={{fontSize:12,fontWeight:700,color:c.color,marginBottom:8}}>{c.label}</div>
-                {["parcial","final"].map(tipo=>{
+                {getTipos(c.id).map(tipo=>{
                   const activo=estado[`${c.id}_${tipo}`]||false;const examen=EXAM_MAP[c.id]?.[tipo];
                   return(<div key={tipo} style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:6}}>
-                    <div><div style={{fontSize:12,color:activo?"#fff":"rgba(255,255,255,0.5)"}}>{tipo==="parcial"?"📝 Parcial":"📋 Examen Final"}</div><div style={{fontSize:10,color:"rgba(255,255,255,0.3)"}}>{examen?.subtitulo||"—"}</div></div>
+                    <div><div style={{fontSize:12,color:activo?"#fff":"rgba(255,255,255,0.5)"}}>{getTipoLabel(tipo)}</div><div style={{fontSize:10,color:"rgba(255,255,255,0.3)"}}>{examen?.subtitulo||"—"}</div></div>
                     <button onClick={()=>toggleExamen(c.id,tipo)} style={{background:activo?"rgba(0,255,136,0.2)":"rgba(255,255,255,0.08)",border:activo?"1px solid #00ff88":"1px solid rgba(255,255,255,0.15)",borderRadius:20,padding:"4px 12px",color:activo?"#00ff88":"rgba(255,255,255,0.5)",cursor:"pointer",fontSize:12,fontWeight:700,minWidth:80}}>
                       {activo?"🟢 Activo":"⚫ Cerrado"}
                     </button>
@@ -477,14 +552,14 @@ function PanelMaestro({onSalir}){
           </div>
         </div>
         <div style={{display:"grid",gridTemplateColumns:"repeat(4,1fr)",gap:10,marginBottom:16}}>
-          {[{label:"Total enviados",val:respuestas.length,color:"#00d4ff"},{label:"Parciales",val:respuestas.filter(r=>r.tipoExamen==="parcial").length,color:"#a78bff"},{label:"Finales",val:respuestas.filter(r=>r.tipoExamen==="final").length,color:"#00ff88"},{label:"Exámenes activos",val:Object.values(estado).filter(Boolean).length,color:"#ffaa00"}].map(s=>(<div key={s.label} style={{background:"rgba(255,255,255,0.04)",border:"1px solid rgba(255,255,255,0.08)",borderRadius:12,padding:"12px",textAlign:"center"}}><div style={{fontSize:20,fontWeight:800,color:s.color}}>{s.val}</div><div style={{fontSize:11,color:"rgba(255,255,255,0.4)",marginTop:3}}>{s.label}</div></div>))}
+          {[{label:"Total enviados",val:respuestas.length,color:"#00d4ff"},{label:"Parciales U.I",val:respuestas.filter(r=>r.tipoExamen==="parcial").length,color:"#a78bff"},{label:"Parciales U.II",val:respuestas.filter(r=>r.tipoExamen==="parcial_u2").length,color:"#ff6b9d"},{label:"Finales",val:respuestas.filter(r=>r.tipoExamen==="final").length,color:"#00ff88"}].map(s=>(<div key={s.label} style={{background:"rgba(255,255,255,0.04)",border:"1px solid rgba(255,255,255,0.08)",borderRadius:12,padding:"12px",textAlign:"center"}}><div style={{fontSize:20,fontWeight:800,color:s.color}}>{s.val}</div><div style={{fontSize:11,color:"rgba(255,255,255,0.4)",marginTop:3}}>{s.label}</div></div>))}
         </div>
         <div style={{display:"flex",gap:8,marginBottom:10,flexWrap:"wrap"}}>
           <button onClick={()=>setFiltroC("todos")} style={{background:filtroC==="todos"?"rgba(0,212,255,0.15)":"rgba(255,255,255,0.05)",border:filtroC==="todos"?"1px solid #00d4ff":"1px solid rgba(255,255,255,0.1)",borderRadius:20,padding:"6px 14px",color:filtroC==="todos"?"#00d4ff":"rgba(255,255,255,0.6)",cursor:"pointer",fontSize:12}}>Todos ({respuestas.length})</button>
           {CURSOS.map(c=><button key={c.id} onClick={()=>setFiltroC(c.id)} style={{background:filtroC===c.id?c.bg:"rgba(255,255,255,0.05)",border:filtroC===c.id?`1px solid ${c.color}`:"1px solid rgba(255,255,255,0.1)",borderRadius:20,padding:"6px 14px",color:filtroC===c.id?c.color:"rgba(255,255,255,0.6)",cursor:"pointer",fontSize:12}}>{c.label.split("—")[1]?.trim()||c.label} ({respuestas.filter(r=>r.cursoId===c.id).length})</button>)}
         </div>
         <div style={{display:"flex",gap:8,marginBottom:16}}>
-          {[["todos","Todos"],["parcial","📝 Parciales"],["final","📋 Finales"]].map(([v,l])=><button key={v} onClick={()=>setFiltroT(v)} style={{background:filtroT===v?"rgba(167,139,250,0.15)":"rgba(255,255,255,0.05)",border:filtroT===v?"1px solid #a78bff":"1px solid rgba(255,255,255,0.1)",borderRadius:20,padding:"5px 12px",color:filtroT===v?"#a78bff":"rgba(255,255,255,0.6)",cursor:"pointer",fontSize:12}}>{l}</button>)}
+          {[["todos","Todos"],["parcial","📝 Parciales U.I"],["parcial_u2","📝 Parciales U.II"],["final","📋 Finales"]].map(([v,l])=><button key={v} onClick={()=>setFiltroT(v)} style={{background:filtroT===v?"rgba(167,139,250,0.15)":"rgba(255,255,255,0.05)",border:filtroT===v?"1px solid #a78bff":"1px solid rgba(255,255,255,0.1)",borderRadius:20,padding:"5px 12px",color:filtroT===v?"#a78bff":"rgba(255,255,255,0.6)",cursor:"pointer",fontSize:12}}>{l}</button>)}
         </div>
         {cargando?<div style={{textAlign:"center",padding:40,color:"rgba(255,255,255,0.4)"}}>Cargando...</div>:filtradas.length===0?<div style={{textAlign:"center",padding:40,color:"rgba(255,255,255,0.3)"}}><div style={{fontSize:36,marginBottom:8}}>📭</div><div>No hay respuestas con estos filtros.</div></div>:(
           <div>
@@ -492,10 +567,13 @@ function PanelMaestro({onSalir}){
             {filtradas.map((r,i)=>{
               const c=getCurso(r.cursoId)||{color:"#aaa",label:r.curso||"—",bg:"rgba(255,255,255,0.08)"};
               const examen=EXAM_MAP[r.cursoId]?.[r.tipoExamen];const auto=calcAuto(r,examen);const max=maxAuto(examen);const pct=max>0?Math.round((auto/max)*100):0;
+              const tipoLabel=r.tipoExamen==="parcial"?"P. U.I":r.tipoExamen==="parcial_u2"?"P. U.II":"Final";
+              const tipoBg=r.tipoExamen==="parcial"?"rgba(167,139,250,0.15)":r.tipoExamen==="parcial_u2"?"rgba(255,107,157,0.15)":"rgba(0,255,136,0.1)";
+              const tipoColor=r.tipoExamen==="parcial"?"#a78bff":r.tipoExamen==="parcial_u2"?"#ff6b9d":"#00ff88";
               return(<div key={i} style={{background:"rgba(255,255,255,0.04)",border:"1px solid rgba(255,255,255,0.07)",borderRadius:10,padding:"10px 12px",display:"grid",gridTemplateColumns:"2fr 2fr 1fr 1fr 1fr 70px",gap:8,alignItems:"center",marginBottom:6}}>
                 <span style={{fontWeight:600,fontSize:13}}>{r.nombre||"—"}</span>
                 <span style={{fontSize:11,color:c.color,background:c.bg,borderRadius:6,padding:"2px 8px",overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{c.label.split("—")[1]?.trim()||c.label}</span>
-                <span style={{fontSize:11,background:r.tipoExamen==="parcial"?"rgba(167,139,250,0.15)":"rgba(0,255,136,0.1)",color:r.tipoExamen==="parcial"?"#a78bff":"#00ff88",borderRadius:6,padding:"2px 8px",textAlign:"center"}}>{r.tipoExamen==="parcial"?"Parcial":"Final"}</span>
+                <span style={{fontSize:11,background:tipoBg,color:tipoColor,borderRadius:6,padding:"2px 8px",textAlign:"center"}}>{tipoLabel}</span>
                 <span style={{fontSize:11,color:"rgba(255,255,255,0.4)"}}>{(r.fecha||"").split(",")[1]||(r.fecha||"")}</span>
                 <span style={{fontSize:13,fontWeight:700,color:pct>=70?"#00ff88":pct>=50?"#ffaa00":"#ff8080"}}>{auto}/{max}</span>
                 <button onClick={()=>setDetalle(r)} style={{...btn({padding:"5px 10px",fontSize:12}),color:"#00d4ff",borderColor:"rgba(0,212,255,0.3)",background:"rgba(0,212,255,0.1)"}}>Ver →</button>
@@ -511,15 +589,24 @@ function PanelMaestro({onSalir}){
 function Login({onStart}){
   const [nombre,setNombre]=useState("");const [cursoId,setCursoId]=useState("");const [pass,setPass]=useState("");const [modo,setModo]=useState("alumno");const [err,setErr]=useState("");const [estado,setEstado]=useState({});const [cargando,setCargando]=useState(true);
   useEffect(()=>{leerEstado().then(e=>{setEstado(e);setCargando(false);});},[]);
+
+  const TIPO_LABEL={parcial:"📝 Parcial Unidad I",parcial_u2:"📝 Parcial Unidad II",final:"📋 Examen Final"};
+
   const submit=()=>{
     if(modo==="maestro"){if(pass!==PASS_MAESTRO)return setErr("Contraseña incorrecta.");return onStart("__MAESTRO__","maestro","maestro");}
     if(!nombre.trim())return setErr("Escribe tu nombre completo.");
     if(!cursoId)return setErr("Selecciona tu curso.");
-    const tipo=estado[`${cursoId}_parcial`]?"parcial":estado[`${cursoId}_final`]?"final":null;
+    const tipos=["parcial","parcial_u2","final"];
+    const tipo=tipos.find(t=>estado[`${cursoId}_${t}`]);
     if(!tipo)return setErr("No hay ningún examen activo para tu curso en este momento.");
     setErr("");onStart(nombre.trim(),cursoId,tipo);
   };
-  const cursosConExamen=CURSOS.filter(c=>estado[`${c.id}_parcial`]||estado[`${c.id}_final`]);
+
+  const cursosConExamen=CURSOS.filter(c=>{
+    const tipos=["parcial","parcial_u2","final"];
+    return tipos.some(t=>estado[`${c.id}_${t}`]);
+  });
+
   return(
     <div style={{minHeight:"100vh",background:"linear-gradient(135deg,#0a0a1a,#0a1628)",display:"flex",alignItems:"center",justifyContent:"center",padding:20}}>
       <div style={{background:"rgba(255,255,255,0.05)",border:"1px solid rgba(255,255,255,0.1)",borderRadius:20,padding:"40px 36px",width:"100%",maxWidth:500,color:"#fff"}}>
@@ -530,7 +617,12 @@ function Login({onStart}){
           <div style={{marginBottom:12}}><label style={{fontSize:12,color:"rgba(255,255,255,0.6)",display:"block",marginBottom:6}}>Selecciona tu curso</label>
             {cargando?<div style={{fontSize:13,color:"rgba(255,255,255,0.4)",textAlign:"center",padding:12}}>Verificando exámenes disponibles...</div>
             :cursosConExamen.length===0?<div style={{background:"rgba(255,170,0,0.1)",border:"1px solid rgba(255,170,0,0.3)",borderRadius:10,padding:"12px 16px",fontSize:13,color:"#ffaa00",textAlign:"center"}}>⏳ No hay exámenes activos en este momento.<br/><span style={{fontSize:12,opacity:.7}}>Tu catedrático activará el examen cuando sea el momento.</span></div>
-            :<div style={{display:"flex",flexDirection:"column",gap:8}}>{cursosConExamen.map(c=>{const tipo=estado[`${c.id}_parcial`]?"parcial":"final";const examen=EXAM_MAP[c.id]?.[tipo];return(<button key={c.id} onClick={()=>setCursoId(c.id)} style={{background:cursoId===c.id?c.bg:"rgba(255,255,255,0.04)",border:`1px solid ${cursoId===c.id?c.color:"rgba(255,255,255,0.1)"}`,borderRadius:10,padding:"10px 16px",color:cursoId===c.id?c.color:"rgba(255,255,255,0.7)",cursor:"pointer",fontSize:13,textAlign:"left",fontWeight:cursoId===c.id?700:400,transition:"all .2s"}}><div>{c.label}</div><div style={{fontSize:11,opacity:.7,marginTop:2}}>{tipo==="parcial"?"📝 Parcial":"📋 Examen Final"} · {examen?.subtitulo}</div></button>);})}</div>}
+            :<div style={{display:"flex",flexDirection:"column",gap:8}}>{cursosConExamen.map(c=>{
+              const tipos=["parcial","parcial_u2","final"];
+              const tipo=tipos.find(t=>estado[`${c.id}_${t}`]);
+              const examen=EXAM_MAP[c.id]?.[tipo];
+              return(<button key={c.id} onClick={()=>setCursoId(c.id)} style={{background:cursoId===c.id?c.bg:"rgba(255,255,255,0.04)",border:`1px solid ${cursoId===c.id?c.color:"rgba(255,255,255,0.1)"}`,borderRadius:10,padding:"10px 16px",color:cursoId===c.id?c.color:"rgba(255,255,255,0.7)",cursor:"pointer",fontSize:13,textAlign:"left",fontWeight:cursoId===c.id?700:400,transition:"all .2s"}}><div>{c.label}</div><div style={{fontSize:11,opacity:.7,marginTop:2}}>{TIPO_LABEL[tipo]||tipo} · {examen?.subtitulo}</div></button>);
+            })}</div>}
           </div>
         </>):<div style={{marginBottom:18}}><label style={{fontSize:12,color:"rgba(255,255,255,0.6)",display:"block",marginBottom:6}}>Contraseña del catedrático</label><input type="password" value={pass} onChange={e=>setPass(e.target.value)} onKeyDown={e=>e.key==="Enter"&&submit()} placeholder="••••••••" style={{width:"100%",background:"rgba(255,255,255,0.08)",border:"1px solid rgba(255,255,255,0.15)",borderRadius:10,padding:"10px 14px",color:"#fff",fontSize:14,outline:"none"}}/></div>}
         {err&&<div style={{background:"rgba(255,80,80,0.15)",border:"1px solid rgba(255,80,80,0.3)",borderRadius:8,padding:"8px 12px",fontSize:12,color:"#ff8080",marginBottom:12}}>{err}</div>}
