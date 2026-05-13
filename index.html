@@ -7,9 +7,63 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.2/babel.min.js"></script>
-<script>
-  window.JSONBIN_KEY = "$2a$10$OB7oQ1plqhl6U1zTDwo6TuVzfJz5ReX4QSxwVz.dW01lNWPd4Br5K";
-  window.JSONBIN_BIN = "699fb9c4ae596e708f4ab394";
+<!-- Firebase -->
+<script type="module" id="firebase-init">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyDhRGuAQm41oDGE1h_TFFbPPAOmEDC84xQ",
+    authDomain: "plataformatareas-2e583.firebaseapp.com",
+    projectId: "plataformatareas-2e583",
+    storageBucket: "plataformatareas-2e583.firebasestorage.app",
+    messagingSenderId: "83443541395",
+    appId: "1:83443541395:web:e194544dec04913209f466"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  // Exponer funciones al scope global para que Babel/React las use
+  window._fbGuardarRespuesta = async (resp) => {
+    try {
+      const ref = doc(db, "portal", "datos");
+      const snap = await getDoc(ref);
+      const datos = snap.exists() ? snap.data() : { respuestas: [], estado: {} };
+      const arr = Array.isArray(datos.respuestas) ? datos.respuestas : [];
+      arr.push(resp);
+      await setDoc(ref, { ...datos, respuestas: arr });
+      return true;
+    } catch(e) { console.error("guardarRespuesta:", e); return false; }
+  };
+
+  window._fbLeerEstado = async () => {
+    try {
+      const snap = await getDoc(doc(db, "portal", "datos"));
+      if (!snap.exists()) return {};
+      return snap.data().estado || {};
+    } catch(e) { console.warn("leerEstado fallo:", e.message); return null; }
+  };
+
+  window._fbGuardarEstado = async (estado) => {
+    try {
+      const ref = doc(db, "portal", "datos");
+      const snap = await getDoc(ref);
+      const datos = snap.exists() ? snap.data() : { respuestas: [], estado: {} };
+      await setDoc(ref, { ...datos, estado });
+    } catch(e) { console.error("guardarEstado:", e); }
+  };
+
+  window._fbLeerRespuestas = async () => {
+    try {
+      const snap = await getDoc(doc(db, "portal", "datos"));
+      if (!snap.exists()) return [];
+      return snap.data().respuestas || [];
+    } catch(e) { console.warn("leerRespuestas fallo:", e.message); return []; }
+  };
+
+  window._firebaseReady = true;
+  window.dispatchEvent(new Event("firebaseReady"));
 </script>
 <style>
   *{margin:0;padding:0;box-sizing:border-box;}
@@ -268,15 +322,11 @@ function calcAuto(r,examen){
 }
 function maxAuto(examen){if(!examen)return 0;return examen.multiple.length+examen.vf.length+examen.completar.preguntas.length;}
 
-const JB_URL=()=>`https://api.jsonbin.io/v3/b/${window.JSONBIN_BIN}`;
-const JB_H=()=>({"Content-Type":"application/json","X-Master-Key":window.JSONBIN_KEY,"X-Bin-Versioning":"false"});
-function fetchConTimeout(url,opts={},ms=8000){const ctrl=new AbortController();const t=setTimeout(()=>ctrl.abort(),ms);return fetch(url,{...opts,signal:ctrl.signal}).finally(()=>clearTimeout(t));}
-async function jbGet(){const g=await fetchConTimeout(JB_URL(),{headers:JB_H()});if(!g.ok)throw new Error("JSONBin "+g.status);const d=await g.json();return d.record||{respuestas:[],estado:{}};}
-async function jbSet(data){const g=await fetchConTimeout(JB_URL(),{method:"PUT",headers:JB_H(),body:JSON.stringify(data)});if(!g.ok)throw new Error("JSONBin set "+g.status);}
-async function guardarRespuesta(resp){try{const d=await jbGet();const arr=Array.isArray(d.respuestas)?d.respuestas:[];arr.push(resp);await jbSet({...d,respuestas:arr});return true;}catch(e){console.error(e);return false;}}
-async function leerEstado(){try{const d=await jbGet();return d.estado||{};}catch(e){console.warn("leerEstado fallo:",e.message);return null;}}
-async function guardarEstado(estado){try{const d=await jbGet();await jbSet({...d,estado});}catch(e){console.error(e);}}
-async function leerRespuestas(){try{const d=await jbGet();return Array.isArray(d.respuestas)?d.respuestas:[];}catch(e){return[];}}
+// ── Firebase (reemplaza JSONBin) ──
+async function guardarRespuesta(resp){return await window._fbGuardarRespuesta(resp);}
+async function leerEstado(){return await window._fbLeerEstado();}
+async function guardarEstado(estado){return await window._fbGuardarEstado(estado);}
+async function leerRespuestas(){return await window._fbLeerRespuestas();}
 
 const btn=(e={})=>({background:"rgba(255,255,255,0.08)",border:"1px solid rgba(255,255,255,0.15)",borderRadius:10,padding:"9px 20px",color:"#fff",cursor:"pointer",fontSize:13,...e});
 const card={background:"rgba(255,255,255,0.04)",border:"1px solid rgba(255,255,255,0.07)",borderRadius:12,padding:16,marginBottom:12};
