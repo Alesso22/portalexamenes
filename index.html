@@ -270,10 +270,11 @@ function maxAuto(examen){if(!examen)return 0;return examen.multiple.length+exame
 
 const JB_URL=()=>`https://api.jsonbin.io/v3/b/${window.JSONBIN_BIN}`;
 const JB_H=()=>({"Content-Type":"application/json","X-Master-Key":window.JSONBIN_KEY,"X-Bin-Versioning":"false"});
-async function jbGet(){const g=await fetch(JB_URL(),{headers:JB_H()});const d=await g.json();return d.record||{respuestas:[],estado:{}};}
-async function jbSet(data){await fetch(JB_URL(),{method:"PUT",headers:JB_H(),body:JSON.stringify(data)});}
+function fetchConTimeout(url,opts={},ms=8000){const ctrl=new AbortController();const t=setTimeout(()=>ctrl.abort(),ms);return fetch(url,{...opts,signal:ctrl.signal}).finally(()=>clearTimeout(t));}
+async function jbGet(){const g=await fetchConTimeout(JB_URL(),{headers:JB_H()});if(!g.ok)throw new Error("JSONBin "+g.status);const d=await g.json();return d.record||{respuestas:[],estado:{}};}
+async function jbSet(data){const g=await fetchConTimeout(JB_URL(),{method:"PUT",headers:JB_H(),body:JSON.stringify(data)});if(!g.ok)throw new Error("JSONBin set "+g.status);}
 async function guardarRespuesta(resp){try{const d=await jbGet();const arr=Array.isArray(d.respuestas)?d.respuestas:[];arr.push(resp);await jbSet({...d,respuestas:arr});return true;}catch(e){console.error(e);return false;}}
-async function leerEstado(){try{const d=await jbGet();return d.estado||{};}catch(e){return{};}}
+async function leerEstado(){try{const d=await jbGet();return d.estado||{};}catch(e){console.warn("leerEstado fallo:",e.message);return null;}}
 async function guardarEstado(estado){try{const d=await jbGet();await jbSet({...d,estado});}catch(e){console.error(e);}}
 async function leerRespuestas(){try{const d=await jbGet();return Array.isArray(d.respuestas)?d.respuestas:[];}catch(e){return[];}}
 
@@ -533,8 +534,9 @@ function PanelMaestro({onSalir}){
 }
 
 function Login({onStart}){
-  const [nombre,setNombre]=useState("");const [cursoId,setCursoId]=useState("");const [pass,setPass]=useState("");const [modo,setModo]=useState("alumno");const [err,setErr]=useState("");const [estado,setEstado]=useState({});const [cargando,setCargando]=useState(true);
-  useEffect(()=>{leerEstado().then(e=>{setEstado(e);setCargando(false);});},[]);
+  const [nombre,setNombre]=useState("");const [cursoId,setCursoId]=useState("");const [pass,setPass]=useState("");const [modo,setModo]=useState("alumno");const [err,setErr]=useState("");const [estado,setEstado]=useState({});const [cargando,setCargando]=useState(true);const [errorConexion,setErrorConexion]=useState(false);
+  const cargarEstado=()=>{setCargando(true);setErrorConexion(false);leerEstado().then(e=>{if(e===null){setErrorConexion(true);setEstado({});}else{setEstado(e);}setCargando(false);}).catch(()=>{setErrorConexion(true);setEstado({});setCargando(false);});};
+  useEffect(()=>{cargarEstado();},[]);
 
   const TIPO_LABEL={parcial:"📝 Parcial U.I",parcial_u2:"📝 Parcial Unidad II",final:"📋 Examen Final"};
 
@@ -560,6 +562,7 @@ function Login({onStart}){
           <div style={{marginBottom:14}}><label style={{fontSize:12,color:"rgba(255,255,255,0.6)",display:"block",marginBottom:6}}>Nombre completo</label><input value={nombre} onChange={e=>setNombre(e.target.value)} placeholder="Ej: María García López" style={{width:"100%",background:"rgba(255,255,255,0.08)",border:"1px solid rgba(255,255,255,0.15)",borderRadius:10,padding:"10px 14px",color:"#fff",fontSize:14,outline:"none"}}/></div>
           <div style={{marginBottom:12}}><label style={{fontSize:12,color:"rgba(255,255,255,0.6)",display:"block",marginBottom:6}}>Selecciona tu curso</label>
             {cargando?<div style={{fontSize:13,color:"rgba(255,255,255,0.4)",textAlign:"center",padding:12}}>Verificando exámenes disponibles...</div>
+            :errorConexion?<div style={{background:"rgba(255,80,80,0.1)",border:"1px solid rgba(255,80,80,0.3)",borderRadius:10,padding:"12px 16px",fontSize:13,color:"#ff8080",textAlign:"center"}}><div style={{marginBottom:8}}>No se pudo conectar al servidor.</div><button onClick={cargarEstado} style={{background:"rgba(255,255,255,0.1)",border:"1px solid rgba(255,255,255,0.2)",borderRadius:8,padding:"6px 16px",color:"#fff",cursor:"pointer",fontSize:12,fontWeight:600}}>Reintentar</button></div>
             :cursosConExamen.length===0?<div style={{background:"rgba(255,170,0,0.1)",border:"1px solid rgba(255,170,0,0.3)",borderRadius:10,padding:"12px 16px",fontSize:13,color:"#ffaa00",textAlign:"center"}}>⏳ No hay exámenes activos en este momento.<br/><span style={{fontSize:12,opacity:.7}}>Tu catedrático activará el examen cuando sea el momento.</span></div>
             :<div style={{display:"flex",flexDirection:"column",gap:8}}>{cursosConExamen.map(c=>{
               const tipos=["parcial","parcial_u2","final"];
