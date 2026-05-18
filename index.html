@@ -7,11 +7,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.2/babel.min.js"></script>
-<!-- Firebase -->
 <script type="module" id="firebase-init">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
   import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-
   const firebaseConfig = {
     apiKey: "AIzaSyDhRGuAQm41oDGE1h_TFFbPPAOmEDC84xQ",
     authDomain: "plataformatareas-2e583.firebaseapp.com",
@@ -20,11 +18,8 @@
     messagingSenderId: "83443541395",
     appId: "1:83443541395:web:e194544dec04913209f466"
   };
-
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
-
-  // Exponer funciones al scope global para que Babel/React las use
   window._fbGuardarRespuesta = async (resp) => {
     try {
       const ref = doc(db, "portal", "datos");
@@ -36,7 +31,6 @@
       return true;
     } catch(e) { console.error("guardarRespuesta:", e); return false; }
   };
-
   window._fbLeerEstado = async () => {
     try {
       const snap = await getDoc(doc(db, "portal", "datos"));
@@ -44,7 +38,6 @@
       return snap.data().estado || {};
     } catch(e) { console.warn("leerEstado fallo:", e.message); return null; }
   };
-
   window._fbGuardarEstado = async (estado) => {
     try {
       const ref = doc(db, "portal", "datos");
@@ -53,7 +46,6 @@
       await setDoc(ref, { ...datos, estado });
     } catch(e) { console.error("guardarEstado:", e); }
   };
-
   window._fbLeerRespuestas = async () => {
     try {
       const snap = await getDoc(doc(db, "portal", "datos"));
@@ -61,7 +53,6 @@
       return snap.data().respuestas || [];
     } catch(e) { console.warn("leerRespuestas fallo:", e.message); return []; }
   };
-
   window._firebaseReady = true;
   window.dispatchEvent(new Event("firebaseReady"));
 </script>
@@ -87,49 +78,57 @@ const CURSOS=[
 const getCurso=id=>CURSOS.find(c=>c.id===id);
 const PASS_MAESTRO="liceo2026";
 
-// ══ BANCOS DE PREGUNTAS ══
+// ════════════════════════════════════════════
+// BANCOS DE PREGUNTAS
+// ════════════════════════════════════════════
 
 const EXAMENES_LAB1={
-
-  final:{titulo:"Examen Parcial  — Laboratorio I",subtitulo:"Unidad II · Privacidad Digital y Navegación Segura",tiempo:40*60,
+  // ── Parcial U.I (existente, sin cambios) ──
+  final:{
+    titulo:"Examen Final — Laboratorio I · Unidad II",
+    subtitulo:"Privacidad Digital: Cookies, Rastreo, Huella Digital y HTTPS/SSL",
+    tiempo:40*60,
     multiple:[
-      {id:"m1",txt:"¿Qué tipo de cookie desaparece automáticamente al cerrar el navegador?",opts:["Cookie persistente","Cookie de terceros","Cookie de sesión","Cookie cifrada"],correcta:2},
-      {id:"m2",txt:"Buscaste zapatillas deportivas y ahora ves ese anuncio en todos los sitios. ¿Qué técnica lo explica?",opts:["Cookies de sesión","Cookies de terceros y rastreo publicitario","Fingerprinting del dispositivo","DNS seguro activado"],correcta:1},
-      {id:"m3",txt:"¿Cuál describe mejor la huella digital PASIVA?",opts:["Publicar una foto en Instagram","Dar me gusta en una publicación","El navegador guarda tu historial automáticamente sin que lo notes","Escribir un comentario en un foro"],correcta:2},
-      {id:"m4",txt:"URL A: bancoindustrial.com.gt — URL B: banco-industrial.verificacion-segura.com/login — ¿Cuál es falsa?",opts:["La A — usa subdominio engañoso","La B — el dominio real es verificacion-segura.com","Las dos son falsas","Las dos son reales"],correcta:1},
-      {id:"m5",txt:"¿Qué significa que un sitio tenga el candado en la barra de dirección?",opts:["Que el sitio es propiedad del gobierno","Que la conexión está cifrada con SSL/TLS y el sitio tiene certificado válido","Que el sitio no usa cookies de terceros","Que el sitio no puede ser hackeado"],correcta:1},
-      {id:"m6",txt:"¿Cuál es la ruta correcta para revisar opciones de seguridad en Chrome?",opts:["chrome://extensions","chrome://privacy","chrome://settings/security","chrome://certificates"],correcta:2},
-      {id:"m7",txt:"¿Qué técnica usa esta URL falsa? www.gooogle.com",opts:["Subdominio engañoso","Typosquatting — letra repetida","Ruta engañosa","Sustitución por número"],correcta:1},
-      {id:"m8",txt:"¿Qué son los píxeles de seguimiento?",opts:["Imágenes de alta resolución para anuncios","Imágenes invisibles que reportan cuándo abres una página o correo","Archivos que bloquean cookies de terceros","Extensiones de Chrome para privacidad"],correcta:1},
-      {id:"m9",txt:"¿Cuál de estas acciones genera huella digital ACTIVA?",opts:["El navegador guarda tu historial","Una app registra tu ubicación en segundo plano","Publicar una foto en redes sociales","Un sitio guarda tu dirección IP"],correcta:2},
-      {id:"m10",txt:"¿Por qué es importante revisar la configuración de privacidad en redes sociales?",opts:["Para que carguen más rápido","Para limitar quién puede ver tu información personal y reducir tu huella digital","Para evitar cookies de sesión","Para mejorar la velocidad de internet"],correcta:1},
+      {id:"m1",txt:"¿Qué tipo de cookie se almacena en tu navegador incluso después de cerrarlo?",opts:["Cookie de sesión","Cookie persistente","Cookie de terceros","Cookie cifrada"],correcta:1},
+      {id:"m2",txt:"¿Qué diferencia a una cookie de PRIMERA parte de una de TERCEROS?",opts:["La de primera parte es más grande","La de terceros la coloca un sitio distinto al que visitás","La de primera parte dura más tiempo","No hay diferencia real"],correcta:1},
+      {id:"m3",txt:"Entraste a una tienda en línea y ahora ves anuncios de esa tienda en YouTube y Facebook. ¿Qué técnica explica esto?",opts:["Fingerprinting del dispositivo","Cookies de sesión","Rastreo publicitario con cookies de terceros","Modo incógnito activo"],correcta:2},
+      {id:"m4",txt:"¿Cuál describe mejor la diferencia entre huella digital ACTIVA y PASIVA?",opts:["La activa la genera el sistema sin que lo sepas; la pasiva la generás tú conscientemente","La activa la generás tú al publicar o interactuar; la pasiva la recogen los sistemas sin que lo notes","La activa usa cookies; la pasiva usa HTTPS","Son lo mismo, solo cambia el nombre"],correcta:1},
+      {id:"m5",txt:"¿Por qué el modo incógnito NO elimina tu huella digital completamente?",opts:["Porque borra el historial del servidor","Porque tu proveedor de internet y los sitios web aún pueden ver tu actividad","Porque solo funciona en Chrome","Porque activa el fingerprinting automáticamente"],correcta:1},
+      {id:"m6",txt:"Un sitio tiene candado y usa HTTPS. ¿Eso garantiza que el sitio es seguro y legítimo?",opts:["Sí, HTTPS siempre confirma identidad del dueño","No, un sitio falso también puede tener HTTPS y certificado válido","Sí, solo los bancos pueden tener HTTPS","No, porque HTTPS no cifra nada"],correcta:1},
+      {id:"m7",txt:"¿Qué hace el fingerprinting para identificarte?",opts:["Lee tus cookies de sesión","Analiza características únicas de tu dispositivo: navegador, fuentes, pantalla, etc.","Guarda tu contraseña en el servidor","Activa la cámara del dispositivo"],correcta:1},
+      {id:"m8",txt:"URL sospechosa: www.banguat-gt.pagos-oficiales.com/login — ¿Cuál es el dominio REAL?",opts:["banguat-gt.com","banguat.gob.gt","pagos-oficiales.com","login.com"],correcta:2},
+      {id:"m9",txt:"¿Qué significa TLS en el contexto de HTTPS?",opts:["Tecnología de Lectura Segura","Transport Layer Security — protocolo que cifra la comunicación","Total Link System","Transferencia Lenta Segura"],correcta:1},
+      {id:"m10",txt:"¿Cuál de estas acciones ayuda MÁS a reducir tu huella digital activa?",opts:["Usar solo Chrome","Limitar lo que publicás en redes sociales","Activar el modo oscuro","Desconectar el WiFi"],correcta:1},
     ],
     vf:[
-      {id:"vf1",txt:"El modo incógnito de Chrome elimina completamente tu huella digital.",correcta:false},
-      {id:"vf2",txt:"Un sitio web puede tener el candado HTTPS y aun así ser un sitio falso o de phishing.",correcta:true},
-      {id:"vf3",txt:"Las cookies de terceros son colocadas por el mismo sitio web que visitas.",correcta:false},
-      {id:"vf4",txt:"La huella digital en internet es permanente — información publicada puede quedar accesible aunque la elimines.",correcta:true},
-      {id:"vf5",txt:"Activar 'Usar siempre conexiones seguras' en Chrome fuerza HTTPS en todos los sitios.",correcta:true},
-      {id:"vf6",txt:"El fingerprinting identifica tu dispositivo por sus características únicas.",correcta:true},
-      {id:"vf7",txt:"Las cookies persistentes se eliminan cuando cierras el navegador.",correcta:false},
-      {id:"vf8",txt:"La URL malicioso.com/banguat.gob.gt/login pertenece al dominio banguat.gob.gt.",correcta:false},
+      {id:"vf1",txt:"Las cookies de sesión desaparecen automáticamente al cerrar el navegador.",correcta:true},
+      {id:"vf2",txt:"El modo incógnito impide que tu proveedor de internet vea qué sitios visitás.",correcta:false},
+      {id:"vf3",txt:"Un sitio con HTTPS puede ser un sitio de phishing (falso).",correcta:true},
+      {id:"vf4",txt:"El fingerprinting solo funciona si aceptás cookies en el sitio.",correcta:false},
+      {id:"vf5",txt:"La huella digital pasiva se genera sin que el usuario realice ninguna acción consciente.",correcta:true},
+      {id:"vf6",txt:"Revisar la configuración de privacidad en redes sociales ayuda a reducir tu huella digital activa.",correcta:true},
+      {id:"vf7",txt:"HTTPS garantiza que el contenido del sitio es verdadero y que el dueño es quien dice ser.",correcta:false},
+      {id:"vf8",txt:"Los píxeles de seguimiento son imágenes invisibles que reportan cuándo abrís una página o correo.",correcta:true},
     ],
-    completar:{banco:["cookies","huella digital","HTTPS","certificado SSL","rastreo","dominio","privacidad","phishing"],preguntas:[
-      {id:"c1",pre:"Los pequeños archivos que los sitios guardan en tu navegador se llaman",post:".",correcta:"cookies"},
-      {id:"c2",pre:"El conjunto de toda la información que generás al usar internet se llama",post:".",correcta:"huella digital"},
-      {id:"c3",pre:"El protocolo que cifra la comunicación entre el navegador y el servidor web se llama",post:".",correcta:"HTTPS"},
-      {id:"c4",pre:"El documento digital que confirma la identidad de un sitio web se llama",post:".",correcta:"certificado SSL"},
-      {id:"c5",pre:"La recopilación sistemática de tus hábitos de navegación para mostrar anuncios se llama",post:"web.",correcta:"rastreo"},
-    ]},
+    completar:{
+      banco:["cookies","huella digital","HTTPS","certificado SSL","rastreo","fingerprinting","phishing","persistentes"],
+      preguntas:[
+        {id:"c1",pre:"Los archivos pequeños que los sitios guardan en tu navegador para recordar información se llaman",post:".",correcta:"cookies"},
+        {id:"c2",pre:"El conjunto de toda la información que generás al usar internet, tanto activa como pasivamente, se llama",post:".",correcta:"huella digital"},
+        {id:"c3",pre:"El protocolo que cifra la comunicación entre tu navegador y el servidor se llama",post:".",correcta:"HTTPS"},
+        {id:"c4",pre:"Técnica que identifica tu dispositivo por sus características únicas sin usar cookies:",post:".",correcta:"fingerprinting"},
+        {id:"c5",pre:"Un sitio falso que imita a uno legítimo para robar datos se llama sitio de",post:".",correcta:"phishing"},
+      ]
+    },
     desarrollo:[
-      {id:"d1",pts:3,txt:"Explica qué es el rastreo web y menciona DOS técnicas que usan las empresas para rastrearte en internet."},
-      {id:"d2",pts:2,txt:"Describe qué harías para reducir tu huella digital. Menciona al menos TRES acciones concretas."},
+      {id:"d1",pts:3,txt:"Explica con tus propias palabras qué es la huella digital en internet. Menciona UNA diferencia entre huella activa y pasiva, y da un ejemplo concreto de cada una."},
+      {id:"d2",pts:2,txt:"Describí qué harías para navegar de forma más segura y privada. Menciona al menos TRES acciones concretas y explica por qué cada una ayuda."},
     ],
   }
 };
 
 const EXAMENES_COMP1={
-    parcial:{
+  parcial:{
     tipo:"practico",
     titulo:"Parcial Práctico — Excel Avanzado · Unidad II",
     subtitulo:"PROMEDIO · SI · SI Anidado",
@@ -147,6 +146,26 @@ const EXAMENES_COMP1={
     incisos:[
       {id:"i1",pts:50,letra:"a",txt:"Crea parcial_u2_ej1.xlsx — Ingresa una tabla con los campos: Alumno, Nota 1, Nota 2, Nota 3, Promedio, Estado, Calificación. Ingresa 8 alumnos con notas inventadas entre 40 y 100. En Promedio usa =PROMEDIO() para calcular el promedio de las 3 notas. En Estado usa =SI() para mostrar 'APROBADO' si el promedio es ≥ 60, o 'REPROBADO' si no. En Calificación usa SI Anidado con esta escala: 90-100 → 'Excelente', 80-89 → 'Muy Bien', 70-79 → 'Bien', 60-69 → 'Aprobado', 0-59 → 'Reprobado'. Aplica formato: encabezados en verde con texto blanco, bordes a toda la tabla, negrita en encabezados."},
       {id:"i2",pts:50,letra:"b",txt:"Crea parcial_u2_ej2.xlsx — Ingresa una tabla con los campos: Empleado, Sueldo Base, Horas Extra, Pago Extra (horas × Q15), Sueldo Total (base + pago extra), Bonificación, Categoría. Ingresa 8 empleados con datos inventados (sueldos entre Q1,500 y Q5,000, horas extra entre 0 y 20). Pago Extra = horas extra × Q15. Sueldo Total = sueldo base + pago extra. En Bonificación usa =SI(): si el sueldo total es mayor a Q3,000 → 'Q500', si no → 'Q0'. En Categoría usa SI Anidado: Sueldo Total > Q4,000 → 'A', Sueldo Total > Q2,500 → 'B', de lo contrario → 'C'. Aplica formato moneda (Q) a columnas de dinero, bordes y encabezados con color."},
+    ],
+  },
+  final:{
+    tipo:"practico",
+    titulo:"Examen Final Práctico — Computación I · Unidad II",
+    subtitulo:"PROMEDIO · SI · SI Anidado — Farmacia y Vivero",
+    programa:"Microsoft Excel",
+    entregable:"Final U.II — Excel Avanzado",
+    tiempo:40*60,
+    tabla:{
+      titulo:"📋 Archivos que debes crear y entregar",
+      headers:["#","Archivo","Descripción","Puntos"],
+      rows:[
+        ["1","final_ej1.xlsx","Control de medicamentos — PROMEDIO, SI y SI Anidado","50 pts"],
+        ["2","final_ej2.xlsx","Inventario de vivero — PROMEDIO, SI y SI Anidado","50 pts"],
+      ]
+    },
+    incisos:[
+      {id:"i1",pts:50,letra:"a",txt:"Crea final_ej1.xlsx — Ingresa una tabla con los campos: Medicamento, Stock Mes 1, Stock Mes 2, Stock Mes 3, Promedio, Estado, Nivel. Agrega 8 medicamentos con stocks inventados entre 5 y 200 unidades. En Promedio usa =PROMEDIO() de los 3 meses. En Estado usa =SI(): si el promedio es mayor o igual a 50 → 'Disponible', si no → 'Bajo stock'. En Nivel usa SI Anidado: promedio ≥ 150 → 'Alto', promedio ≥ 80 → 'Medio', de lo contrario → 'Crítico'. Aplica formato: encabezados con fondo azul y letra blanca en negrita, bordes a toda la tabla."},
+      {id:"i2",pts:50,letra:"b",txt:"Crea final_ej2.xlsx — Ingresa una tabla con los campos: Planta, Precio (Q), Unidades vendidas Sem.1, Unidades vendidas Sem.2, Promedio ventas, Clasificación, Acción. Agrega 8 plantas con datos inventados (precio entre Q10 y Q150, ventas entre 0 y 40). En Promedio ventas usa =PROMEDIO() de las 2 semanas. En Clasificación usa SI Anidado: promedio ≥ 30 → 'Alta demanda', promedio ≥ 15 → 'Demanda media', de lo contrario → 'Baja demanda'. En Acción usa =SI(): si promedio < 10 → 'Promocionar 📢', si no → 'Mantener ✅'. Aplica formato: encabezados con fondo verde y letra blanca en negrita, bordes a toda la tabla, formato moneda (Q) a la columna Precio."},
     ],
   },
 };
@@ -176,6 +195,26 @@ const EXAMENES_PY5={
       {id:"i4",pts:25,letra:"d",txt:"Crea ejercicio4.py: pide el total de una compra en quetzales con input() y convierte con float(). Usa if/elif/else: Q200 o más → 20% descuento, Q100 a Q199.99 → 10% descuento, menos de Q100 → sin descuento. Calcula e imprime el monto de descuento y el total a pagar. Prueba con: Q250, Q150 y Q80."},
     ],
   },
+  final:{
+    tipo:"practico",
+    titulo:"Examen Final Práctico — Programación Python · Unidad II",
+    subtitulo:"Condicionales if / elif / else — Pizzería y Clínica Veterinaria",
+    programa:"IDLE, Thonny o VS Code",
+    entregable:"Final U.II — Condicionales Python",
+    tiempo:40*60,
+    tabla:{
+      titulo:"📋 Archivos que debes crear y entregar",
+      headers:["#","Archivo","Descripción","Puntos"],
+      rows:[
+        ["1","final_ej1.py","Pizzería — precio final según tamaño y extras con if/elif/else","50 pts"],
+        ["2","final_ej2.py","Clínica veterinaria — clasificación de peso y porción de alimento","50 pts"],
+      ]
+    },
+    incisos:[
+      {id:"i1",pts:50,letra:"a",txt:"Crea final_ej1.py — Escribe un programa para una pizzería. Pide al usuario el tamaño de pizza (1=Personal, 2=Mediana, 3=Grande) y si desea extra de queso (s/n). Usa if/elif/else para asignar el precio base: Personal → Q35.00, Mediana → Q65.00, Grande → Q95.00. Si eligió extra de queso, suma Q15.00 al precio. Si el tamaño ingresado no es 1, 2 ni 3, muestra 'Tamaño no válido.' y termina. Al final muestra: 'Tamaño: [nombre]', 'Extra queso: Sí/No' y 'Total a pagar: Q[precio]'. Prueba con: tamaño=2 con queso, tamaño=3 sin queso, tamaño=5 (inválido)."},
+      {id:"i2",pts:50,letra:"b",txt:"Crea final_ej2.py — Escribe un programa para una clínica veterinaria. Pide el nombre de la mascota y su peso en kilogramos (float). Usa if/elif/else para clasificar el peso y recomendar la porción diaria de alimento: menos de 5 kg → 'Talla pequeña — 150g de alimento por día', 5 a 14.9 kg → 'Talla mediana — 300g de alimento por día', 15 a 29.9 kg → 'Talla grande — 500g de alimento por día', 30 kg o más → 'Talla gigante — 800g de alimento por día'. Si el peso ingresado es menor o igual a 0, muestra 'Peso no válido.' y termina. Muestra: 'Mascota: [nombre]', 'Peso: [peso] kg', 'Clasificación: [talla]' y 'Porción diaria: [gramos]'. Prueba con: 3.5 kg, 12.0 kg, 25.0 kg y 0 kg (inválido)."},
+    ],
+  },
 };
 
 const EXAMENES_PROG4={
@@ -203,31 +242,26 @@ const EXAMENES_PROG4={
       {id:"i4",pts:25,letra:"d",txt:"Crea ejercicio4.cpp: muestra un menú (1-Suma, 2-Resta, 3-Multiplicación, 4-División), pide dos números float y realiza la operación. Para la división, verifica que el divisor != 0. Usa switch con break en cada case."},
     ],
   },
-
-
-
-  // ── FINAL: Condicionales ──
-  final:{titulo:"Parcial U II — Programación C++",subtitulo:"Condicionales if / else / else if",tiempo:40*60,
-    multiple:[
-      {id:"m1",txt:"¿Cuál es la sintaxis correcta de un if en C++?",opts:["if x > 0:","if (x > 0) {","if x > 0 then {","if: (x > 0)"],correcta:1},
-      {id:"m2",txt:"¿Qué operador compara si dos valores son IGUALES en C++?",opts:["=","!=","==",">="],correcta:2},
-      {id:"m3",txt:"nota = 75 — ¿Qué imprime: if(nota>=60) cout<<\"Aprobado\"; else cout<<\"Reprobado\";?",opts:["Reprobado","Aprobado","75","Error"],correcta:1},
-      {id:"m4",txt:"¿Cuándo se usa else if en C++?",opts:["Para terminar el if","Para añadir condición alternativa","Para repetir el if","Para comparar texto"],correcta:1},
-      {id:"m5",txt:"¿Qué significa el operador != en C++?",opts:["Mayor que","Igual que","Diferente de","Menor o igual que"],correcta:2},
+  final:{
+    tipo:"practico",
+    titulo:"Examen Final Práctico — Programación C++ · Unidad II",
+    subtitulo:"Condicionales if / else if / else — Sistema de membresías de gimnasio",
+    programa:"Dev-C++ o Code::Blocks",
+    entregable:"Final U.II — Condicionales C++",
+    tiempo:50*60,
+    tabla:{
+      titulo:"📋 Programa que debes escribir en C++",
+      headers:["#","Archivo","Descripción","Puntos"],
+      rows:[
+        ["1","final_gimnasio.cpp","Sistema de membresías — if / else if / else con precios y beneficios","100 pts"],
+      ]
+    },
+    incisos:[
+      {id:"i1",pts:30,letra:"a",txt:"Crea final_gimnasio.cpp. El programa pide al usuario que ingrese su nombre y el tipo de plan que desea (1, 2 o 3). Muestra el menú así:\n  1 - Plan Básico\n  2 - Plan Estándar\n  3 - Plan Premium\nUsa cout para mostrar el menú y cin para leer la opción. Declara una variable string para el nombre y un int para la opción."},
+      {id:"i2",pts:40,letra:"b",txt:"Usando if / else if / else, determina el plan elegido y asigna el precio correspondiente a una variable float: Plan Básico → Q150.00/mes, Plan Estándar → Q280.00/mes, Plan Premium → Q420.00/mes. Si el usuario ingresa un número distinto de 1, 2 o 3, muestra 'Opción no válida.' y termina el programa."},
+      {id:"i3",pts:30,letra:"c",txt:"Muestra el resumen de la membresía con el siguiente formato:\n  Nombre: [nombre del usuario]\n  Plan seleccionado: [nombre del plan]\n  Precio mensual: Q[precio]\n  Precio anual (12 meses): Q[precio * 12]\nUsa cout para mostrar cada línea. Prueba tu programa con: nombre='Ana', plan=2 y nombre='Carlos', plan=3."},
     ],
-    vf:[
-      {id:"vf1",txt:"En C++, el cuerpo del if debe ir entre llaves { } si tiene más de una instrucción.",correcta:true},
-      {id:"vf2",txt:"else if se puede usar sin un if previo en C++.",correcta:false},
-      {id:"vf3",txt:"Se puede tener más de un else if en la misma estructura condicional.",correcta:true},
-      {id:"vf4",txt:"El else es obligatorio en toda estructura if de C++.",correcta:false},
-    ],
-    completar:{banco:["if","else","else if","==","!=","cout","cin","int"],preguntas:[
-      {id:"c1",pre:"Para agregar una condición alternativa en C++ usamos",post:".",correcta:"else if"},
-      {id:"c2",pre:"El operador para comparar si dos valores son iguales en C++ es",post:".",correcta:"=="},
-      {id:"c3",pre:"El bloque",post:"se ejecuta cuando ninguna condición anterior fue verdadera.",correcta:"else"},
-    ]},
-    desarrollo:[{id:"d1",pts:5,txt:"Escribe un programa C++ que pida una nota (0-100) y muestre: 90-100 Excelente, 80-89 Muy bien, 70-79 Bien, 60-69 Aprobado, 0-59 Reprobado."}],
-  }
+  },
 };
 
 const EXAMENES_COMP5={
@@ -255,10 +289,33 @@ const EXAMENES_COMP5={
       {id:"i4",pts:25,letra:"d",txt:"Crea parcial_ej4.xlsx — Ingresa la tabla de ventas (Vendedor, Región, Producto, Cantidad, Total, Mes) con 8 filas. En una zona aparte crea el resumen completo: con CONTAR.SI.CONJUNTO cuenta ventas de Sofía en Norte, ventas de Laptop en Enero, y ventas de Marcos con cantidad > 10; con SUMAR.SI suma el total de Sofía y el total de Diego; con SUMAR.SI.CONJUNTO suma Laptop en Sur y Febrero en Norte; crea tabla auxiliar (Vendedor/Meta) y usa BUSCARV para traer la meta de Marcos y Diego. Aplica formato Moneda (Q) a todos los totales."},
     ],
   },
+  final:{
+    tipo:"practico",
+    titulo:"Examen Final Práctico — Excel Avanzado · Unidad II",
+    subtitulo:"CONTAR.SI.CONJUNTO · SUMAR.SI · SUMAR.SI.CONJUNTO — Taller Mecánico y Hostal",
+    programa:"Microsoft Excel",
+    entregable:"Final U.II — Excel Avanzado",
+    tiempo:40*60,
+    tabla:{
+      titulo:"📋 Archivos que debes crear y entregar",
+      headers:["#","Archivo","Descripción","Puntos"],
+      rows:[
+        ["1","final_ej1.xlsx","Taller mecánico — CONTAR.SI.CONJUNTO y SUMAR.SI.CONJUNTO","50 pts"],
+        ["2","final_ej2.xlsx","Hostal — CONTAR.SI.CONJUNTO, SUMAR.SI, SUMAR.SI.CONJUNTO y BUSCARV","50 pts"],
+      ]
+    },
+    incisos:[
+      {id:"i1",pts:50,letra:"a",txt:"Crea final_ej1.xlsx — Ingresa la tabla de reparaciones (Vehículo, Tipo de reparación, Técnico, Costo Q, Estado) con 10 filas de datos inventados. Tipos: Motor, Frenos, Eléctrico. Técnicos: López, Méndez, García. Estados: Completado, Pendiente. En una zona de resumen crea las siguientes consultas: a) CONTAR.SI.CONJUNTO: reparaciones de Frenos completadas; reparaciones de Motor de Méndez; reparaciones pendientes de García; reparaciones de Eléctrico con costo > Q500. b) SUMAR.SI.CONJUNTO: suma del costo de reparaciones de Motor completadas; suma del costo de Frenos de López. Aplica formato Moneda (Q) a todos los resultados de sumas."},
+      {id:"i2",pts:50,letra:"b",txt:"Crea final_ej2.xlsx — Ingresa la tabla de reservas del hostal (Huésped, Tipo de habitación, Mes, Noches, Total Q, Estado) con 10 filas. Tipos: Sencilla, Doble, Suite. Meses: Enero, Febrero, Marzo. Estados: Pagada, Pendiente. En una zona de resumen crea: a) CONTAR.SI.CONJUNTO: reservas de Suite pagadas; reservas de Doble en Febrero; reservas pendientes con más de 3 noches. b) SUMAR.SI: total de ingresos por tipo de habitación (Sencilla, Doble, Suite) usando SUMAR.SI para cada una. c) SUMAR.SI.CONJUNTO: total de Suite pagadas en Marzo. d) Crea una tabla auxiliar (Tipo / Tarifa por noche: Sencilla Q250, Doble Q400, Suite Q700) y usa BUSCARV para traer la tarifa de cada tipo en el resumen. Aplica formato Moneda (Q) a todos los resultados."},
+    ],
+  },
 };
 
 const EXAMENES_MAD1={
-  parcial:{titulo:"Parcial  — Computación e Informática",subtitulo:"TIC, Hardware, Software y Excel básico",tiempo:40*60,
+  parcial:{
+    titulo:"Parcial — Computación e Informática",
+    subtitulo:"TIC, Hardware, Software y Excel básico",
+    tiempo:40*60,
     multiple:[
       {id:"m1",txt:"¿Qué significan las siglas TIC?",opts:["Tecnologías de Información y Computación","Tecnologías de la Información y Comunicación","Técnicas de Internet y Computadoras","Tecnología Internacional de Comunicación"],correcta:1},
       {id:"m2",txt:"¿Cuál de estos es un ejemplo de HARDWARE?",opts:["Microsoft Word","Windows 11","El teclado y el mouse","Google Chrome"],correcta:2},
@@ -282,12 +339,9 @@ const EXAMENES_MAD1={
       {id:"c2",pre:"El monitor muestra resultados al usuario, por eso es un dispositivo de",post:".",correcta:"salida"},
       {id:"c3",pre:"Windows y Linux son ejemplos de",post:".",correcta:"sistema operativo"},
       {id:"c4",pre:"La intersección entre una fila y una columna en Excel se llama",post:".",correcta:"celda"},
-    ]},desarrollo:[],
+    ]},
+    desarrollo:[],
   },
-
-
-
-  // ── Parcial Unidad II — PRÁCTICO en computadora ──
   parcial_u2:{
     tipo:"practico",
     titulo:"Parcial Práctico — Computación e Informática · Unidad II",
@@ -303,26 +357,46 @@ const EXAMENES_MAD1={
       {id:"i6",pts:10,letra:"f",txt:'Guarda el archivo como: Planilla_TuNombre.xlsx y súbelo en el Portal de Tareas en la actividad "Parcial U.II — Planilla Empleados".'},
     ],
   },
-
-
+  final:{
+    tipo:"practico",
+    titulo:"Examen Final Práctico — Computación e Informática · Unidad II",
+    subtitulo:"Función SI en Excel — Clínica y Vivero",
+    programa:"Microsoft Excel",
+    entregable:"Final U.II — SI en Excel",
+    tiempo:40*60,
+    tabla:{
+      titulo:"📋 Archivos que debes crear y entregar",
+      headers:["#","Archivo","Descripción","Puntos"],
+      rows:[
+        ["1","final_ej1.xlsx","Control de pacientes — función SI para detectar fiebre","50 pts"],
+        ["2","final_ej2.xlsx","Inventario de vivero — función SI para clasificar riego","50 pts"],
+      ]
+    },
+    incisos:[
+      {id:"i1",pts:50,letra:"a",txt:"Crea final_ej1.xlsx — Ingresa una tabla con los campos: Paciente, Temperatura (°C), Estado. Agrega 8 pacientes con temperaturas inventadas entre 35.0 y 40.5 grados. En la columna Estado usa =SI() para mostrar 'Fiebre 🌡️' si la temperatura es mayor a 37.5, o 'Normal ✅' si no lo es. Aplica formato: encabezados con fondo azul y letra blanca en negrita, bordes a toda la tabla, y ajusta el ancho de columnas para que el contenido se vea completo."},
+      {id:"i2",pts:50,letra:"b",txt:"Crea final_ej2.xlsx — Ingresa una tabla con los campos: Planta, Días desde último riego, Necesita riego. Agrega 8 plantas con días inventados entre 1 y 14. En la columna Necesita riego usa =SI() para mostrar 'Regar ahora 💧' si los días son mayores o iguales a 7, o 'Puede esperar 🌿' si no. Aplica formato: encabezados con fondo verde oscuro y letra blanca en negrita, bordes a toda la tabla."},
+    ],
+  },
 };
 
-
-
-
-// ── El mapa ahora incluye parcial_u2 para prog4 ──
+// ════════════════════════════════════════════
+// MAPA DE EXÁMENES
+// ════════════════════════════════════════════
 const EXAM_MAP={lab1:EXAMENES_LAB1,comp1:EXAMENES_COMP1,py5:EXAMENES_PY5,prog4:EXAMENES_PROG4,comp5:EXAMENES_COMP5,mad1:EXAMENES_MAD1};
 
 function calcAuto(r,examen){
-  if(!examen)return 0;let p=0;
-  examen.multiple.forEach(q=>{if(r.multiple?.[q.id]===q.correcta)p++;});
-  examen.vf.forEach(q=>{if(r.vf?.[q.id]===q.correcta)p++;});
-  examen.completar.preguntas.forEach(q=>{if((r.completar?.[q.id]||"").toLowerCase().trim()===q.correcta.toLowerCase())p++;});
+  if(!examen||examen.tipo==="practico")return 0;
+  let p=0;
+  (examen.multiple||[]).forEach(q=>{if(r.multiple?.[q.id]===q.correcta)p++;});
+  (examen.vf||[]).forEach(q=>{if(r.vf?.[q.id]===q.correcta)p++;});
+  (examen.completar?.preguntas||[]).forEach(q=>{if((r.completar?.[q.id]||"").toLowerCase().trim()===q.correcta.toLowerCase())p++;});
   return p;
 }
-function maxAuto(examen){if(!examen)return 0;return examen.multiple.length+examen.vf.length+examen.completar.preguntas.length;}
+function maxAuto(examen){
+  if(!examen||examen.tipo==="practico")return 0;
+  return (examen.multiple||[]).length+(examen.vf||[]).length+(examen.completar?.preguntas||[]).length;
+}
 
-// ── Firebase (reemplaza JSONBin) ──
 async function guardarRespuesta(resp){return await window._fbGuardarRespuesta(resp);}
 async function leerEstado(){return await window._fbLeerEstado();}
 async function guardarEstado(estado){return await window._fbGuardarEstado(estado);}
@@ -355,7 +429,6 @@ function BotonEnviar({confirm,setConfirm,enviando,enviar}){
 }
 function Enviado({nombre}){return(<div style={{minHeight:"100vh",background:"linear-gradient(135deg,#0a0a1a,#0a1628)",display:"flex",alignItems:"center",justifyContent:"center"}}><div style={{textAlign:"center",padding:40}}><div style={{fontSize:60,marginBottom:16}}>✅</div><h2 style={{fontSize:24,fontWeight:800,color:"#00ff88",marginBottom:8}}>¡Examen enviado!</h2><p style={{color:"rgba(255,255,255,0.6)",marginBottom:6}}>Tus respuestas fueron guardadas, {nombre.split(" ")[0]}.</p><p style={{fontSize:13,color:"rgba(255,255,255,0.4)"}}>Tu catedrático revisará y publicará tu nota pronto.</p></div></div>);}
 
-
 function EnviadoPractico({nombre,cursoId}){
   const c=getCurso(cursoId)||{color:"#ff6b9d"};
   return(<div style={{minHeight:"100vh",background:`linear-gradient(135deg,#0a0a1a,${c.dark||"#3a006e"})`,display:"flex",alignItems:"center",justifyContent:"center"}}>
@@ -367,7 +440,7 @@ function EnviadoPractico({nombre,cursoId}){
         <div style={{fontWeight:700,color:c.color,marginBottom:8}}>📋 Recuerda antes de cerrar:</div>
         <div>1. Guarda tu archivo con el nombre indicado en los incisos.</div>
         <div style={{marginTop:6}}>2. Entra al <strong>Portal de Tareas</strong> → sección <strong>Tareas</strong></div>
-        <div style={{marginTop:6}}>3. Busca la actividad del parcial y sube tu archivo.</div>
+        <div style={{marginTop:6}}>3. Busca la actividad del examen final y sube tu archivo.</div>
       </div>
     </div>
   </div>);
@@ -382,7 +455,6 @@ function ExamenPractico({nombre,cursoId,tipoExamen,onEnviar}){
   const [enviando,setEnviando]=useState(false);
   const {mm,ss,color:tc,agotado}=useTimer(examen?.tiempo||50*60);
   useEffect(()=>{if(agotado&&!enviado)enviar();},[agotado]);
-
   const enviar=async()=>{
     if(enviando||enviado)return;
     setEnviando(true);
@@ -390,10 +462,8 @@ function ExamenPractico({nombre,cursoId,tipoExamen,onEnviar}){
       fecha:new Date().toLocaleString("es-GT"),tipo:"practico",respuestas});
     setEnviado(true);
   };
-
   if(!examen)return<div style={{color:"#ff8080",padding:40,textAlign:"center"}}>Examen no configurado.</div>;
   if(enviado)return<EnviadoPractico nombre={nombre} cursoId={cursoId}/>;
-
   return(
     <div style={{minHeight:"100vh",background:`linear-gradient(135deg,#0a0a1a,${c.dark})`}}>
       <TopBar cursoId={cursoId} nombre={nombre} mm={mm} ss={ss} timerColor={tc}/>
@@ -402,10 +472,8 @@ function ExamenPractico({nombre,cursoId,tipoExamen,onEnviar}){
         <div style={{fontSize:11,color:"rgba(255,255,255,0.5)"}}>{examen.subtitulo}</div>
       </div>
       <div style={{maxWidth:820,margin:"0 auto",padding:"24px 20px 80px"}}>
-
-        {/* Aviso */}
         <div style={{background:"rgba(0,212,255,0.08)",border:"1px solid rgba(0,212,255,0.2)",borderRadius:12,padding:"14px 18px",marginBottom:20,fontSize:13,lineHeight:1.7}}>
-          <div style={{fontWeight:700,color:"#00d4ff",marginBottom:6}}>💻 ¿Cómo realizar este parcial?</div>
+          <div style={{fontWeight:700,color:"#00d4ff",marginBottom:6}}>💻 ¿Cómo realizar este examen?</div>
           <div style={{color:"rgba(255,255,255,0.75)"}}>
             1. Lee los incisos en esta pantalla.<br/>
             2. Abre <strong>{examen.programa||"el programa indicado"}</strong> y completa el ejercicio siguiendo cada inciso.<br/>
@@ -413,27 +481,23 @@ function ExamenPractico({nombre,cursoId,tipoExamen,onEnviar}){
             4. Sube tu archivo en la actividad <strong>"{examen.entregable}"</strong> del Portal de Tareas.
           </div>
         </div>
-
-        {/* Tabla de datos si existe */}
         {examen.tabla&&<div style={{...card,marginBottom:20}}>
           <div style={{fontWeight:700,color:c.color,fontSize:13,marginBottom:12}}>{examen.tabla.titulo}</div>
           <div style={{overflowX:"auto"}}>
             <table style={{width:"100%",borderCollapse:"collapse",fontSize:12,fontFamily:"monospace"}}>
               <thead><tr>{examen.tabla.headers.map((h,i)=><th key={i} style={{background:"#1a3a1a",color:"#00d4ff",padding:"7px 10px",border:"1px solid rgba(255,255,255,0.1)",textAlign:"center",fontWeight:700,fontSize:11}}>{h}</th>)}</tr></thead>
-              <tbody>{examen.tabla.rows.map((row,ri)=><tr key={ri} style={{background:ri%2===0?"rgba(255,255,255,0.03)":"rgba(255,255,255,0.01)"}}>{row.map((cell,ci)=><td key={ci} style={{padding:"6px 10px",border:"1px solid rgba(255,255,255,0.08)",color:ci===0?"rgba(255,255,255,0.5)":typeof cell==="number"?"#fbbf24":cell.toString().startsWith("=")||cell.toString().startsWith("tú")?"#00ff88":"#fff",textAlign:ci===0?"center":"left",fontStyle:cell.toString().startsWith("tú")?"italic":"normal",fontSize:cell.toString().startsWith("=")?"11px":"12px"}}>{cell}</td>)}</tr>)}
+              <tbody>{examen.tabla.rows.map((row,ri)=><tr key={ri} style={{background:ri%2===0?"rgba(255,255,255,0.03)":"rgba(255,255,255,0.01)"}}>{row.map((cell,ci)=><td key={ci} style={{padding:"6px 10px",border:"1px solid rgba(255,255,255,0.08)",color:ci===0?"rgba(255,255,255,0.5)":"#fff",textAlign:ci===0?"center":"left",fontSize:"12px"}}>{cell}</td>)}</tr>)}
               </tbody>
             </table>
           </div>
         </div>}
-
-        {/* Incisos */}
         <div style={{...card,marginBottom:20}}>
           <div style={{fontWeight:700,color:c.color,fontSize:13,marginBottom:14}}>📝 Incisos a realizar</div>
           {examen.incisos.map((inc,i)=>(
             <div key={inc.id} style={{display:"flex",gap:12,marginBottom:14,paddingBottom:14,borderBottom:i<examen.incisos.length-1?"1px solid rgba(255,255,255,0.06)":"none"}}>
               <div style={{width:28,height:28,borderRadius:8,background:`${c.color}22`,border:`1px solid ${c.color}55`,display:"flex",alignItems:"center",justifyContent:"center",fontWeight:800,fontSize:13,color:c.color,flexShrink:0}}>{inc.letra.toUpperCase()}</div>
               <div style={{flex:1}}>
-                <div style={{fontSize:13,lineHeight:1.6,color:"rgba(255,255,255,0.85)"}}>{inc.txt}</div>
+                <div style={{fontSize:13,lineHeight:1.6,color:"rgba(255,255,255,0.85)",whiteSpace:"pre-line"}}>{inc.txt}</div>
                 <div style={{marginTop:6,display:"flex",gap:8,alignItems:"center"}}>
                   <span style={{fontSize:11,background:`${c.color}18`,color:c.color,border:`1px solid ${c.color}33`,borderRadius:6,padding:"2px 8px"}}>{inc.pts} pts</span>
                   <label style={{display:"flex",alignItems:"center",gap:6,cursor:"pointer",fontSize:12,color:respuestas[inc.id]?"#00ff88":"rgba(255,255,255,0.4)"}}>
@@ -445,8 +509,6 @@ function ExamenPractico({nombre,cursoId,tipoExamen,onEnviar}){
             </div>
           ))}
         </div>
-
-        {/* Botón */}
         {!confirm?(
           <button onClick={()=>setConfirm(true)} style={{width:"100%",background:`linear-gradient(90deg,${c.color},#7b2ff7)`,border:"none",borderRadius:12,padding:14,color:"#fff",fontWeight:700,fontSize:15,cursor:"pointer"}}>
             ✅ Confirmar — ya terminé
@@ -478,7 +540,7 @@ function ExamenGenerico({nombre,cursoId,tipoExamen,onEnviar}){
   const enviar=async()=>{if(enviando||enviado)return;setEnviando(true);await onEnviar({nombre,cursoId,curso:c.label,tipoExamen,titulo:examen?.titulo,fecha:new Date().toLocaleString("es-GT"),multiple,vf,completar,desarrollo});setEnviado(true);};
   if(!examen)return<div style={{color:"#ff8080",padding:40,textAlign:"center"}}>Examen no configurado.</div>;
   if(enviado)return<Enviado nombre={nombre}/>;
-  const hasDes=examen.desarrollo.length>0;
+  const hasDes=(examen.desarrollo||[]).length>0;
   const tabs=["Selección Múltiple","Verdadero o Falso","Completar",...(hasDes?["Desarrollo"]:[])];
   const maxSec=tabs.length-1;
   return(
@@ -491,10 +553,10 @@ function ExamenGenerico({nombre,cursoId,tipoExamen,onEnviar}){
       </div>
       <TabsBar tabs={tabs} sec={sec} setSec={setSec} color={c.color}/>
       <div style={{maxWidth:800,margin:"0 auto",padding:"20px 20px 100px"}}>
-        {sec===0&&<><SecHeader title="Selección Múltiple" pts={`${examen.multiple.length} preguntas · 1 pt c/u`} inst="Selecciona la respuesta correcta." color={c.dark}/>{examen.multiple.map((q,i)=><PregMultiple key={q.id} q={q} qi={i} sel={multiple[q.id]} onSel={v=>setMultiple(p=>({...p,[q.id]:v}))} color={c.color}/>)}</>}
-        {sec===1&&<><SecHeader title="Verdadero o Falso" pts={`${examen.vf.length} preguntas · 1 pt c/u`} inst="Selecciona V si es verdadero, F si es falso." color={c.dark}/>{examen.vf.map((q,i)=><PregVF key={q.id} q={q} qi={i} sel={vf[q.id]} onSel={v=>setVf(p=>({...p,[q.id]:v}))}/>)}</>}
-        {sec===2&&<><SecHeader title="Completar espacios" pts={`${examen.completar.preguntas.length} preguntas · 1 pt c/u`} inst="Escribe la palabra correcta del banco." color={c.dark}/><BancoPalabras banco={examen.completar.banco}/>{examen.completar.preguntas.map((q,i)=><PregCompletar key={q.id} q={q} qi={i} val={completar[q.id]||""} onChange={v=>setCompletar(p=>({...p,[q.id]:v}))}/>)}{!hasDes&&<BotonEnviar confirm={confirm} setConfirm={setConfirm} enviando={enviando} enviar={enviar}/>}</>}
-        {sec===3&&hasDes&&<><SecHeader title="Desarrollo" pts={`${examen.desarrollo.reduce((a,q)=>a+q.pts,0)} pts`} inst="Responde con tus propias palabras." color={c.dark}/>{examen.desarrollo.map((q,i)=>(<div key={q.id} style={{...card,marginBottom:16}}><div style={{fontSize:13,lineHeight:1.6,marginBottom:10}}><span style={{fontWeight:700,color:"#ffaa00"}}>{i+1}. ({q.pts} pts)</span> {q.txt}</div><textarea value={desarrollo[q.id]||""} onChange={e=>setDesarrollo(p=>({...p,[q.id]:e.target.value}))} rows={5} placeholder="Escribe tu respuesta aquí..." style={{width:"100%",background:"rgba(255,255,255,0.06)",border:"1px solid rgba(255,255,255,0.15)",borderRadius:10,padding:"10px 14px",color:"#fff",fontSize:13,outline:"none",resize:"vertical",lineHeight:1.6}}/><div style={{fontSize:11,color:"rgba(255,255,255,0.3)",textAlign:"right",marginTop:4}}>{(desarrollo[q.id]||"").length} chars</div></div>))}<BotonEnviar confirm={confirm} setConfirm={setConfirm} enviando={enviando} enviar={enviar}/></>}
+        {sec===0&&<><SecHeader title="Selección Múltiple" pts={`${(examen.multiple||[]).length} preguntas · 1 pt c/u`} inst="Selecciona la respuesta correcta." color={c.dark}/>{(examen.multiple||[]).map((q,i)=><PregMultiple key={q.id} q={q} qi={i} sel={multiple[q.id]} onSel={v=>setMultiple(p=>({...p,[q.id]:v}))} color={c.color}/>)}</>}
+        {sec===1&&<><SecHeader title="Verdadero o Falso" pts={`${(examen.vf||[]).length} preguntas · 1 pt c/u`} inst="Selecciona V si es verdadero, F si es falso." color={c.dark}/>{(examen.vf||[]).map((q,i)=><PregVF key={q.id} q={q} qi={i} sel={vf[q.id]} onSel={v=>setVf(p=>({...p,[q.id]:v}))}/>)}</>}
+        {sec===2&&<><SecHeader title="Completar espacios" pts={`${(examen.completar?.preguntas||[]).length} preguntas · 1 pt c/u`} inst="Escribe la palabra correcta del banco." color={c.dark}/><BancoPalabras banco={examen.completar?.banco||[]}/>{(examen.completar?.preguntas||[]).map((q,i)=><PregCompletar key={q.id} q={q} qi={i} val={completar[q.id]||""} onChange={v=>setCompletar(p=>({...p,[q.id]:v}))}/>)}{!hasDes&&<BotonEnviar confirm={confirm} setConfirm={setConfirm} enviando={enviando} enviar={enviar}/>}</>}
+        {sec===3&&hasDes&&<><SecHeader title="Desarrollo" pts={`${(examen.desarrollo||[]).reduce((a,q)=>a+q.pts,0)} pts`} inst="Responde con tus propias palabras." color={c.dark}/>{(examen.desarrollo||[]).map((q,i)=>(<div key={q.id} style={{...card,marginBottom:16}}><div style={{fontSize:13,lineHeight:1.6,marginBottom:10}}><span style={{fontWeight:700,color:"#ffaa00"}}>{i+1}. ({q.pts} pts)</span> {q.txt}</div><textarea value={desarrollo[q.id]||""} onChange={e=>setDesarrollo(p=>({...p,[q.id]:e.target.value}))} rows={5} placeholder="Escribe tu respuesta aquí..." style={{width:"100%",background:"rgba(255,255,255,0.06)",border:"1px solid rgba(255,255,255,0.15)",borderRadius:10,padding:"10px 14px",color:"#fff",fontSize:13,outline:"none",resize:"vertical",lineHeight:1.6}}/><div style={{fontSize:11,color:"rgba(255,255,255,0.3)",textAlign:"right",marginTop:4}}>{(desarrollo[q.id]||"").length} chars</div></div>))}<BotonEnviar confirm={confirm} setConfirm={setConfirm} enviando={enviando} enviar={enviar}/></>}
         <NavBotones sec={sec} setSec={setSec} max={maxSec}/>
       </div>
     </div>
@@ -506,8 +568,9 @@ function ItemDet({num,txt,ok,resp,correcta}){return(<div style={{padding:"7px 0"
 
 function DetalleRespuesta({r,onBack}){
   const examen=EXAM_MAP[r.cursoId]?.[r.tipoExamen];const auto=calcAuto(r,examen);const max=maxAuto(examen);const c=getCurso(r.cursoId)||{color:"#aaa"};
-  return(<div><button onClick={onBack} style={{...btn(),marginBottom:14}}>← Volver</button><div style={{...card,display:"flex",justifyContent:"space-between",flexWrap:"wrap",gap:10,marginBottom:14}}><div><div style={{fontSize:18,fontWeight:800}}>{r.nombre}</div><div style={{fontSize:13,color:"rgba(255,255,255,0.5)"}}>{r.curso} · {r.titulo} · {r.fecha}</div></div><div style={{textAlign:"right"}}><div style={{fontSize:20,fontWeight:800,color:c.color}}>{auto}/{max} <span style={{fontSize:12,color:"rgba(255,255,255,0.4)"}}>pts automáticos</span></div>{examen?.desarrollo.length>0&&<div style={{fontSize:12,color:"rgba(255,255,255,0.4)"}}>+ desarrollo manual</div>}</div></div>
-    {examen&&<><Bloque title="Selección Múltiple" color="#00d4ff">{examen.multiple.map((q,i)=>{const resp=r.multiple?.[q.id];const ok=resp===q.correcta;return<ItemDet key={q.id} num={i+1} txt={q.txt} ok={ok} resp={resp!=null?`${["A","B","C","D"][resp]}) ${q.opts[resp]}`:"Sin responder"} correcta={ok?null:`${["A","B","C","D"][q.correcta]}) ${q.opts[q.correcta]}`}/>;})}</Bloque><Bloque title="Verdadero o Falso" color="#a78bff">{examen.vf.map((q,i)=>{const resp=r.vf?.[q.id];const ok=resp===q.correcta;return<ItemDet key={q.id} num={i+1} txt={q.txt} ok={ok} resp={resp==null?"Sin responder":resp?"Verdadero":"Falso"} correcta={ok?null:q.correcta?"Verdadero":"Falso"}/>;})}</Bloque><Bloque title="Completar" color="#ffaa00">{examen.completar.preguntas.map((q,i)=>{const resp=(r.completar?.[q.id]||"").toLowerCase().trim();const ok=resp===q.correcta.toLowerCase();return<ItemDet key={q.id} num={i+1} txt={`${q.pre} ___ ${q.post}`} ok={ok} resp={r.completar?.[q.id]||"Sin responder"} correcta={ok?null:q.correcta}/>;})}</Bloque>{examen.desarrollo.length>0&&<Bloque title="Desarrollo — revisar manualmente" color="#ff8080">{examen.desarrollo.map((q,i)=>(<div key={q.id} style={{padding:"10px 0",borderBottom:"1px solid rgba(255,255,255,0.05)"}}><div style={{fontSize:12,color:"rgba(255,255,255,0.5)",marginBottom:6}}>{i+1}. ({q.pts} pts) {q.txt}</div><div style={{background:"rgba(255,255,255,0.05)",borderRadius:8,padding:"10px 14px",fontSize:13,lineHeight:1.6,whiteSpace:"pre-wrap"}}>{r.desarrollo?.[q.id]||<span style={{color:"rgba(255,255,255,0.3)",fontStyle:"italic"}}>Sin respuesta</span>}</div></div>))}</Bloque>}</>}
+  return(<div><button onClick={onBack} style={{...btn(),marginBottom:14}}>← Volver</button><div style={{...card,display:"flex",justifyContent:"space-between",flexWrap:"wrap",gap:10,marginBottom:14}}><div><div style={{fontSize:18,fontWeight:800}}>{r.nombre}</div><div style={{fontSize:13,color:"rgba(255,255,255,0.5)"}}>{r.curso} · {r.titulo} · {r.fecha}</div></div><div style={{textAlign:"right"}}><div style={{fontSize:20,fontWeight:800,color:c.color}}>{auto}/{max} <span style={{fontSize:12,color:"rgba(255,255,255,0.4)"}}>pts automáticos</span></div>{examen?.desarrollo?.length>0&&<div style={{fontSize:12,color:"rgba(255,255,255,0.4)"}}>+ desarrollo manual</div>}</div></div>
+    {examen&&!examen.tipo&&<><Bloque title="Selección Múltiple" color="#00d4ff">{(examen.multiple||[]).map((q,i)=>{const resp=r.multiple?.[q.id];const ok=resp===q.correcta;return<ItemDet key={q.id} num={i+1} txt={q.txt} ok={ok} resp={resp!=null?`${["A","B","C","D"][resp]}) ${q.opts[resp]}`:"Sin responder"} correcta={ok?null:`${["A","B","C","D"][q.correcta]}) ${q.opts[q.correcta]}`}/>;})}</Bloque><Bloque title="Verdadero o Falso" color="#a78bff">{(examen.vf||[]).map((q,i)=>{const resp=r.vf?.[q.id];const ok=resp===q.correcta;return<ItemDet key={q.id} num={i+1} txt={q.txt} ok={ok} resp={resp==null?"Sin responder":resp?"Verdadero":"Falso"} correcta={ok?null:q.correcta?"Verdadero":"Falso"}/>;})}</Bloque><Bloque title="Completar" color="#ffaa00">{(examen.completar?.preguntas||[]).map((q,i)=>{const resp=(r.completar?.[q.id]||"").toLowerCase().trim();const ok=resp===q.correcta.toLowerCase();return<ItemDet key={q.id} num={i+1} txt={`${q.pre} ___ ${q.post}`} ok={ok} resp={r.completar?.[q.id]||"Sin responder"} correcta={ok?null:q.correcta}/>;})}</Bloque>{(examen.desarrollo||[]).length>0&&<Bloque title="Desarrollo — revisar manualmente" color="#ff8080">{(examen.desarrollo||[]).map((q,i)=>(<div key={q.id} style={{padding:"10px 0",borderBottom:"1px solid rgba(255,255,255,0.05)"}}><div style={{fontSize:12,color:"rgba(255,255,255,0.5)",marginBottom:6}}>{i+1}. ({q.pts} pts) {q.txt}</div><div style={{background:"rgba(255,255,255,0.05)",borderRadius:8,padding:"10px 14px",fontSize:13,lineHeight:1.6,whiteSpace:"pre-wrap"}}>{r.desarrollo?.[q.id]||<span style={{color:"rgba(255,255,255,0.3)",fontStyle:"italic"}}>Sin respuesta</span>}</div></div>))}</Bloque>}</>}
+    {examen?.tipo==="practico"&&<Bloque title="Examen práctico — incisos marcados" color="#00ff88">{(examen.incisos||[]).map((inc,i)=><div key={inc.id} style={{padding:"6px 0",borderBottom:"1px solid rgba(255,255,255,0.05)",fontSize:12,display:"flex",gap:8}}><span style={{color:r.respuestas?.[inc.id]?"#00ff88":"rgba(255,255,255,0.3)"}}>{r.respuestas?.[inc.id]?"✓":"○"}</span><span style={{color:"rgba(255,255,255,0.6)"}}>{inc.letra.toUpperCase()}. {inc.txt.substring(0,80)}...</span></div>)}</Bloque>}
   </div>);
 }
 
@@ -517,10 +580,9 @@ function PanelMaestro({onSalir}){
   const toggleExamen=async(cursoId,tipo)=>{const key=`${cursoId}_${tipo}`;const nuevo={...estado,[key]:!(estado[key]||false)};setGuardando(true);await guardarEstado(nuevo);setEstado(nuevo);setGuardando(false);};
   const filtradas=respuestas.filter(r=>(filtroC==="todos"||r.cursoId===filtroC)&&(filtroT==="todos"||r.tipoExamen===filtroT));
   if(detalle)return(<div style={{minHeight:"100vh",background:"#0d1117",color:"#fff"}}><div style={{background:"rgba(0,0,0,0.5)",borderBottom:"1px solid rgba(255,255,255,0.1)",padding:"12px 24px",display:"flex",justifyContent:"space-between",alignItems:"center"}}><div style={{fontWeight:800,fontSize:16}}>📊 Panel del Catedrático</div><button onClick={onSalir} style={btn()}>← Salir</button></div><div style={{padding:"20px 24px"}}><DetalleRespuesta r={detalle} onBack={()=>setDetalle(null)}/></div></div>);
-  
-  // Exámenes disponibles por curso incluyendo parcial_u2
-  const getTipos = (cid) => (cid==="mad1"||cid==="prog4"||cid==="py5")?["parcial","parcial_u2","final"]:["parcial","final"];
-  const getTipoLabel = (tipo) => tipo==="parcial"?"📝 Parcial Unidad I":tipo==="parcial_u2"?"💻 Parcial Unidad II":"📋 Examen Final";
+
+  const getTipos=(cid)=>["parcial","parcial_u2","final"];
+  const getTipoLabel=(tipo)=>tipo==="parcial"?"📝 Parcial Unidad I":tipo==="parcial_u2"?"💻 Parcial Unidad II":"🏁 Final Unidad II";
 
   return(
     <div style={{minHeight:"100vh",background:"#0d1117",color:"#fff"}}>
@@ -530,7 +592,7 @@ function PanelMaestro({onSalir}){
       </div>
       <div style={{padding:"20px 24px"}}>
         <div style={{...card,marginBottom:20,border:"1px solid rgba(0,212,255,0.2)"}}>
-          <div style={{fontWeight:700,fontSize:14,color:"#00d4ff",marginBottom:14}}>🎛️ Activar / Desactivar exámenes &nbsp;<span style={{fontSize:11,color:"rgba(255,255,255,0.4)",fontWeight:400}}>Solo el examen activo aparece disponible para los alumnos</span></div>
+          <div style={{fontWeight:700,fontSize:14,color:"#00d4ff",marginBottom:14}}>🎛️ Activar / Desactivar exámenes &nbsp;<span style={{fontSize:11,color:"rgba(255,255,255,0.4)",fontWeight:400}}>Solo el examen activo aparece para los alumnos</span></div>
           <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(280px,1fr))",gap:10}}>
             {CURSOS.map(c=>(
               <div key={c.id} style={{background:"rgba(255,255,255,0.03)",border:"1px solid rgba(255,255,255,0.08)",borderRadius:10,padding:12}}>
@@ -549,14 +611,14 @@ function PanelMaestro({onSalir}){
           </div>
         </div>
         <div style={{display:"grid",gridTemplateColumns:"repeat(4,1fr)",gap:10,marginBottom:16}}>
-          {[{label:"Total enviados",val:respuestas.length,color:"#00d4ff"},{label:"Parciales",val:respuestas.filter(r=>r.tipoExamen==="parcial"||r.tipoExamen==="parcial_u2").length,color:"#a78bff"},{label:"Finales",val:respuestas.filter(r=>r.tipoExamen==="final").length,color:"#00ff88"},{label:"Exámenes activos",val:Object.values(estado).filter(Boolean).length,color:"#ffaa00"}].map(s=>(<div key={s.label} style={{background:"rgba(255,255,255,0.04)",border:"1px solid rgba(255,255,255,0.08)",borderRadius:12,padding:"12px",textAlign:"center"}}><div style={{fontSize:20,fontWeight:800,color:s.color}}>{s.val}</div><div style={{fontSize:11,color:"rgba(255,255,255,0.4)",marginTop:3}}>{s.label}</div></div>))}
+          {[{label:"Total enviados",val:respuestas.length,color:"#00d4ff"},{label:"Parciales U.I",val:respuestas.filter(r=>r.tipoExamen==="parcial").length,color:"#a78bff"},{label:"Parciales U.II",val:respuestas.filter(r=>r.tipoExamen==="parcial_u2").length,color:"#f7971e"},{label:"Finales U.II",val:respuestas.filter(r=>r.tipoExamen==="final").length,color:"#00ff88"}].map(s=>(<div key={s.label} style={{background:"rgba(255,255,255,0.04)",border:"1px solid rgba(255,255,255,0.08)",borderRadius:12,padding:"12px",textAlign:"center"}}><div style={{fontSize:20,fontWeight:800,color:s.color}}>{s.val}</div><div style={{fontSize:11,color:"rgba(255,255,255,0.4)",marginTop:3}}>{s.label}</div></div>))}
         </div>
         <div style={{display:"flex",gap:8,marginBottom:10,flexWrap:"wrap"}}>
           <button onClick={()=>setFiltroC("todos")} style={{background:filtroC==="todos"?"rgba(0,212,255,0.15)":"rgba(255,255,255,0.05)",border:filtroC==="todos"?"1px solid #00d4ff":"1px solid rgba(255,255,255,0.1)",borderRadius:20,padding:"6px 14px",color:filtroC==="todos"?"#00d4ff":"rgba(255,255,255,0.6)",cursor:"pointer",fontSize:12}}>Todos ({respuestas.length})</button>
           {CURSOS.map(c=><button key={c.id} onClick={()=>setFiltroC(c.id)} style={{background:filtroC===c.id?c.bg:"rgba(255,255,255,0.05)",border:filtroC===c.id?`1px solid ${c.color}`:"1px solid rgba(255,255,255,0.1)",borderRadius:20,padding:"6px 14px",color:filtroC===c.id?c.color:"rgba(255,255,255,0.6)",cursor:"pointer",fontSize:12}}>{c.label.split("—")[1]?.trim()||c.label} ({respuestas.filter(r=>r.cursoId===c.id).length})</button>)}
         </div>
         <div style={{display:"flex",gap:8,marginBottom:16}}>
-          {[["todos","Todos"],["parcial","📝 Parciales U.I"],["parcial_u2","💻 Parciales U.II"],["final","📋 Finales"]].map(([v,l])=><button key={v} onClick={()=>setFiltroT(v)} style={{background:filtroT===v?"rgba(167,139,250,0.15)":"rgba(255,255,255,0.05)",border:filtroT===v?"1px solid #a78bff":"1px solid rgba(255,255,255,0.1)",borderRadius:20,padding:"5px 12px",color:filtroT===v?"#a78bff":"rgba(255,255,255,0.6)",cursor:"pointer",fontSize:12}}>{l}</button>)}
+          {[["todos","Todos"],["parcial","📝 Parciales U.I"],["parcial_u2","💻 Parciales U.II"],["final","🏁 Finales U.II"]].map(([v,l])=><button key={v} onClick={()=>setFiltroT(v)} style={{background:filtroT===v?"rgba(167,139,250,0.15)":"rgba(255,255,255,0.05)",border:filtroT===v?"1px solid #a78bff":"1px solid rgba(255,255,255,0.1)",borderRadius:20,padding:"5px 12px",color:filtroT===v?"#a78bff":"rgba(255,255,255,0.6)",cursor:"pointer",fontSize:12}}>{l}</button>)}
         </div>
         {cargando?<div style={{textAlign:"center",padding:40,color:"rgba(255,255,255,0.4)"}}>Cargando...</div>:filtradas.length===0?<div style={{textAlign:"center",padding:40,color:"rgba(255,255,255,0.3)"}}><div style={{fontSize:36,marginBottom:8}}>📭</div><div>No hay respuestas con estos filtros.</div></div>:(
           <div>
@@ -564,7 +626,7 @@ function PanelMaestro({onSalir}){
             {filtradas.map((r,i)=>{
               const c=getCurso(r.cursoId)||{color:"#aaa",label:r.curso||"—",bg:"rgba(255,255,255,0.08)"};
               const examen=EXAM_MAP[r.cursoId]?.[r.tipoExamen];const auto=calcAuto(r,examen);const max=maxAuto(examen);const pct=max>0?Math.round((auto/max)*100):0;
-              const tipoLabel=r.tipoExamen==="parcial"?"P.U.I":r.tipoExamen==="parcial_u2"?"P.U.II 💻":"Final";
+              const tipoLabel=r.tipoExamen==="parcial"?"P.U.I":r.tipoExamen==="parcial_u2"?"P.U.II":"Final";
               const tipoBg=r.tipoExamen==="parcial"?"rgba(167,139,250,0.15)":r.tipoExamen==="parcial_u2"?"rgba(247,151,30,0.15)":"rgba(0,255,136,0.1)";
               const tipoColor=r.tipoExamen==="parcial"?"#a78bff":r.tipoExamen==="parcial_u2"?"#f7971e":"#00ff88";
               return(<div key={i} style={{background:"rgba(255,255,255,0.04)",border:"1px solid rgba(255,255,255,0.07)",borderRadius:10,padding:"10px 12px",display:"grid",gridTemplateColumns:"2fr 2fr 1fr 1fr 1fr 70px",gap:8,alignItems:"center",marginBottom:6}}>
@@ -572,7 +634,7 @@ function PanelMaestro({onSalir}){
                 <span style={{fontSize:11,color:c.color,background:c.bg,borderRadius:6,padding:"2px 8px",overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{c.label.split("—")[1]?.trim()||c.label}</span>
                 <span style={{fontSize:11,background:tipoBg,color:tipoColor,borderRadius:6,padding:"2px 8px",textAlign:"center"}}>{tipoLabel}</span>
                 <span style={{fontSize:11,color:"rgba(255,255,255,0.4)"}}>{(r.fecha||"").split(",")[1]||(r.fecha||"")}</span>
-                <span style={{fontSize:13,fontWeight:700,color:pct>=70?"#00ff88":pct>=50?"#ffaa00":"#ff8080"}}>{auto}/{max}</span>
+                <span style={{fontSize:13,fontWeight:700,color:r.tipoExamen==="final"&&examen?.tipo==="practico"?"rgba(255,255,255,0.4)":pct>=70?"#00ff88":pct>=50?"#ffaa00":"#ff8080"}}>{r.tipoExamen==="final"&&examen?.tipo==="practico"?"💻":auto+"/"+max}</span>
                 <button onClick={()=>setDetalle(r)} style={{...btn({padding:"5px 10px",fontSize:12}),color:"#00d4ff",borderColor:"rgba(0,212,255,0.3)",background:"rgba(0,212,255,0.1)"}}>Ver →</button>
               </div>);
             })}
@@ -588,13 +650,12 @@ function Login({onStart}){
   const cargarEstado=()=>{setCargando(true);setErrorConexion(false);leerEstado().then(e=>{if(e===null){setErrorConexion(true);setEstado({});}else{setEstado(e);}setCargando(false);}).catch(()=>{setErrorConexion(true);setEstado({});setCargando(false);});};
   useEffect(()=>{cargarEstado();},[]);
 
-  const TIPO_LABEL={parcial:"📝 Parcial U.I",parcial_u2:"📝 Parcial Unidad II",final:"📋 Examen Final"};
+  const TIPO_LABEL={parcial:"📝 Parcial U.I",parcial_u2:"💻 Parcial Unidad II",final:"🏁 Final Unidad II"};
 
   const submit=()=>{
     if(modo==="maestro"){if(pass!==PASS_MAESTRO)return setErr("Contraseña incorrecta.");return onStart("__MAESTRO__","maestro","maestro");}
     if(!nombre.trim())return setErr("Escribe tu nombre completo.");
     if(!cursoId)return setErr("Selecciona tu curso.");
-    // Buscar cualquier tipo activo para el curso (parcial, parcial_u2, final)
     const tipos=["parcial","parcial_u2","final"];
     const tipo=tipos.find(t=>estado[`${cursoId}_${t}`]);
     if(!tipo)return setErr("No hay ningún examen activo para tu curso en este momento.");
