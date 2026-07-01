@@ -370,45 +370,18 @@ const EXAMENES_MAD1={
   },
 
   parcial_u3:{
-    titulo:"Parcial \u2014 Computaci\u00f3n e Inform\u00e1tica \u00b7 Unidad III",
-    subtitulo:"Funci\u00f3n CONTAR.SI en Excel",
-    tiempo:40*60,
-    multiple:[
-      {id:"m1",txt:"\u00bfCu\u00e1l es la sintaxis correcta de la funci\u00f3n CONTAR.SI?",opts:["=CONTAR.SI(criterio, rango)","=CONTAR.SI(rango, criterio)","=CONTAR.SI(rango)","=CONTAR.SI(criterio)"],correcta:1},
-      {id:"m2",txt:"\u00bfQu\u00e9 cuenta esta f\u00f3rmula? =CONTAR.SI(C2:C10, Aprobado)",opts:["Suma los valores del rango C2:C10","Cuenta cu\u00e1ntas celdas dicen exactamente Aprobado","Busca la palabra Aprobado en toda la hoja","Cuenta todas las celdas no vac\u00edas"],correcta:1},
-      {id:"m3",txt:"Para contar cu\u00e1ntas ventas superan Q500, \u00bfc\u00f3mo se escribe el criterio en CONTAR.SI?",opts:["500",">500","=500","MAYOR(500)"],correcta:1},
-      {id:"m4",txt:"En =CONTAR.SI(B2:B8, Vendedor), \u00bfqu\u00e9 representa B2:B8?",opts:["El criterio que se busca","El resultado de la f\u00f3rmula","El rango de celdas donde se busca","El nombre de la funci\u00f3n"],correcta:2},
-      {id:"m5",txt:"\u00bfQu\u00e9 resultado da =CONTAR.SI(B2:B5, mayor que 60) si los valores son 70, 45, 80 y 55?",opts:["4","1","2","3"],correcta:2},
-      {id:"m6",txt:"\u00bfCu\u00e1l es la diferencia principal entre CONTAR y CONTAR.SI?",opts:["CONTAR es m\u00e1s r\u00e1pida que CONTAR.SI","CONTAR cuenta solo texto; CONTAR.SI solo n\u00fameros","CONTAR cuenta todos los n\u00fameros; CONTAR.SI cuenta solo los que cumplen una condici\u00f3n","No hay diferencia, son la misma funci\u00f3n"],correcta:2},
-      {id:"m7",txt:"\u00bfCu\u00e1l frase describe correctamente el criterio en CONTAR.SI?",opts:["Va sin comillas siempre","El texto va entre comillas y los operadores como mayor o menor tambi\u00e9n","Solo los n\u00fameros van entre comillas","No importa si lleva comillas o no"],correcta:1},
-      {id:"m8",txt:"Para contar cu\u00e1ntas ventas son menores a Q200, \u00bfcu\u00e1l criterio es correcto?",opts:["200","menor200","<200","MENOR(200)"],correcta:2},
-      {id:"m9",txt:"Tienes sueldos en D2:D10. \u00bfQu\u00e9 f\u00f3rmula cuenta cu\u00e1ntos son exactamente Q2,800?",opts:["=CONTAR(D2:D10)","=CONTAR.SI(D2:D10, 2800)","=CONTAR.SI(2800, D2:D10)","=SUMA(D2:D10, 2800)"],correcta:1},
-      {id:"m10",txt:"\u00bfPor qu\u00e9 los operadores como mayor o menor deben ir entre comillas en CONTAR.SI?",opts:["Es solo una preferencia de estilo","Excel los reconoce como criterio de texto cuando van entre comillas","Para que la f\u00f3rmula funcione m\u00e1s r\u00e1pido","No es necesario ponerlos entre comillas"],correcta:1},
-    ],
-    vf:[
-      {id:"vf1",txt:"El criterio de texto en CONTAR.SI siempre debe ir entre comillas dobles.",correcta:true},
-      {id:"vf2",txt:"=CONTAR.SI(B2:B10, 60) cuenta las celdas que tienen exactamente el n\u00famero 60.",correcta:true},
-      {id:"vf3",txt:"CONTAR.SI puede contar tanto celdas con texto como celdas con n\u00fameros.",correcta:true},
-      {id:"vf4",txt:"El criterio mayor-o-igual-que-60 en CONTAR.SI significa exactamente igual a 60.",correcta:false},
-      {id:"vf5",txt:"CONTAR.SI con el criterio Aprobado es lo mismo que usar CONTAR en el mismo rango.",correcta:false},
-      {id:"vf6",txt:"Para contar valores menores a 100, el criterio correcto va entre comillas: menor-que-100.",correcta:true},
-      {id:"vf7",txt:"CONTAR.SI necesita exactamente 3 argumentos para funcionar.",correcta:false},
-      {id:"vf8",txt:"Se puede usar CONTAR.SI para contar cu\u00e1ntos empleados tienen un puesto espec\u00edfico.",correcta:true},
-    ],
-    completar:{
-      banco:["CONTAR.SI","criterio","comillas","condici\u00f3n","rango","texto","Aprobado","menor100"],
-      preguntas:[
-        {id:"c1",pre:"La funci\u00f3n",post:"cuenta las celdas de un rango que cumplen una condici\u00f3n espec\u00edfica.",correcta:"CONTAR.SI"},
-        {id:"c2",pre:"En =CONTAR.SI(rango, criterio), el segundo argumento se llama",post:"y define qu\u00e9 se busca.",correcta:"criterio"},
-        {id:"c3",pre:"Para contar celdas con el texto Aprobado, el criterio que se escribe es",post:"entre comillas dobles.",correcta:"Aprobado"},
-        {id:"c4",pre:"Los operadores de comparaci\u00f3n como mayor o menor deben ir entre",post:"dobles cuando se usan como criterio.",correcta:"comillas"},
-        {id:"c5",pre:"La primera parte de CONTAR.SI donde se indican las celdas a revisar se llama",post:".",correcta:"rango"},
-        {id:"c6",pre:"La diferencia entre CONTAR y CONTAR.SI es que CONTAR.SI permite agregar una",post:"para filtrar qu\u00e9 celdas contar.",correcta:"condici\u00f3n"},
-      ]
-    },
-    desarrollo:[
-      {id:"d1",pts:3,txt:"Tienes una lista de 8 vendedores con sus ventas en la columna B y su zona (Norte o Sur) en la columna C. Escribe la f\u00f3rmula CONTAR.SI para: a) contar cu\u00e1ntos vendedores son de la zona Norte, b) contar cu\u00e1ntos vendieron m\u00e1s de Q1,000."},
-      {id:"d2",pts:2,txt:"Explica con tus propias palabras la diferencia entre CONTAR y CONTAR.SI en Excel. Menciona un ejemplo real donde usaras cada una."},
+    tipo:"practico",
+    titulo:"Parcial Práctico — Computación e Informática · Unidad III",
+    subtitulo:"Función CONTAR.SI en Excel · Control de ventas",
+    tiempo:50*60,
+    entregable:"Parcial U.III — Ventas CONTAR.SI",
+    incisos:[
+      {id:"i1",pts:20,letra:"a",txt:"Ingresa los datos de la tabla en Excel exactamente como aparecen: vendedor en columna A, categoría en B, monto en C y estado en D."},
+      {id:"i2",pts:20,letra:"b",txt:"En la columna F crea un resumen de ventas por categoría: usa =CONTAR.SI(B2:B9, \"Ropa\") para contar cuántas ventas son de Ropa. Repite para Calzado y Accesorios."},
+      {id:"i3",pts:20,letra:"c",txt:"En la columna F continúa el resumen: usa CONTAR.SI para contar cuántas ventas hizo cada vendedor (Ana, Luis, Rosa, Jorge, Marta, Carlos)."},
+      {id:"i4",pts:15,letra:"d",txt:"Agrega en el resumen: usa =CONTAR.SI(C2:C9,\">500\") para contar cuántas ventas superan Q500, y =CONTAR.SI(C2:C9,\"<=500\") para las de Q500 o menos."},
+      {id:"i5",pts:15,letra:"e",txt:"Agrega en el resumen: usa CONTAR.SI para contar cuántas ventas tienen estado Completada y cuántas tienen estado Pendiente."},
+      {id:"i6",pts:10,letra:"f",txt:"Aplica fondo verde oscuro y letra blanca en negrita a los encabezados (fila 1). Guarda como Ventas_TuNombre.xlsx y súbelo en el Portal de Tareas en la actividad Parcial U.III — Ventas CONTAR.SI."},
     ],
   },
 
@@ -490,9 +463,9 @@ function EnviadoPractico({nombre}){
       <p style={{color:"rgba(255,255,255,0.7)",marginBottom:12,lineHeight:1.6}}>{nombre.split(" ")[0]}, ahora abre <strong>Microsoft Excel</strong> y completa la planilla siguiendo los incisos.</p>
       <div style={{background:"rgba(255,107,157,0.12)",border:"1px solid rgba(255,107,157,0.3)",borderRadius:12,padding:16,fontSize:13,color:"rgba(255,255,255,0.7)",lineHeight:1.7,textAlign:"left"}}>
         <div style={{fontWeight:700,color:"#ff6b9d",marginBottom:8}}>📋 Recuerda antes de cerrar:</div>
-        <div>1. Guarda tu archivo como <code style={{background:"rgba(255,255,255,0.1)",padding:"1px 6px",borderRadius:4,fontFamily:"monospace"}}>Planilla_TuNombre.xlsx</code></div>
+        <div>1. Guarda tu archivo como <code style={{background:"rgba(255,255,255,0.1)",padding:"1px 6px",borderRadius:4,fontFamily:"monospace"}}>TuArchivo_TuNombre.xlsx</code></div>
         <div style={{marginTop:6}}>2. Entra al <strong>Portal de Tareas</strong> → sección <strong>Tareas</strong></div>
-        <div style={{marginTop:6}}>3. Busca la actividad <strong>"Parcial U.II — Planilla Empleados"</strong> y sube tu archivo</div>
+        <div style={{marginTop:6}}>3. Busca la actividad del <strong>Parcial de tu unidad</strong> y sube tu archivo</div>
       </div>
     </div>
   </div>);
@@ -545,7 +518,7 @@ function ExamenPractico({nombre,cursoId,tipoExamen,onEnviar}){
             1. Lee los incisos en esta pantalla.<br/>
             2. Abre <strong>Microsoft Excel</strong> y construye la planilla siguiendo cada inciso.<br/>
             3. Al terminar, haz clic en <strong>"Confirmar — ya terminé en Excel"</strong> para registrar tu participación.<br/>
-            4. Sube tu archivo <code style={{background:"rgba(255,255,255,0.1)",padding:"1px 6px",borderRadius:4,fontFamily:"monospace",fontSize:12}}>Planilla_TuNombre.xlsx</code> en el <strong>Portal de Tareas</strong>.
+            4. Sube tu archivo <code style={{background:"rgba(255,255,255,0.1)",padding:"1px 6px",borderRadius:4,fontFamily:"monospace",fontSize:12}}>{tipoExamen==="parcial_u2"?"Planilla_TuNombre.xlsx":"Ventas_TuNombre.xlsx"}</code> en el <strong>Portal de Tareas</strong>.
           </div>
         </div>
 
@@ -553,30 +526,24 @@ function ExamenPractico({nombre,cursoId,tipoExamen,onEnviar}){
         <div style={{...card,marginBottom:20}}>
           <div style={{fontWeight:700,color:"#ff6b9d",fontSize:13,marginBottom:12}}>📋 Datos que debes ingresar en Excel</div>
           <div style={{overflowX:"auto"}}>
+            {tipoExamen==="parcial_u2"?(
             <table style={{width:"100%",borderCollapse:"collapse",fontSize:12,fontFamily:"monospace"}}>
-              <thead>
-                <tr>
-                  {["","A — Empleado","B — Días trabajados","C — Pago por día (Q)","D — Sueldo total","E — ¿Bono?"].map((h,i)=>(
-                    <th key={i} style={{background:i===0?"#1a1a2e":"#1a3a1a",color:i===0?"#5a6272":"#00d4ff",padding:"7px 10px",border:"1px solid rgba(255,255,255,0.1)",textAlign:"center",fontWeight:700,fontSize:11}}>{h}</th>
-                  ))}
-                </tr>
-              </thead>
+              <thead><tr>
+                {["","A — Empleado","B — Días trabajados","C — Pago por día (Q)","D — Sueldo total","E — ¿Bono?"].map((h,i)=>(
+                  <th key={i} style={{background:i===0?"#1a1a2e":"#1a3a1a",color:i===0?"#5a6272":"#00d4ff",padding:"7px 10px",border:"1px solid rgba(255,255,255,0.1)",textAlign:"center",fontWeight:700,fontSize:11}}>{h}</th>
+                ))}
+              </tr></thead>
               <tbody>
-                {[1,2,3,4,5].map((row,ri)=>{
-                  const empleados=["Carlos Ajú","María Tahay","Pedro Cumes","Luisa Sical","José Tohom"];
-                  const dias=[22,18,25,20,15];
-                  const pagos=["Q 75.00","Q 90.00","Q 65.00","Q 80.00","Q 70.00"];
-                  return(
-                    <tr key={row} style={{background:ri%2===0?"rgba(255,255,255,0.03)":"rgba(255,255,255,0.01)"}}>
-                      <td style={{padding:"6px 10px",border:"1px solid rgba(255,255,255,0.08)",color:"#5a6272",textAlign:"center",fontWeight:700}}>{row+1}</td>
-                      <td style={{padding:"6px 10px",border:"1px solid rgba(255,255,255,0.08)",color:"#fff"}}>{empleados[ri]}</td>
-                      <td style={{padding:"6px 10px",border:"1px solid rgba(255,255,255,0.08)",color:"#fff",textAlign:"center"}}>{dias[ri]}</td>
-                      <td style={{padding:"6px 10px",border:"1px solid rgba(255,255,255,0.08)",color:"#fbbf24",textAlign:"center"}}>{pagos[ri]}</td>
-                      <td style={{padding:"6px 10px",border:"1px solid rgba(255,255,255,0.08)",color:"#00ff88",textAlign:"center",fontStyle:"italic",fontSize:11}}>tú la calculas</td>
-                      <td style={{padding:"6px 10px",border:"1px solid rgba(255,255,255,0.08)",color:"#00ff88",textAlign:"center",fontStyle:"italic",fontSize:11}}>tú la calculas</td>
-                    </tr>
-                  );
-                })}
+                {[["Carlos Ajú",22,"Q 75.00"],["María Tahay",18,"Q 90.00"],["Pedro Cumes",25,"Q 65.00"],["Luisa Sical",20,"Q 80.00"],["José Tohom",15,"Q 70.00"]].map(([nom,dias,pago],ri)=>(
+                  <tr key={ri} style={{background:ri%2===0?"rgba(255,255,255,0.03)":"rgba(255,255,255,0.01)"}}>
+                    <td style={{padding:"6px 10px",border:"1px solid rgba(255,255,255,0.08)",color:"#5a6272",textAlign:"center",fontWeight:700}}>{ri+2}</td>
+                    <td style={{padding:"6px 10px",border:"1px solid rgba(255,255,255,0.08)",color:"#fff"}}>{nom}</td>
+                    <td style={{padding:"6px 10px",border:"1px solid rgba(255,255,255,0.08)",color:"#fff",textAlign:"center"}}>{dias}</td>
+                    <td style={{padding:"6px 10px",border:"1px solid rgba(255,255,255,0.08)",color:"#fbbf24",textAlign:"center"}}>{pago}</td>
+                    <td style={{padding:"6px 10px",border:"1px solid rgba(255,255,255,0.08)",color:"#00ff88",textAlign:"center",fontStyle:"italic",fontSize:11}}>tú la calculas</td>
+                    <td style={{padding:"6px 10px",border:"1px solid rgba(255,255,255,0.08)",color:"#00ff88",textAlign:"center",fontStyle:"italic",fontSize:11}}>tú la calculas</td>
+                  </tr>
+                ))}
                 <tr style={{background:"rgba(255,107,157,0.08)"}}>
                   <td style={{padding:"6px 10px",border:"1px solid rgba(255,255,255,0.08)",color:"#5a6272",textAlign:"center",fontWeight:700}}>8</td>
                   <td style={{padding:"6px 10px",border:"1px solid rgba(255,255,255,0.08)",color:"#ff6b9d",fontWeight:700}}>TOTAL GENERAL</td>
@@ -586,6 +553,26 @@ function ExamenPractico({nombre,cursoId,tipoExamen,onEnviar}){
                 </tr>
               </tbody>
             </table>
+            ):(
+            <table style={{width:"100%",borderCollapse:"collapse",fontSize:12,fontFamily:"monospace"}}>
+              <thead><tr>
+                {["","A — Vendedor","B — Categoría","C — Monto (Q)","D — Estado"].map((h,i)=>(
+                  <th key={i} style={{background:i===0?"#1a1a2e":"#1a3a1a",color:i===0?"#5a6272":"#00d4ff",padding:"7px 10px",border:"1px solid rgba(255,255,255,0.1)",textAlign:"center",fontWeight:700,fontSize:11}}>{h}</th>
+                ))}
+              </tr></thead>
+              <tbody>
+                {[["Ana García","Ropa","Q 450","Completada"],["Luis Pérez","Calzado","Q 780","Completada"],["Rosa Tahay","Ropa","Q 230","Pendiente"],["Jorge Ajú","Accesorios","Q 120","Completada"],["Marta Cumes","Ropa","Q 890","Completada"],["Carlos Batz","Calzado","Q 350","Pendiente"],["Ana García","Accesorios","Q 200","Completada"],["Luis Pérez","Ropa","Q 560","Completada"]].map(([ven,cat,mon,est],ri)=>(
+                  <tr key={ri} style={{background:ri%2===0?"rgba(255,255,255,0.03)":"rgba(255,255,255,0.01)"}}>
+                    <td style={{padding:"6px 10px",border:"1px solid rgba(255,255,255,0.08)",color:"#5a6272",textAlign:"center",fontWeight:700}}>{ri+2}</td>
+                    <td style={{padding:"6px 10px",border:"1px solid rgba(255,255,255,0.08)",color:"#fff"}}>{ven}</td>
+                    <td style={{padding:"6px 10px",border:"1px solid rgba(255,255,255,0.08)",color:"#a78bfa",textAlign:"center"}}>{cat}</td>
+                    <td style={{padding:"6px 10px",border:"1px solid rgba(255,255,255,0.08)",color:"#fbbf24",textAlign:"center"}}>{mon}</td>
+                    <td style={{padding:"6px 10px",border:"1px solid rgba(255,255,255,0.08)",color:est==="Completada"?"#00ff88":"#ff8080",textAlign:"center",fontWeight:600}}>{est}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            )}
           </div>
         </div>
 
