@@ -199,17 +199,17 @@ const EXAM_MAP={
 };
 
 function calcAuto(r,examen){
-  if(!examen)return 0;let p=0;
-  examen.multiple.forEach(q=>{if(r.multiple?.[q.id]===q.correcta)p++;});
-  examen.vf.forEach(q=>{if(r.vf?.[q.id]===q.correcta)p++;});
-  examen.completar.preguntas.forEach(q=>{
-    if((r.completar?.[q.id]||"").toLowerCase().trim()===q.correcta.toLowerCase())p++;
+  if(!examen||examen.tipo==="practico")return 0;let p=0;
+  examen.multiple?.forEach(q=>{if(r.multiple?.[q.id]===q.correcta)p++;});
+  examen.vf?.forEach(q=>{if(r.vf?.[q.id]===q.correcta)p++;});
+  examen.completar?.preguntas?.forEach(q=>{
+    if((r.completar?.[q.id]||"").toLowerCase().trim()===q.correcta?.toLowerCase())p++;
   });
   return p;
 }
 function maxAuto(examen){
-  if(!examen)return 0;
-  return examen.multiple.length+examen.vf.length+examen.completar.preguntas.length;
+  if(!examen||examen.tipo==="practico")return 0;
+  return (examen.multiple?.length||0)+(examen.vf?.length||0)+(examen.completar?.preguntas?.length||0);
 }
 
 const JB_URL=()=>`https://api.jsonbin.io/v3/b/${window.JSONBIN_BIN}`;
@@ -406,7 +406,7 @@ function PanelMaestro({onSalir}){
 
   const getTipos=(cid)=>cid==="mad1"?["parcial","parcial_u2","parcial_u3","final"]:["parcial","final"];
   const getTipoLabel=(tipo)=>({parcial:"📝 Parcial U.I",parcial_u2:"📝 Parcial U.II",parcial_u3:"📝 Parcial U.III",final:"📋 Final"})[tipo]||tipo;
-  const getTipoConf=(cid,tipo)=>{const ex=EXAM_MAP[cid]?.[tipo];return ex&&ex.multiple.length>0;};
+  const getTipoConf=(cid,tipo)=>{const ex=EXAM_MAP[cid]?.[tipo];return ex&&(ex.multiple?.length>0||ex.incisos?.length>0);};
 
   if(detalle)return(<div style={{minHeight:"100vh",background:"#0d1117",color:"#fff"}}>
     <div style={{background:"rgba(0,0,0,0.5)",borderBottom:"1px solid rgba(255,255,255,0.1)",padding:"12px 24px",display:"flex",justifyContent:"space-between",alignItems:"center"}}><div style={{fontWeight:800,fontSize:16}}>📊 Panel del Catedrático</div><button onClick={onSalir} style={btn()}>← Salir</button></div>
