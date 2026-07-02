@@ -404,7 +404,7 @@ function PanelMaestro({onSalir}){
   const toggleExamen=async(cursoId,tipo)=>{const key=`${cursoId}_${tipo}`;const nuevo={...estado,[key]:!(estado[key]||false)};setGuardando(true);await guardarEstado(nuevo);setEstado(nuevo);setGuardando(false);};
   const filtradas=respuestas.filter(r=>(filtroC==="todos"||r.cursoId===filtroC)&&(filtroT==="todos"||r.tipoExamen===filtroT));
 
-  const getTipos=(cid)=>cid==="mad1"?["parcial","parcial_u2","parcial_u3","final"]:["parcial","final"];
+  const getTipos=(cid)=>["mad1","lab1"].includes(cid)?["parcial","parcial_u2","parcial_u3","final"]:["parcial","final"];
   const getTipoLabel=(tipo)=>({parcial:"📝 Parcial U.I",parcial_u2:"📝 Parcial U.II",parcial_u3:"📝 Parcial U.III",final:"📋 Final"})[tipo]||tipo;
   const getTipoConf=(cid,tipo)=>{const ex=EXAM_MAP[cid]?.[tipo];return ex&&(ex.multiple?.length>0||ex.incisos?.length>0);};
 
@@ -487,16 +487,17 @@ function Login({onStart}){
   const [modo,setModo]=useState("alumno");const [err,setErr]=useState("");const [estado,setEstado]=useState({});const [cargando,setCargando]=useState(true);
   useEffect(()=>{leerEstado().then(e=>{setEstado(e);setCargando(false);});},[]);
   const TIPO_LABEL={parcial:"📝 Parcial U.I",parcial_u2:"📝 Parcial U.II",parcial_u3:"📝 Parcial U.III",final:"📋 Examen Final"};
+  const tieneContenido=(cid,t)=>{const ex=EXAM_MAP[cid]?.[t];return ex&&(ex.multiple?.length>0||ex.incisos?.length>0);};
+  const cursosConExamen=CURSOS.filter(c=>["parcial","parcial_u2","parcial_u3","final"].some(t=>estado[`${c.id}_${t}`]&&tieneContenido(c.id,t)));
   const submit=()=>{
     if(modo==="maestro"){if(pass!==PASS_MAESTRO)return setErr("Contraseña incorrecta.");return onStart("__MAESTRO__","maestro","maestro");}
     if(!nombre.trim())return setErr("Escribe tu nombre completo.");
     if(!cursoId)return setErr("Selecciona tu curso.");
     const tipos=["parcial","parcial_u2","parcial_u3","final"];
-    const tipo=tipos.find(t=>estado[`${cursoId}_${t}`]);
+    const tipo=tipos.find(t=>estado[`${cursoId}_${t}`]&&tieneContenido(cursoId,t));
     if(!tipo)return setErr("No hay ningún examen activo para tu curso en este momento.");
     setErr("");onStart(nombre.trim(),cursoId,tipo);
   };
-  const cursosConExamen=CURSOS.filter(c=>["parcial","parcial_u2","parcial_u3","final"].some(t=>estado[`${c.id}_${t}`]));
   return(<div style={{minHeight:"100vh",background:"linear-gradient(135deg,#0a0a1a,#0a1628)",display:"flex",alignItems:"center",justifyContent:"center",padding:20}}>
     <div style={{background:"rgba(255,255,255,0.05)",border:"1px solid rgba(255,255,255,0.1)",borderRadius:20,padding:"40px 36px",width:"100%",maxWidth:500,color:"#fff"}}>
       <div style={{textAlign:"center",marginBottom:24}}><div style={{fontSize:38,marginBottom:8}}>🏫</div><div style={{fontSize:12,color:"rgba(255,255,255,0.4)"}}>Liceo Santa María · Ciclo 2026</div><h1 style={{fontSize:22,fontWeight:800,background:"linear-gradient(90deg,#00d4ff,#7b2ff7)",WebkitBackgroundClip:"text",WebkitTextFillColor:"transparent",margin:"6px 0"}}>Plataforma de Exámenes</h1></div>
@@ -508,7 +509,7 @@ function Login({onStart}){
           :cursosConExamen.length===0?<div style={{background:"rgba(255,170,0,0.1)",border:"1px solid rgba(255,170,0,0.3)",borderRadius:10,padding:"12px 16px",fontSize:13,color:"#ffaa00",textAlign:"center"}}>⏳ No hay exámenes activos en este momento.<br/><span style={{fontSize:12,opacity:.7}}>Tu catedrático activará el examen cuando sea el momento.</span></div>
           :<div style={{display:"flex",flexDirection:"column",gap:8}}>{cursosConExamen.map(c=>{
             const tipos=["parcial","parcial_u2","parcial_u3","final"];
-            const tipo=tipos.find(t=>estado[`${c.id}_${t}`]);
+            const tipo=tipos.find(t=>estado[`${c.id}_${t}`]&&tieneContenido(c.id,t));
             const examen=EXAM_MAP[c.id]?.[tipo];
             return(<button key={c.id} onClick={()=>setCursoId(c.id)} style={{background:cursoId===c.id?c.bg:"rgba(255,255,255,0.04)",border:`1px solid ${cursoId===c.id?c.color:"rgba(255,255,255,0.1)"}`,borderRadius:10,padding:"10px 16px",color:cursoId===c.id?c.color:"rgba(255,255,255,0.7)",cursor:"pointer",fontSize:13,textAlign:"left",fontWeight:cursoId===c.id?700:400}}><div>{c.label}</div><div style={{fontSize:11,opacity:.7,marginTop:2}}>{TIPO_LABEL[tipo]||tipo} · {examen?.subtitulo}</div></button>);
           })}</div>}
