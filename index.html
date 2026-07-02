@@ -38,9 +38,29 @@ const VACIO=(titulo,subtitulo)=>({titulo,subtitulo,tiempo:40*60,
   multiple:[],vf:[],completar:{banco:[],preguntas:[]},desarrollo:[]});
 
 // ══ COMP1 — desde 0 ════════════════════════════════════
+// ══ COMP1 — PARCIAL PRÁCTICO CONFIGURADO ═══════════════
 const EXAMENES_COMP1={
-  parcial:VACIO("Parcial — Computación I","Pendiente de configurar"),
-  final:  VACIO("Examen Final — Computación I","Pendiente de configurar"),
+  // ──────────────────────────────────────────────────────
+  // PARCIAL — Práctico en computadora
+  // CONTAR.SI y SUMAR.SI — Control de inscripciones
+  // ──────────────────────────────────────────────────────
+  parcial:{
+    tipo:"practico",
+    titulo:"Parcial Práctico — Computación I",
+    subtitulo:"Funciones CONTAR.SI y SUMAR.SI · Control de inscripciones",
+    tiempo:50*60,
+    entregable:"Parcial — Inscripciones CONTAR.SI y SUMAR.SI",
+    incisos:[
+      {id:"i1",pts:20,letra:"a",txt:"Ingresa los datos de la tabla en Excel exactamente como aparecen: alumno en columna A, curso en B, cuota (Q) en C y estado de pago en D."},
+      {id:"i2",pts:20,letra:"b",txt:'En la columna F crea un resumen por curso: usa =CONTAR.SI(B2:B9,"Robótica") para contar cuántos alumnos están inscritos en Robótica. Repite para Inglés y Guitarra.'},
+      {id:"i3",pts:20,letra:"c",txt:'Continúa el resumen: usa =CONTAR.SI(D2:D9,"Pagado") para contar cuántos alumnos ya pagaron, y =CONTAR.SI(D2:D9,"Pendiente") para contar cuántos deben.'},
+      {id:"i4",pts:20,letra:"d",txt:'Agrega: usa =SUMAR.SI(D2:D9,"Pagado",C2:C9) para sumar el total de cuotas ya cobradas, y =SUMAR.SI(B2:B9,"Robótica",C2:C9) para sumar el total de cuotas del curso de Robótica.'},
+      {id:"i5",pts:10,letra:"e",txt:'Agrega: usa =CONTAR.SI(C2:C9,">200") para contar cuántas cuotas son mayores a Q200.'},
+      {id:"i6",pts:10,letra:"f",txt:"Aplica fondo verde oscuro y letra blanca en negrita a los encabezados (fila 1). Guarda como Inscripciones_TuNombre.xlsx y súbelo en el Portal de Tareas en la actividad Parcial — Inscripciones CONTAR.SI y SUMAR.SI."},
+    ],
+  },
+
+  final:VACIO("Examen Final — Computación I","Pendiente de configurar"),
 };
 
 // ══ LAB1 — PARCIAL U.III CONFIGURADO ═══════════════════
