@@ -37,31 +37,47 @@ const PASS_MAESTRO="liceo2026";
 const VACIO=(titulo,subtitulo)=>({titulo,subtitulo,tiempo:40*60,
   multiple:[],vf:[],completar:{banco:[],preguntas:[]},desarrollo:[]});
 
-// ══ COMP1 — desde 0 ════════════════════════════════════
-// ══ COMP1 — PARCIAL PRÁCTICO CONFIGURADO ═══════════════
 const EXAMENES_COMP1={
+  parcial:   VACIO("Parcial — Computación I","Pendiente de configurar"),
+  parcial_u2:VACIO("Parcial U.II — Computación I","Pendiente de configurar"),
+
   // ──────────────────────────────────────────────────────
-  // PARCIAL — Práctico en computadora
+  // PARCIAL U.III — Práctico en computadora
   // CONTAR.SI y SUMAR.SI — Control de inscripciones
   // ──────────────────────────────────────────────────────
-  parcial:{
+  parcial_u3:{
     tipo:"practico",
-    titulo:"Parcial Práctico — Computación I",
+    titulo:"Parcial Práctico — Computación I · Unidad III",
     subtitulo:"Funciones CONTAR.SI y SUMAR.SI · Control de inscripciones",
     tiempo:50*60,
-    entregable:"Parcial — Inscripciones CONTAR.SI y SUMAR.SI",
+    entregable:"Parcial U.III — Inscripciones CONTAR.SI y SUMAR.SI",
+    tabla:{
+      headers:["","A — Alumno","B — Curso","C — Cuota (Q)","D — Estado"],
+      rows:[
+        ["2","Carlos Xitumul","Robótica","Q 250","Pagado"],
+        ["3","Sofía Ixcot","Inglés","Q 180","Pagado"],
+        ["4","Mario Chavajay","Guitarra","Q 300","Pendiente"],
+        ["5","Estefanía Sac","Robótica","Q 250","Pagado"],
+        ["6","Kevin Perén","Guitarra","Q 300","Pagado"],
+        ["7","Wendy Ajpop","Inglés","Q 180","Pendiente"],
+        ["8","Carlos Xitumul","Guitarra","Q 300","Pagado"],
+        ["9","Sofía Ixcot","Robótica","Q 250","Pagado"],
+      ]
+    },
     incisos:[
       {id:"i1",pts:20,letra:"a",txt:"Ingresa los datos de la tabla en Excel exactamente como aparecen: alumno en columna A, curso en B, cuota (Q) en C y estado de pago en D."},
       {id:"i2",pts:20,letra:"b",txt:'En la columna F crea un resumen por curso: usa =CONTAR.SI(B2:B9,"Robótica") para contar cuántos alumnos están inscritos en Robótica. Repite para Inglés y Guitarra.'},
       {id:"i3",pts:20,letra:"c",txt:'Continúa el resumen: usa =CONTAR.SI(D2:D9,"Pagado") para contar cuántos alumnos ya pagaron, y =CONTAR.SI(D2:D9,"Pendiente") para contar cuántos deben.'},
       {id:"i4",pts:20,letra:"d",txt:'Agrega: usa =SUMAR.SI(D2:D9,"Pagado",C2:C9) para sumar el total de cuotas ya cobradas, y =SUMAR.SI(B2:B9,"Robótica",C2:C9) para sumar el total de cuotas del curso de Robótica.'},
       {id:"i5",pts:10,letra:"e",txt:'Agrega: usa =CONTAR.SI(C2:C9,">200") para contar cuántas cuotas son mayores a Q200.'},
-      {id:"i6",pts:10,letra:"f",txt:"Aplica fondo verde oscuro y letra blanca en negrita a los encabezados (fila 1). Guarda como Inscripciones_TuNombre.xlsx y súbelo en el Portal de Tareas en la actividad Parcial — Inscripciones CONTAR.SI y SUMAR.SI."},
+      {id:"i6",pts:10,letra:"f",txt:"Aplica fondo verde oscuro y letra blanca en negrita a los encabezados (fila 1). Guarda como Inscripciones_TuNombre.xlsx y súbelo en el Portal de Tareas en la actividad Parcial U.III — Inscripciones CONTAR.SI y SUMAR.SI."},
     ],
   },
 
   final:VACIO("Examen Final — Computación I","Pendiente de configurar"),
 };
+
+
 
 // ══ LAB1 — PARCIAL U.III CONFIGURADO ═══════════════════
 const EXAMENES_LAB1={
@@ -312,23 +328,20 @@ function ExamenPractico({nombre,cursoId,tipoExamen,onEnviar}){
           <div style={{fontWeight:700,color:"#00d4ff",marginBottom:6}}>💻 ¿Cómo realizar este parcial?</div>
           <div style={{color:"rgba(255,255,255,0.75)"}}>1. Leé los incisos en esta pantalla.<br/>2. Abrí <strong>Microsoft Excel</strong> y construí la planilla siguiendo cada inciso.<br/>3. Al terminar, hacé clic en <strong>"Confirmar — ya terminé en Excel"</strong>.<br/>4. Subí tu archivo en el <strong>Portal de Tareas</strong>.</div>
         </div>
-        <div style={{...card,marginBottom:20}}>
+         {examen.tabla&&<div style={{...card,marginBottom:20}}>
           <div style={{fontWeight:700,color:"#ff6b9d",fontSize:13,marginBottom:12}}>📋 Datos que debés ingresar en Excel</div>
           <div style={{overflowX:"auto"}}>
             <table style={{width:"100%",borderCollapse:"collapse",fontSize:12,fontFamily:"monospace"}}>
-              <thead><tr>{["","A — Vendedor","B — Categoría","C — Monto (Q)","D — Estado"].map((h,i)=><th key={i} style={{background:i===0?"#1a1a2e":"#1a3a1a",color:i===0?"#5a6272":"#00d4ff",padding:"7px 10px",border:"1px solid rgba(255,255,255,0.1)",textAlign:"center",fontWeight:700,fontSize:11}}>{h}</th>)}</tr></thead>
-              <tbody>{[["Ana García","Ropa","Q 450","Completada"],["Luis Pérez","Calzado","Q 780","Completada"],["Rosa Tahay","Ropa","Q 230","Pendiente"],["Jorge Ajú","Accesorios","Q 120","Completada"],["Marta Cumes","Ropa","Q 890","Completada"],["Carlos Batz","Calzado","Q 350","Pendiente"],["Ana García","Accesorios","Q 200","Completada"],["Luis Pérez","Ropa","Q 560","Completada"]].map(([ven,cat,mon,est],ri)=>(
+              <thead><tr>{examen.tabla.headers.map((h,i)=><th key={i} style={{background:i===0?"#1a1a2e":"#1a3a1a",color:i===0?"#5a6272":"#00d4ff",padding:"7px 10px",border:"1px solid rgba(255,255,255,0.1)",textAlign:"center",fontWeight:700,fontSize:11}}>{h}</th>)}</tr></thead>
+              <tbody>{examen.tabla.rows.map((row,ri)=>(
                 <tr key={ri} style={{background:ri%2===0?"rgba(255,255,255,0.03)":"rgba(255,255,255,0.01)"}}>
-                  <td style={{padding:"6px 10px",border:"1px solid rgba(255,255,255,0.08)",color:"#5a6272",textAlign:"center",fontWeight:700}}>{ri+2}</td>
-                  <td style={{padding:"6px 10px",border:"1px solid rgba(255,255,255,0.08)",color:"#fff"}}>{ven}</td>
-                  <td style={{padding:"6px 10px",border:"1px solid rgba(255,255,255,0.08)",color:"#a78bfa",textAlign:"center"}}>{cat}</td>
-                  <td style={{padding:"6px 10px",border:"1px solid rgba(255,255,255,0.08)",color:"#fbbf24",textAlign:"center"}}>{mon}</td>
-                  <td style={{padding:"6px 10px",border:"1px solid rgba(255,255,255,0.08)",color:est==="Completada"?"#00ff88":"#ff8080",textAlign:"center",fontWeight:600}}>{est}</td>
+                  {row.map((cell,ci)=><td key={ci} style={{padding:"6px 10px",border:"1px solid rgba(255,255,255,0.08)",color:ci===0?"#5a6272":ci===1?"#fff":ci===2?"#a78bfa":ci===3?"#fbbf24":cell==="Pagado"||cell==="Completada"?"#00ff88":cell==="Pendiente"?"#ff8080":"#fff",textAlign:ci===0||ci>=2?"center":"left",fontWeight:ci===0||ci===4?700:400}}>{cell}</td>)}
                 </tr>
               ))}</tbody>
             </table>
           </div>
-        </div>
+        </div>}
+
         <div style={{...card,marginBottom:20}}>
           <div style={{fontWeight:700,color:"#ff6b9d",fontSize:13,marginBottom:14}}>📝 Incisos a realizar en Excel</div>
           {examen.incisos.map((inc,i)=>(
@@ -424,7 +437,7 @@ function PanelMaestro({onSalir}){
   const toggleExamen=async(cursoId,tipo)=>{const key=`${cursoId}_${tipo}`;const nuevo={...estado,[key]:!(estado[key]||false)};setGuardando(true);await guardarEstado(nuevo);setEstado(nuevo);setGuardando(false);};
   const filtradas=respuestas.filter(r=>(filtroC==="todos"||r.cursoId===filtroC)&&(filtroT==="todos"||r.tipoExamen===filtroT));
 
-  const getTipos=(cid)=>["mad1","lab1"].includes(cid)?["parcial","parcial_u2","parcial_u3","final"]:["parcial","final"];
+  const getTipos=(cid)=>["mad1","lab1","comp1"].includes(cid)?["parcial","parcial_u2","parcial_u3","final"]:["parcial","final"];
   const getTipoLabel=(tipo)=>({parcial:"📝 Parcial U.I",parcial_u2:"📝 Parcial U.II",parcial_u3:"📝 Parcial U.III",final:"📋 Final"})[tipo]||tipo;
   const getTipoConf=(cid,tipo)=>{const ex=EXAM_MAP[cid]?.[tipo];return ex&&(ex.multiple?.length>0||ex.incisos?.length>0);};
 
