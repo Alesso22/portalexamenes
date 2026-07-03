@@ -191,9 +191,38 @@ const EXAMENES_PROG4={
 // ══ PY5 — desde 0 ══════════════════════════════════════
 const EXAMENES_PY5={
   parcial:VACIO("Parcial — Programación Python","Pendiente de configurar"),
-  final:  VACIO("Examen Final — Programación Python","Pendiente de configurar"),
-};
+  parcial_u2:VACIO("Parcial U.II — Programación Python","Pendiente de configurar"),
 
+  // ──────────────────────────────────────────────────────
+  // PARCIAL UNIDAD III — Estructura match / case
+  // ──────────────────────────────────────────────────────
+  parcial_u3:{
+    tipo:"practico",
+    titulo:"Parcial Práctico — Programación Python · Unidad III",
+    subtitulo:"Estructura match / case",
+    programa:"IDLE, Thonny o VS Code (Python 3.10+)",
+    entregable:"Parcial U.III — match/case Python",
+    tiempo:50*60,
+    tabla:{
+      titulo:"📋 Archivos que debes crear y entregar",
+      headers:["#","Archivo","Descripción","Puntos"],
+      rows:[
+        ["1","ejercicio1.py","Semáforo — match/case con 3 colores y mensaje de acción","25 pts"],
+        ["2","ejercicio2.py","Área de figuras geométricas — match/case según figura elegida","25 pts"],
+        ["3","ejercicio3.py","Tallas de camisa — match/case con texto (str) y agrupación con |","25 pts"],
+        ["4","ejercicio4.py","Calculadora científica — match/case con potencia, raíz y valor absoluto","25 pts"],
+      ]
+    },
+    incisos:[
+      {id:"i1",pts:25,letra:"a",txt:"Crea ejercicio1.py: pide un número (1-Rojo, 2-Amarillo, 3-Verde) con input() e int(). Usa match/case para imprimir: 1 → 'Alto, deténgase.' · 2 → 'Precaución, prepárese.' · 3 → 'Siga con precaución.' Usa case _: para 'Color inválido.' Prueba con: 1, 2, 3 y 5."},
+      {id:"i2",pts:25,letra:"b",txt:"Crea ejercicio2.py: pide un número (1-Círculo, 2-Cuadrado, 3-Triángulo) y las medidas necesarias con float(). Usa match/case para calcular el área: Círculo = 3.1416*radio**2, Cuadrado = lado**2, Triángulo = (base*altura)/2. Imprime el resultado con 2 decimales usando round(). Usa case _: para 'Figura no válida.'"},
+      {id:"i3",pts:25,letra:"c",txt:"Crea ejercicio3.py: pide una talla como texto ('S', 'M', 'L', 'XL') con input(). Usa match/case comparando strings para mostrar la equivalencia en centímetros de pecho: S=88cm, M=96cm, L=104cm, XL=112cm. Agrupa S y M en un mensaje adicional 'Talla estándar' usando el operador | y usa case _: para 'Talla no reconocida.'"},
+      {id:"i4",pts:25,letra:"d",txt:"Crea ejercicio4.py: muestra un menú (1-Potencia, 2-Raíz cuadrada, 3-Valor absoluto) y pide los números necesarios con float(). Usa match/case: Potencia = a**b, Raíz cuadrada = a**0.5 (validar que a >= 0), Valor absoluto = abs(a). Usa case _: para 'Operación no válida.'"},
+    ],
+  },
+
+  final:VACIO("Examen Final — Programación Python","Pendiente de configurar"),
+};
 // ══ COMP5 — desde 0 ════════════════════════════════════
 const EXAMENES_COMP5={
   parcial:VACIO("Parcial — Excel Avanzado","Pendiente de configurar"),
@@ -437,7 +466,7 @@ function PanelMaestro({onSalir}){
   const toggleExamen=async(cursoId,tipo)=>{const key=`${cursoId}_${tipo}`;const nuevo={...estado,[key]:!(estado[key]||false)};setGuardando(true);await guardarEstado(nuevo);setEstado(nuevo);setGuardando(false);};
   const filtradas=respuestas.filter(r=>(filtroC==="todos"||r.cursoId===filtroC)&&(filtroT==="todos"||r.tipoExamen===filtroT));
 
-  const getTipos=(cid)=>["mad1","lab1","comp1"].includes(cid)?["parcial","parcial_u2","parcial_u3","final"]:["parcial","final"];
+  const getTipos=(cid)=>["mad1","lab1","comp1","py5"].includes(cid)?["parcial","parcial_u2","parcial_u3","final"]:["parcial","final"];
   const getTipoLabel=(tipo)=>({parcial:"📝 Parcial U.I",parcial_u2:"📝 Parcial U.II",parcial_u3:"📝 Parcial U.III",final:"📋 Final"})[tipo]||tipo;
   const getTipoConf=(cid,tipo)=>{const ex=EXAM_MAP[cid]?.[tipo];return ex&&(ex.multiple?.length>0||ex.incisos?.length>0);};
 
