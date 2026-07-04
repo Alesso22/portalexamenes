@@ -23,12 +23,12 @@
 const {useState,useEffect}=React;
 
 const CURSOS=[
-  {id:"comp1", label:"4to Bach \u2014 Computaci\u00f3n I",            color:"#00d2ff",bg:"rgba(0,210,255,0.15)",  dark:"#005f7a"},
-  {id:"lab1",  label:"4to Bach \u2014 Laboratorio I",            color:"#7b2ff7",bg:"rgba(123,47,247,0.15)", dark:"#3a006e"},
-  {id:"prog4", label:"4to Perito \u2014 Programaci\u00f3n C++",       color:"#f7971e",bg:"rgba(247,151,30,0.15)", dark:"#7a4500"},
-  {id:"py5",   label:"5to Perito \u2014 Programaci\u00f3n Python",    color:"#f7ca18",bg:"rgba(247,202,24,0.15)", dark:"#7a6200"},
-  {id:"comp5", label:"5to Bach \u2014 Excel Avanzado",           color:"#00a86b",bg:"rgba(0,168,107,0.15)",  dark:"#005c3a"},
-  {id:"mad1",  label:"Madurez \u2014 Computaci\u00f3n e Inform\u00e1tica", color:"#ff6b9d",bg:"rgba(255,107,157,0.15)",dark:"#7a0035"},
+  {id:"comp1", label:"4to Bach — Computación I",            color:"#00d2ff",bg:"rgba(0,210,255,0.15)",  dark:"#005f7a"},
+  {id:"lab1",  label:"4to Bach — Laboratorio I",            color:"#7b2ff7",bg:"rgba(123,47,247,0.15)", dark:"#3a006e"},
+  {id:"prog4", label:"4to Perito — Programación C++",       color:"#f7971e",bg:"rgba(247,151,30,0.15)", dark:"#7a4500"},
+  {id:"py5",   label:"5to Perito — Programación Python",    color:"#f7ca18",bg:"rgba(247,202,24,0.15)", dark:"#7a6200"},
+  {id:"comp5", label:"5to Bach — Excel Avanzado",           color:"#00a86b",bg:"rgba(0,168,107,0.15)",  dark:"#005c3a"},
+  {id:"mad1",  label:"Madurez — Computación e Informática", color:"#ff6b9d",bg:"rgba(255,107,157,0.15)",dark:"#7a0035"},
 ];
 const getCurso=id=>CURSOS.find(c=>c.id===id);
 const PASS_MAESTRO="liceo2026";
@@ -37,200 +37,196 @@ const VACIO=(titulo,subtitulo)=>({titulo,subtitulo,tiempo:40*60,
   multiple:[],vf:[],completar:{banco:[],preguntas:[]},desarrollo:[]});
 
 const EXAMENES_COMP1={
-  parcial:   VACIO("Parcial \u2014 Computaci\u00f3n I","Pendiente de configurar"),
-  parcial_u2:VACIO("Parcial U.II \u2014 Computaci\u00f3n I","Pendiente de configurar"),
+  parcial:   VACIO("Parcial — Computación I","Pendiente de configurar"),
+  parcial_u2:VACIO("Parcial U.II — Computación I","Pendiente de configurar"),
   parcial_u3:{
     tipo:"practico",
-    titulo:"Parcial Pr\u00e1ctico \u2014 Computaci\u00f3n I \u00b7 Unidad III",
-    subtitulo:"Funciones CONTAR.SI y SUMAR.SI \u00b7 Control de inscripciones",
+    titulo:"Parcial Práctico — Computación I · Unidad III",
+    subtitulo:"Funciones CONTAR.SI y SUMAR.SI · Control de inscripciones",
     tiempo:50*60,
-    entregable:"Parcial U.III \u2014 Inscripciones CONTAR.SI y SUMAR.SI",
+    entregable:"Parcial U.III — Inscripciones CONTAR.SI y SUMAR.SI",
     tabla:{
-      headers:["","A \u2014 Alumno","B \u2014 Curso","C \u2014 Cuota (Q)","D \u2014 Estado"],
+      headers:["","A — Alumno","B — Curso","C — Cuota (Q)","D — Estado"],
       rows:[
-        ["2","Carlos Xitumul","Rob\u00f3tica","Q 250","Pagado"],
-        ["3","Sof\u00eda Ixcot","Ingl\u00e9s","Q 180","Pagado"],
+        ["2","Carlos Xitumul","Robótica","Q 250","Pagado"],
+        ["3","Sofía Ixcot","Inglés","Q 180","Pagado"],
         ["4","Mario Chavajay","Guitarra","Q 300","Pendiente"],
-        ["5","Estefan\u00eda Sac","Rob\u00f3tica","Q 250","Pagado"],
-        ["6","Kevin Per\u00e9n","Guitarra","Q 300","Pagado"],
-        ["7","Wendy Ajpop","Ingl\u00e9s","Q 180","Pendiente"],
+        ["5","Estefanía Sac","Robótica","Q 250","Pagado"],
+        ["6","Kevin Perén","Guitarra","Q 300","Pagado"],
+        ["7","Wendy Ajpop","Inglés","Q 180","Pendiente"],
         ["8","Carlos Xitumul","Guitarra","Q 300","Pagado"],
-        ["9","Sof\u00eda Ixcot","Rob\u00f3tica","Q 250","Pagado"],
+        ["9","Sofía Ixcot","Robótica","Q 250","Pagado"],
       ]
     },
     incisos:[
-      {id:"i1",pts:20,letra:"a",txt:"Ingresa los datos de la tabla en Excel exactamente como aparecen: alumno en columna A, curso en B, cuota (Q) en C y estado de pago en D."},
-      {id:"i2",pts:20,letra:"b",txt:'En la columna F crea un resumen por curso: usa =CONTAR.SI(B2:B9,"Rob\u00f3tica") para contar cu\u00e1ntos alumnos est\u00e1n inscritos en Rob\u00f3tica. Repite para Ingl\u00e9s y Guitarra.'},
-      {id:"i3",pts:20,letra:"c",txt:'Contin\u00faa el resumen: usa =CONTAR.SI(D2:D9,"Pagado") para contar cu\u00e1ntos alumnos ya pagaron, y =CONTAR.SI(D2:D9,"Pendiente") para contar cu\u00e1ntos deben.'},
-      {id:"i4",pts:20,letra:"d",txt:'Agrega: usa =SUMAR.SI(D2:D9,"Pagado",C2:C9) para sumar el total de cuotas ya cobradas, y =SUMAR.SI(B2:B9,"Rob\u00f3tica",C2:C9) para sumar el total del curso de Rob\u00f3tica.'},
-      {id:"i5",pts:10,letra:"e",txt:'Agrega: usa =CONTAR.SI(C2:C9,">200") para contar cu\u00e1ntas cuotas son mayores a Q200.'},
-      {id:"i6",pts:10,letra:"f",txt:"Aplica fondo verde oscuro y letra blanca en negrita a los encabezados (fila 1). Guarda como Inscripciones_TuNombre.xlsx y s\u00fabelo en el Portal de Tareas."},
+      {id:"i1",pts:20,letra:"a",txt:'Ingresa los datos de la tabla en Excel exactamente como aparecen: alumno en columna A, curso en B, cuota (Q) en C y estado de pago en D.'},
+      {id:"i2",pts:20,letra:"b",txt:'En la columna F crea un resumen por curso: usa =CONTAR.SI(B2:B9,"Robótica") para contar cuántos alumnos están inscritos en Robótica. Repite para Inglés y Guitarra.'},
+      {id:"i3",pts:20,letra:"c",txt:'Continúa el resumen: usa =CONTAR.SI(D2:D9,"Pagado") para contar cuántos alumnos ya pagaron, y =CONTAR.SI(D2:D9,"Pendiente") para contar cuántos deben.'},
+      {id:"i4",pts:20,letra:"d",txt:'Agrega: usa =SUMAR.SI(D2:D9,"Pagado",C2:C9) para sumar el total de cuotas ya cobradas, y =SUMAR.SI(B2:B9,"Robótica",C2:C9) para sumar el total del curso de Robótica.'},
+      {id:"i5",pts:10,letra:"e",txt:'Agrega: usa =CONTAR.SI(C2:C9,">200") para contar cuántas cuotas son mayores a Q200.'},
+      {id:"i6",pts:10,letra:"f",txt:'Aplica fondo verde oscuro y letra blanca en negrita a los encabezados (fila 1). Guarda como Inscripciones_TuNombre.xlsx y súbelo en el Portal de Tareas.'},
     ],
   },
-  final:VACIO("Examen Final \u2014 Computaci\u00f3n I","Pendiente de configurar"),
+  final:VACIO("Examen Final — Computación I","Pendiente de configurar"),
 };
 
 const EXAMENES_LAB1={
-  parcial:   VACIO("Parcial \u2014 Laboratorio I","Pendiente de configurar"),
-  parcial_u2:VACIO("Parcial U.II \u2014 Laboratorio I","Pendiente de configurar"),
+  parcial:   VACIO("Parcial — Laboratorio I","Pendiente de configurar"),
+  parcial_u2:VACIO("Parcial U.II — Laboratorio I","Pendiente de configurar"),
   parcial_u3:{
-    titulo:"Parcial \u2014 Laboratorio I",
-    subtitulo:"Unidad III \u00b7 Protecci\u00f3n de Dispositivos \u2014 Windows Update, Firewall y Antivirus",
+    titulo:"Parcial — Laboratorio I",
+    subtitulo:"Unidad III · Protección de Dispositivos — Windows Update, Firewall y Antivirus",
     tiempo:40*60,
     multiple:[
-      {id:"m1",txt:"\u00bfPara qu\u00e9 sirven las actualizaciones de Windows?",opts:["Para cambiar el fondo de pantalla y el tema visual","Para cerrar vulnerabilidades de seguridad y mejorar el sistema","Para aumentar la velocidad del procesador","Para instalar programas nuevos autom\u00e1ticamente"],correcta:1},
-      {id:"m2",txt:"\u00bfQu\u00e9 pas\u00f3 con el virus WannaCry en 2017?",opts:["Rob\u00f3 contrase\u00f1as bancarias de usuarios en Guatemala","Infect\u00f3 m\u00e1s de 200,000 computadoras en 150 pa\u00edses que ten\u00edan actualizaciones pendientes","Borr\u00f3 todos los archivos de las redes sociales","Solo afect\u00f3 computadoras de empresas grandes"],correcta:1},
-      {id:"m3",txt:"\u00bfQu\u00e9 funci\u00f3n cumple el Firewall de Windows?",opts:["Elimina virus y malware del sistema","Controla el tr\u00e1fico de red que entra y sale de la computadora","Actualiza las definiciones del antivirus","Guarda copias de seguridad de los archivos"],correcta:1},
-      {id:"m4",txt:"\u00bfCu\u00e1l es la ruta correcta para abrir Windows Update en Windows 10/11?",opts:["Panel de control \u2192 Programas \u2192 Windows Update","Inicio \u2192 Configuraci\u00f3n \u2192 Windows Update","Inicio \u2192 Todos los programas \u2192 Microsoft Update","Escritorio clic derecho \u2192 Actualizar ahora"],correcta:1},
-      {id:"m5",txt:"Un compa\u00f1ero desactiv\u00f3 el Firewall porque un juego se lo pidi\u00f3. \u00bfQu\u00e9 riesgo enfrenta?",opts:["Ninguno, el antivirus compensa la ausencia del Firewall","Que cualquier conexi\u00f3n no autorizada pueda entrar o salir sin ser bloqueada","Solo pierde velocidad en internet","Que Windows Update deje de funcionar"],correcta:1},
-      {id:"m6",txt:"\u00bfQu\u00e9 hace la protecci\u00f3n en tiempo real de Windows Defender?",opts:["Hace un respaldo autom\u00e1tico de los archivos cada hora","Analiza cada archivo al abrirlo o descargarlo antes de que pueda ejecutarse","Bloquea todas las conexiones de red entrantes","Verifica si Windows est\u00e1 actualizado al d\u00eda"],correcta:1},
-      {id:"m7",txt:"\u00bfCu\u00e1ntos tipos de red protege el Firewall de Windows Defender?",opts:["1 \u2014 solo la red privada del hogar","2 \u2014 red privada y red p\u00fablica","3 \u2014 red de dominio, red privada y red p\u00fablica","4 \u2014 incluye tambi\u00e9n la red de datos m\u00f3viles"],correcta:2},
-      {id:"m8",txt:"\u00bfCu\u00e1les son las 3 capas de protecci\u00f3n b\u00e1sicas del sistema operativo Windows?",opts:["Contrase\u00f1a, cifrado y respaldo","Actualizaciones, Firewall y Antivirus","Chrome, Edge y Firefox con modo seguro","Usuario, administrador e invitado"],correcta:1},
+      {id:"m1",txt:"¿Para qué sirven las actualizaciones de Windows?",opts:["Para cambiar el fondo de pantalla y el tema visual","Para cerrar vulnerabilidades de seguridad y mejorar el sistema","Para aumentar la velocidad del procesador","Para instalar programas nuevos automáticamente"],correcta:1},
+      {id:"m2",txt:"¿Qué pasó con el virus WannaCry en 2017?",opts:["Robó contraseñas bancarias de usuarios en Guatemala","Infectó más de 200,000 computadoras en 150 países que tenían actualizaciones pendientes","Borró todos los archivos de las redes sociales","Solo afectó computadoras de empresas grandes"],correcta:1},
+      {id:"m3",txt:"¿Qué función cumple el Firewall de Windows?",opts:["Elimina virus y malware del sistema","Controla el tráfico de red que entra y sale de la computadora","Actualiza las definiciones del antivirus","Guarda copias de seguridad de los archivos"],correcta:1},
+      {id:"m4",txt:"¿Cuál es la ruta correcta para abrir Windows Update en Windows 10/11?",opts:["Panel de control → Programas → Windows Update","Inicio → Configuración → Windows Update","Inicio → Todos los programas → Microsoft Update","Escritorio clic derecho → Actualizar ahora"],correcta:1},
+      {id:"m5",txt:"Un compañero desactivó el Firewall porque un juego se lo pidió. ¿Qué riesgo enfrenta?",opts:["Ninguno, el antivirus compensa la ausencia del Firewall","Que cualquier conexión no autorizada pueda entrar o salir sin ser bloqueada","Solo pierde velocidad en internet","Que Windows Update deje de funcionar"],correcta:1},
+      {id:"m6",txt:"¿Qué hace la protección en tiempo real de Windows Defender?",opts:["Hace un respaldo automático de los archivos cada hora","Analiza cada archivo al abrirlo o descargarlo antes de que pueda ejecutarse","Bloquea todas las conexiones de red entrantes","Verifica si Windows está actualizado al día"],correcta:1},
+      {id:"m7",txt:"¿Cuántos tipos de red protege el Firewall de Windows Defender?",opts:["1 — solo la red privada del hogar","2 — red privada y red pública","3 — red de dominio, red privada y red pública","4 — incluye también la red de datos móviles"],correcta:2},
+      {id:"m8",txt:"¿Cuáles son las 3 capas de protección básicas del sistema operativo Windows?",opts:["Contraseña, cifrado y respaldo","Actualizaciones, Firewall y Antivirus","Chrome, Edge y Firefox con modo seguro","Usuario, administrador e invitado"],correcta:1},
     ],
     vf:[
       {id:"vf1",txt:"Las actualizaciones de Windows cierran vulnerabilidades de seguridad conocidas.",correcta:true},
-      {id:"vf2",txt:"El Firewall desactivado no representa riesgo si ten\u00e9s un antivirus activo.",correcta:false},
+      {id:"vf2",txt:"El Firewall desactivado no representa riesgo si tenés un antivirus activo.",correcta:false},
       {id:"vf3",txt:"Windows Defender es un antivirus gratuito que viene incluido en Windows.",correcta:true},
       {id:"vf4",txt:"Es seguro desactivar el Firewall temporalmente si un programa lo solicita.",correcta:false},
-      {id:"vf5",txt:"Las definiciones de virus de Windows Defender se actualizan autom\u00e1ticamente varias veces al d\u00eda.",correcta:true},
-      {id:"vf6",txt:"Un sistema Windows sin actualizaciones es m\u00e1s vulnerable a ataques de malware.",correcta:true},
+      {id:"vf5",txt:"Las definiciones de virus de Windows Defender se actualizan automáticamente varias veces al día.",correcta:true},
+      {id:"vf6",txt:"Un sistema Windows sin actualizaciones es más vulnerable a ataques de malware.",correcta:true},
       {id:"vf7",txt:"El Firewall solo protege contra virus, no contra conexiones no autorizadas.",correcta:false},
-      {id:"vf8",txt:"El 60% de los ataques exitosos explotan vulnerabilidades para las que ya exist\u00eda un parche disponible.",correcta:true},
+      {id:"vf8",txt:"El 60% de los ataques exitosos explotan vulnerabilidades para las que ya existía un parche disponible.",correcta:true},
     ],
     completar:{
       banco:["actualizaciones","Firewall","Defender","tiempo real","WannaCry","vulnerabilidades","malware","dominio"],
       preguntas:[
         {id:"c1",pre:"Las",post:"de Windows cierran huecos de seguridad antes de que los atacantes los exploten.",correcta:"actualizaciones"},
-        {id:"c2",pre:"El",post:"controla qu\u00e9 conexiones de red tienen permiso de entrar y salir de la computadora.",correcta:"Firewall"},
+        {id:"c2",pre:"El",post:"controla qué conexiones de red tienen permiso de entrar y salir de la computadora.",correcta:"Firewall"},
         {id:"c3",pre:"Windows",post:"es el antivirus gratuito integrado en Windows que protege el sistema en tiempo real.",correcta:"Defender"},
-        {id:"c4",pre:"La protecci\u00f3n en",post:"analiza cada archivo en el momento en que lo abr\u00eds o descargu\u00e9s.",correcta:"tiempo real"},
-        {id:"c5",pre:"El virus",post:"del a\u00f1o 2017 infect\u00f3 200,000 computadoras aprovechando actualizaciones pendientes.",correcta:"WannaCry"},
-        {id:"c6",pre:"Las actualizaciones corrigen",post:"que los atacantes podr\u00edan explotar para entrar al sistema.",correcta:"vulnerabilidades"},
+        {id:"c4",pre:"La protección en",post:"analiza cada archivo en el momento en que lo abrís o descargás.",correcta:"tiempo real"},
+        {id:"c5",pre:"El virus",post:"del año 2017 infectó 200,000 computadoras aprovechando actualizaciones pendientes.",correcta:"WannaCry"},
+        {id:"c6",pre:"Las actualizaciones corrigen",post:"que los atacantes podrían explotar para entrar al sistema.",correcta:"vulnerabilidades"},
       ]
     },
     desarrollo:[
-      {id:"d1",pts:3,txt:"Explica con tus propias palabras para qu\u00e9 sirve cada una de las 3 capas de protecci\u00f3n de Windows: actualizaciones, Firewall y antivirus. Da un ejemplo de qu\u00e9 pasar\u00eda si cada una faltara."},
-      {id:"d2",pts:2,txt:"Tu prima tiene 45 actualizaciones de Windows pendientes desde hace 4 meses. \u00bfQu\u00e9 le explicar\u00edas sobre el riesgo que corre y qu\u00e9 pasos le dir\u00edas que siga para solucionar el problema?"},
+      {id:"d1",pts:3,txt:"Explica con tus propias palabras para qué sirve cada una de las 3 capas de protección de Windows: actualizaciones, Firewall y antivirus. Da un ejemplo de qué pasaría si cada una faltara."},
+      {id:"d2",pts:2,txt:"Tu prima tiene 45 actualizaciones de Windows pendientes desde hace 4 meses. ¿Qué le explicarías sobre el riesgo que corre y qué pasos le dirías que siga para solucionar el problema?"},
     ],
   },
-  final:VACIO("Examen Final \u2014 Laboratorio I","Pendiente de configurar"),
+  final:VACIO("Examen Final — Laboratorio I","Pendiente de configurar"),
 };
 
-// \u2550\u2550 PROG4 \u2014 Parcial U.III SWITCH en C++ \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550
 const EXAMENES_PROG4={
-  parcial:   VACIO("Parcial \u2014 Programaci\u00f3n C++","Pendiente de configurar"),
-  parcial_u2:VACIO("Parcial U.II \u2014 Programaci\u00f3n C++","Pendiente de configurar"),
-
+  parcial:   VACIO("Parcial — Programación C++","Pendiente de configurar"),
+  parcial_u2:VACIO("Parcial U.II — Programación C++","Pendiente de configurar"),
   parcial_u3:{
     tipo:"practico",
-    titulo:"Parcial Pr\u00e1ctico \u2014 Programaci\u00f3n C++ \u00b7 Unidad III",
-    subtitulo:"Estructura switch \u00b7 Dev-C++",
+    titulo:"Parcial Práctico — Programación C++ · Unidad III",
+    subtitulo:"Estructura switch · Dev-C++",
     programa:"Dev-C++ o Code::Blocks",
-    entregable:"Parcial U.III \u2014 switch C++",
+    entregable:"Parcial U.III — switch C++",
     tiempo:50*60,
     tabla:{
-      headers:["#","Archivo","Descripci\u00f3n","Puntos"],
+      headers:["#","Archivo","Descripción","Puntos"],
       rows:[
-        ["1","ejercicio1.cpp","D\u00eda de la semana \u2014 switch del 1 al 7 con default","25 pts"],
-        ["2","ejercicio2.cpp","Tienda escolar \u2014 switch con productos, precios y c\u00e1lculo de total","25 pts"],
-        ["3","ejercicio3.cpp","Calculadora \u2014 switch con suma, resta, multiplicaci\u00f3n y divisi\u00f3n (validar b\u22600)","25 pts"],
-        ["4","ejercicio4.cpp","D\u00eda laboral o fin de semana \u2014 agrupaci\u00f3n de cases sin break entre ellos","25 pts"],
+        ["1","ejercicio1.cpp","Día de la semana — switch del 1 al 7 con default","25 pts"],
+        ["2","ejercicio2.cpp","Tienda escolar — switch con productos, precios y cálculo de total","25 pts"],
+        ["3","ejercicio3.cpp","Calculadora — switch con suma, resta, multiplicación y división (validar b≠0)","25 pts"],
+        ["4","ejercicio4.cpp","Día laboral o fin de semana — agrupación de cases sin break entre ellos","25 pts"],
       ]
     },
     incisos:[
-      {id:"i1",pts:25,letra:"a",txt:"Crea ejercicio1.cpp: pide un n\u00famero entero del 1 al 7. Usa switch para imprimir el nombre del d\u00eda: 1\u2192Lunes, 2\u2192Martes, 3\u2192Mi\u00e9rcoles, 4\u2192Jueves, 5\u2192Viernes, 6\u2192S\u00e1bado, 7\u2192Domingo. Agrega cout << endl; despu\u00e9s del switch. Usa default: cout << \"Dia invalido.\"; No olvides break en cada case. Prueba con: 1, 5, 7 y 9."},
-      {id:"i2",pts:25,letra:"b",txt:"Crea ejercicio2.cpp: muestra este men\u00fa con cout: 1-Cuaderno Q5.50  2-Lapicero Q2.00  3-Borrador Q1.50  4-Regla Q3.00. Pide la opci\u00f3n (int) con cin. Usa switch: en cada case guarda el nombre en una variable string y el precio en un float, luego imprime el nombre y precio. Despu\u00e9s del switch pide la cantidad (int) con cin y calcula total = precio * cantidad. Imprime: \"Total a pagar: Q\" << total. Usa default: cout << \"Producto no disponible.\"; Prueba con: opci\u00f3n 1 (3 unidades), opci\u00f3n 3 (5 unidades) y opci\u00f3n 8."},
-      {id:"i3",pts:25,letra:"c",txt:"Crea ejercicio3.cpp: muestra men\u00fa con cout: 1-Suma  2-Resta  3-Multiplicacion  4-Division. Pide opcion (int), luego dos n\u00fameros float a y b con cin. Usa switch: case 1 cout<<a+b, case 2 cout<<a-b, case 3 cout<<a*b, case 4: usa if(b!=0) para imprimir a/b, sino imprime \"Error: no se puede dividir entre cero.\". Formato de salida: \"Resultado: \" << resultado. Usa default: cout << \"Operacion invalida.\"; Prueba con: opci\u00f3n 1 (10, 3), opci\u00f3n 4 (8, 0), opci\u00f3n 4 (8, 2) y opci\u00f3n 9."},
-      {id:"i4",pts:25,letra:"d",txt:"Crea ejercicio4.cpp: pide un n\u00famero del 1 al 7. Usa switch con AGRUPACI\u00d3N de cases (sin break entre los que comparten acci\u00f3n): cases 1, 2, 3, 4, 5 sin break entre ellos \u2192 cout << \"Dia laboral (lunes a viernes).\"; break; Cases 6, 7 sin break entre ellos \u2192 cout << \"Fin de semana.\"; break; ADEM\u00c1S, antes del switch usa if/else if para mensajes extra: si es 1 imprime tambi\u00e9n \"Inicio de semana laboral.\", si es 5 imprime \"Cierre de semana laboral.\", si es 6 o 7 imprime \"Disfruta tu descanso.\". Usa default: cout << \"Numero invalido.\"; Prueba con: 1, 3, 5, 6 y 10."},
+      {id:"i1",pts:25,letra:"a",txt:"Crea ejercicio1.cpp: pide un número entero del 1 al 7. Usa switch para imprimir el nombre del día: 1→Lunes, 2→Martes, 3→Miércoles, 4→Jueves, 5→Viernes, 6→Sábado, 7→Domingo. Agrega cout << endl; después del switch. Usa default: cout << \"Dia invalido.\"; No olvides break en cada case. Prueba con: 1, 5, 7 y 9."},
+      {id:"i2",pts:25,letra:"b",txt:"Crea ejercicio2.cpp: muestra este menú con cout: 1-Cuaderno Q5.50  2-Lapicero Q2.00  3-Borrador Q1.50  4-Regla Q3.00. Pide la opción (int) con cin. Usa switch: en cada case guarda el nombre en una variable string y el precio en un float, luego imprime el nombre y precio. Después del switch pide la cantidad (int) con cin y calcula total = precio * cantidad. Imprime: \"Total a pagar: Q\" << total. Usa default: cout << \"Producto no disponible.\"; Prueba con: opción 1 (3 unidades), opción 3 (5 unidades) y opción 8."},
+      {id:"i3",pts:25,letra:"c",txt:"Crea ejercicio3.cpp: muestra menú con cout: 1-Suma  2-Resta  3-Multiplicacion  4-Division. Pide opcion (int), luego dos números float a y b con cin. Usa switch: case 1 cout<<a+b, case 2 cout<<a-b, case 3 cout<<a*b, case 4: usa if(b!=0) para imprimir a/b, sino imprime \"Error: no se puede dividir entre cero.\". Formato: \"Resultado: \" << resultado. Usa default: cout << \"Operacion invalida.\"; Prueba con: opción 1 (10,3), opción 4 (8,0), opción 4 (8,2) y opción 9."},
+      {id:"i4",pts:25,letra:"d",txt:"Crea ejercicio4.cpp: pide un número del 1 al 7. Usa switch con AGRUPACIÓN de cases (sin break entre los que comparten acción): cases 1,2,3,4,5 sin break entre ellos → cout << \"Dia laboral (lunes a viernes).\"; break; Cases 6,7 sin break entre ellos → cout << \"Fin de semana.\"; break; ADEMÁS, antes del switch usa if/else if: si es 1 imprime también \"Inicio de semana laboral.\", si es 5 imprime \"Cierre de semana laboral.\", si es 6 o 7 imprime \"Disfruta tu descanso.\". Usa default: cout << \"Numero invalido.\"; Prueba con: 1, 3, 5, 6 y 10."},
     ],
   },
-
-  final:VACIO("Examen Final \u2014 Programaci\u00f3n C++","Pendiente de configurar"),
+  final:VACIO("Examen Final — Programación C++","Pendiente de configurar"),
 };
 
 const EXAMENES_PY5={
-  parcial:   VACIO("Parcial \u2014 Programaci\u00f3n Python","Pendiente de configurar"),
-  parcial_u2:VACIO("Parcial U.II \u2014 Programaci\u00f3n Python","Pendiente de configurar"),
+  parcial:   VACIO("Parcial — Programación Python","Pendiente de configurar"),
+  parcial_u2:VACIO("Parcial U.II — Programación Python","Pendiente de configurar"),
   parcial_u3:{
     tipo:"practico",
-    titulo:"Parcial Pr\u00e1ctico \u2014 Programaci\u00f3n Python \u00b7 Unidad III",
+    titulo:"Parcial Práctico — Programación Python · Unidad III",
     subtitulo:"Estructura match / case",
     programa:"IDLE, Thonny o VS Code (Python 3.10+)",
-    entregable:"Parcial U.III \u2014 match/case Python",
+    entregable:"Parcial U.III — match/case Python",
     tiempo:50*60,
     tabla:{
-      titulo:"\ud83d\udccb Archivos que debes crear y entregar",
-      headers:["#","Archivo","Descripci\u00f3n","Puntos"],
+      headers:["#","Archivo","Descripción","Puntos"],
       rows:[
-        ["1","ejercicio1.py","Sem\u00e1foro \u2014 match/case con 3 colores y mensaje de acci\u00f3n","25 pts"],
-        ["2","ejercicio2.py","\u00c1rea de figuras geom\u00e9tricas \u2014 match/case seg\u00fan figura elegida","25 pts"],
-        ["3","ejercicio3.py","Tallas de camisa \u2014 match/case con texto (str) y agrupaci\u00f3n con |","25 pts"],
-        ["4","ejercicio4.py","Calculadora cient\u00edfica \u2014 match/case con potencia, ra\u00edz y valor absoluto","25 pts"],
+        ["1","ejercicio1.py","Semáforo — match/case con 3 colores y mensaje de acción","25 pts"],
+        ["2","ejercicio2.py","Área de figuras geométricas — match/case según figura elegida","25 pts"],
+        ["3","ejercicio3.py","Tallas de camisa — match/case con texto (str) y agrupación con |","25 pts"],
+        ["4","ejercicio4.py","Calculadora científica — match/case con potencia, raíz y valor absoluto","25 pts"],
       ]
     },
     incisos:[
-      {id:"i1",pts:25,letra:"a",txt:"Crea ejercicio1.py: pide un n\u00famero (1-Rojo, 2-Amarillo, 3-Verde) con input() e int(). Usa match/case para imprimir: 1 \u2192 'Alto, det\u00e9ngase.' \u00b7 2 \u2192 'Precauci\u00f3n, prep\u00e1rese.' \u00b7 3 \u2192 'Siga con precauci\u00f3n.' Usa case _: para 'Color inv\u00e1lido.' Prueba con: 1, 2, 3 y 5."},
-      {id:"i2",pts:25,letra:"b",txt:"Crea ejercicio2.py: pide un n\u00famero (1-C\u00edrculo, 2-Cuadrado, 3-Tri\u00e1ngulo) y las medidas necesarias con float(). Usa match/case para calcular el \u00e1rea: C\u00edrculo = 3.1416*radio**2, Cuadrado = lado**2, Tri\u00e1ngulo = (base*altura)/2. Imprime el resultado con 2 decimales usando round(). Usa case _: para 'Figura no v\u00e1lida.'"},
-      {id:"i3",pts:25,letra:"c",txt:"Crea ejercicio3.py: pide una talla como texto ('S', 'M', 'L', 'XL') con input(). Usa match/case comparando strings para mostrar la equivalencia en cent\u00edmetros de pecho: S=88cm, M=96cm, L=104cm, XL=112cm. Agrupa S y M con el operador | y usa case _: para 'Talla no reconocida.'"},
-      {id:"i4",pts:25,letra:"d",txt:"Crea ejercicio4.py: muestra un men\u00fa (1-Potencia, 2-Ra\u00edz cuadrada, 3-Valor absoluto) y pide los n\u00fameros necesarios con float(). Usa match/case: Potencia = a**b, Ra\u00edz cuadrada = a**0.5 (validar que a >= 0), Valor absoluto = abs(a). Usa case _: para 'Operaci\u00f3n no v\u00e1lida.'"},
+      {id:"i1",pts:25,letra:"a",txt:"Crea ejercicio1.py: pide un número (1-Rojo, 2-Amarillo, 3-Verde) con input() e int(). Usa match/case para imprimir: 1 → 'Alto, deténgase.' · 2 → 'Precaución, prepárese.' · 3 → 'Siga con precaución.' Usa case _: para 'Color inválido.' Prueba con: 1, 2, 3 y 5."},
+      {id:"i2",pts:25,letra:"b",txt:"Crea ejercicio2.py: pide un número (1-Círculo, 2-Cuadrado, 3-Triángulo) y las medidas necesarias con float(). Usa match/case para calcular el área: Círculo = 3.1416*radio**2, Cuadrado = lado**2, Triángulo = (base*altura)/2. Imprime con round(). Usa case _: para 'Figura no válida.'"},
+      {id:"i3",pts:25,letra:"c",txt:"Crea ejercicio3.py: pide una talla como texto ('S', 'M', 'L', 'XL') con input(). Usa match/case para mostrar la equivalencia en cm de pecho: S=88cm, M=96cm, L=104cm, XL=112cm. Agrupa S y M con el operador | y usa case _: para 'Talla no reconocida.'"},
+      {id:"i4",pts:25,letra:"d",txt:"Crea ejercicio4.py: muestra un menú (1-Potencia, 2-Raíz cuadrada, 3-Valor absoluto) y pide los números con float(). Usa match/case: Potencia = a**b, Raíz = a**0.5 (validar a >= 0), Valor absoluto = abs(a). Usa case _: para 'Operación no válida.'"},
     ],
   },
-  final:VACIO("Examen Final \u2014 Programaci\u00f3n Python","Pendiente de configurar"),
+  final:VACIO("Examen Final — Programación Python","Pendiente de configurar"),
 };
 
 const EXAMENES_COMP5={
-  parcial:   VACIO("Parcial \u2014 Excel Avanzado","Pendiente de configurar"),
-  parcial_u2:VACIO("Parcial U.II \u2014 Excel Avanzado","Pendiente de configurar"),
+  parcial:   VACIO("Parcial — Excel Avanzado","Pendiente de configurar"),
+  parcial_u2:VACIO("Parcial U.II — Excel Avanzado","Pendiente de configurar"),
   parcial_u3:{
     tipo:"practico",
-    titulo:"Parcial Pr\u00e1ctico \u2014 Excel Avanzado \u00b7 Unidad III",
-    subtitulo:"Funci\u00f3n BUSCARV y SI.ERROR \u00b7 Sistema de consulta de empleados",
+    titulo:"Parcial Práctico — Excel Avanzado · Unidad III",
+    subtitulo:"Función BUSCARV y SI.ERROR · Sistema de consulta de empleados",
     programa:"Microsoft Excel",
-    entregable:"Parcial U.III \u2014 BUSCARV Excel",
+    entregable:"Parcial U.III — BUSCARV Excel",
     tiempo:40*60,
     tabla:{
-      headers:["","A \u2014 ID","B \u2014 Nombre","C \u2014 Departamento","D \u2014 Puesto","E \u2014 Sueldo (Q)"],
+      headers:["","A — ID","B — Nombre","C — Departamento","D — Puesto","E — Sueldo (Q)"],
       rows:[
         ["2","E01","Andrea Cux","Ventas","Vendedor","3,500.00"],
         ["3","E02","Roberto Tahay","Admin","Contador","5,200.00"],
-        ["4","E03","Luisa Aj\u00fa","Ventas","Supervisor","6,000.00"],
+        ["4","E03","Luisa Ajú","Ventas","Supervisor","6,000.00"],
         ["5","E04","Mario Batz","Bodega","Asistente","2,800.00"],
         ["6","E05","Carmen Xol","Admin","Asistente","4,100.00"],
-        ["7","E06","Diego L\u00f3pez","Ventas","Vendedor","3,500.00"],
-        ["8","E07","Sof\u00eda Ixcot","Bodega","Supervisor","4,800.00"],
-        ["9","E08","H\u00e9ctor Coy","Admin","Contador","5,000.00"],
+        ["7","E06","Diego López","Ventas","Vendedor","3,500.00"],
+        ["8","E07","Sofía Ixcot","Bodega","Supervisor","4,800.00"],
+        ["9","E08","Héctor Coy","Admin","Contador","5,000.00"],
       ]
     },
     incisos:[
-      {id:"i1",pts:15,letra:"a",txt:"Ingresa la tabla de empleados en Excel exactamente como aparece arriba. Aplica fondo verde oscuro con letra blanca en negrita a los encabezados (fila 1)."},
-      {id:"i2",pts:25,letra:"b",txt:"En G1 escribe 'ID a buscar' y en H1 escribe E03. En G2-G5 escribe Nombre, Departamento, Puesto, Sueldo. En H2-H5 escribe f\u00f3rmulas BUSCARV que usen H1 como valor buscado para traer cada dato."},
-      {id:"i3",pts:20,letra:"c",txt:"Envuelve las f\u00f3rmulas de H2-H5 con SI.ERROR para mostrar 'Empleado no encontrado' si el ID no existe. Prueba con E99."},
+      {id:"i1",pts:15,letra:"a",txt:"Ingresa la tabla de empleados en Excel: ID en columna A, Nombre en B, Departamento en C, Puesto en D y Sueldo en E. Aplica fondo verde oscuro con letra blanca en negrita a los encabezados (fila 1)."},
+      {id:"i2",pts:25,letra:"b",txt:"En G1 escribe 'ID a buscar' y en H1 escribe E03. En G2-G5 escribe Nombre, Departamento, Puesto, Sueldo. En H2-H5 escribe fórmulas BUSCARV que usen H1 como valor buscado para traer cada dato de la tabla."},
+      {id:"i3",pts:20,letra:"c",txt:"Envuelve las fórmulas de H2-H5 con SI.ERROR para mostrar 'Empleado no encontrado' si el ID no existe. Prueba con E99."},
       {id:"i4",pts:20,letra:"d",txt:"En H7 escribe 'Bono 10%', en H8 calcula el bono usando H5. En H9 'Total con bono', en H10 suma H5+H8. Aplica formato Moneda (Q) a H5, H8 y H10."},
-      {id:"i5",pts:20,letra:"e",txt:"Prueba con IDs: E01, E05, E08 y E99. Guarda como Parcial_BUSCARV_TuNombre.xlsx y s\u00fabelo en el Portal de Tareas."},
+      {id:"i5",pts:20,letra:"e",txt:"Prueba con IDs: E01, E05, E08 y E99. Guarda como Parcial_BUSCARV_TuNombre.xlsx y súbelo en el Portal de Tareas en la actividad 'Parcial U.III — BUSCARV Excel'."},
     ],
   },
-  final:VACIO("Examen Final \u2014 Excel Avanzado","Pendiente de configurar"),
+  final:VACIO("Examen Final — Excel Avanzado","Pendiente de configurar"),
 };
 
 const EXAMENES_MAD1={
-  parcial:   VACIO("Parcial \u2014 Computaci\u00f3n e Inform\u00e1tica","Pendiente de configurar"),
-  parcial_u2:VACIO("Parcial U.II \u2014 Computaci\u00f3n e Inform\u00e1tica","Pendiente de configurar"),
+  parcial:   VACIO("Parcial — Computación e Informática","Pendiente de configurar"),
+  parcial_u2:VACIO("Parcial U.II — Computación e Informática","Pendiente de configurar"),
   parcial_u3:{
     tipo:"practico",
-    titulo:"Parcial Pr\u00e1ctico \u2014 Computaci\u00f3n e Inform\u00e1tica \u00b7 Unidad III",
-    subtitulo:"Funci\u00f3n CONTAR.SI en Excel \u00b7 Control de ventas",
+    titulo:"Parcial Práctico — Computación e Informática · Unidad III",
+    subtitulo:"Función CONTAR.SI en Excel · Control de ventas",
     tiempo:50*60,
-    entregable:"Parcial U.III \u2014 Ventas CONTAR.SI",
+    entregable:"Parcial U.III — Ventas CONTAR.SI",
     incisos:[
-      {id:"i1",pts:20,letra:"a",txt:"Ingresa los datos de la tabla en Excel: vendedor en columna A, categor\u00eda en B, monto en C y estado en D."},
-      {id:"i2",pts:20,letra:"b",txt:'En la columna F crea un resumen por categor\u00eda: usa =CONTAR.SI(B2:B9,"Ropa") para Ropa. Repite para Calzado y Accesorios.'},
-      {id:"i3",pts:20,letra:"c",txt:"Contin\u00faa el resumen: usa CONTAR.SI para contar cuántas ventas hizo cada vendedor."},
-      {id:"i4",pts:15,letra:"d",txt:'Agrega: usa =CONTAR.SI(C2:C9,">500") para ventas sobre Q500, y =CONTAR.SI(C2:C9,"<=500") para las dem\u00e1s.'},
-      {id:"i5",pts:15,letra:"e",txt:"Agrega: usa CONTAR.SI para contar ventas Completada y Pendiente."},
-      {id:"i6",pts:10,letra:"f",txt:"Aplica formato a encabezados. Guarda como Ventas_TuNombre.xlsx y s\u00fabelo en el Portal de Tareas."},
+      {id:"i1",pts:20,letra:"a",txt:'Ingresa los datos de la tabla en Excel: vendedor en columna A, categoría en B, monto en C y estado en D.'},
+      {id:"i2",pts:20,letra:"b",txt:'En la columna F crea un resumen por categoría: usa =CONTAR.SI(B2:B9,"Ropa") para Ropa. Repite para Calzado y Accesorios.'},
+      {id:"i3",pts:20,letra:"c",txt:'Continúa el resumen: usa CONTAR.SI para contar cuántas ventas hizo cada vendedor.'},
+      {id:"i4",pts:15,letra:"d",txt:'Agrega: usa =CONTAR.SI(C2:C9,">500") para ventas sobre Q500, y =CONTAR.SI(C2:C9,"<=500") para las demás.'},
+      {id:"i5",pts:15,letra:"e",txt:'Agrega: usa CONTAR.SI para contar ventas Completada y Pendiente.'},
+      {id:"i6",pts:10,letra:"f",txt:'Aplica formato a encabezados. Guarda como Ventas_TuNombre.xlsx y súbelo en el Portal de Tareas.'},
     ],
   },
-  final:VACIO("Examen Final \u2014 Computaci\u00f3n e Inform\u00e1tica","Pendiente de configurar"),
+  final:VACIO("Examen Final — Computación e Informática","Pendiente de configurar"),
 };
 
 const EXAM_MAP={
@@ -271,7 +267,7 @@ function useTimer(s){
 }
 function TopBar({cursoId,nombre,mm,ss,timerColor}){
   const c=getCurso(cursoId)||{label:"Examen",color:"#00d4ff"};
-  return(<div style={{background:"rgba(0,0,0,0.5)",borderBottom:"1px solid rgba(255,255,255,0.1)",padding:"10px 20px",display:"flex",justifyContent:"space-between",alignItems:"center",position:"sticky",top:0,zIndex:10}}><div><div style={{fontSize:13,fontWeight:700}}>{c.label}</div><div style={{fontSize:11,color:c.color}}>{nombre}</div></div><div style={{background:"rgba(0,0,0,0.3)",border:`1px solid ${timerColor}`,borderRadius:8,padding:"5px 14px",fontFamily:"monospace",fontSize:16,fontWeight:700,color:timerColor}}>\u23f1 {mm}:{ss}</div></div>);
+  return(<div style={{background:"rgba(0,0,0,0.5)",borderBottom:"1px solid rgba(255,255,255,0.1)",padding:"10px 20px",display:"flex",justifyContent:"space-between",alignItems:"center",position:"sticky",top:0,zIndex:10}}><div><div style={{fontSize:13,fontWeight:700}}>{c.label}</div><div style={{fontSize:11,color:c.color}}>{nombre}</div></div><div style={{background:"rgba(0,0,0,0.3)",border:`1px solid ${timerColor}`,borderRadius:8,padding:"5px 14px",fontFamily:"monospace",fontSize:16,fontWeight:700,color:timerColor}}>⏱ {mm}:{ss}</div></div>);
 }
 function ProgBar({sec,total}){return(<div style={{height:3,background:"rgba(255,255,255,0.1)"}}><div style={{height:"100%",width:`${(sec/total)*100}%`,background:"linear-gradient(90deg,#00d4ff,#7b2ff7)",transition:"width .4s"}}/></div>);}
 function TabsBar({tabs,sec,setSec,color}){return(<div style={{display:"flex",gap:4,padding:"10px 20px 0",borderBottom:"1px solid rgba(255,255,255,0.08)",overflowX:"auto"}}>{tabs.map((t,i)=><button key={i} onClick={()=>setSec(i)} style={{background:sec===i?"rgba(0,0,0,0.3)":"transparent",border:sec===i?`1px solid ${color}`:"1px solid transparent",color:sec===i?color:"rgba(255,255,255,0.5)",borderRadius:"8px 8px 0 0",padding:"7px 12px",cursor:"pointer",fontSize:12,fontWeight:sec===i?700:400,whiteSpace:"nowrap"}}>{i+1}. {t}</button>)}</div>);}
@@ -279,27 +275,27 @@ function SecHeader({title,pts,inst,color="#003366"}){return(<div style={{marginB
 function PregMultiple({q,qi,sel,onSel,color}){return(<div style={card}><div style={{fontSize:14,marginBottom:10,lineHeight:1.5}}><span style={{fontWeight:700,color}}>{qi+1}.</span> {q.txt}</div><div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:8}}>{q.opts.map((o,oi)=><button key={oi} onClick={()=>onSel(oi)} style={{background:sel===oi?"rgba(0,212,255,0.15)":"rgba(255,255,255,0.05)",border:sel===oi?"1px solid #00d4ff":"1px solid rgba(255,255,255,0.1)",borderRadius:8,padding:"8px 12px",color:sel===oi?"#00d4ff":"rgba(255,255,255,0.8)",cursor:"pointer",fontSize:12,textAlign:"left",display:"flex",gap:6}}><span style={{fontWeight:700,flexShrink:0}}>{["A","B","C","D"][oi]})</span>{o}</button>)}</div></div>);}
 function PregVF({q,qi,sel,onSel}){return(<div style={{...card,display:"flex",justifyContent:"space-between",alignItems:"center",gap:12}}><div style={{fontSize:13,lineHeight:1.5,flex:1}}><span style={{fontWeight:700,color:"#a78bff"}}>{qi+1}.</span> {q.txt}</div><div style={{display:"flex",gap:8,flexShrink:0}}>{[true,false].map(v=><button key={String(v)} onClick={()=>onSel(v)} style={{background:sel===v?(v?"rgba(0,255,136,0.2)":"rgba(255,80,80,0.2)"):"rgba(255,255,255,0.07)",border:sel===v?(v?"1px solid #00ff88":"1px solid #ff5050"):"1px solid rgba(255,255,255,0.1)",borderRadius:8,padding:"7px 14px",color:sel===v?(v?"#00ff88":"#ff5050"):"rgba(255,255,255,0.6)",cursor:"pointer",fontWeight:700,fontSize:13}}>{v?"V":"F"}</button>)}</div></div>);}
 function BancoPalabras({banco}){return(<div style={{background:"rgba(255,255,255,0.04)",borderRadius:10,padding:12,marginBottom:14,border:"1px dashed rgba(255,255,255,0.2)"}}><div style={{fontSize:11,color:"rgba(255,255,255,0.5)",marginBottom:8,fontWeight:700}}>BANCO DE PALABRAS:</div><div style={{display:"flex",flexWrap:"wrap",gap:8}}>{banco.map(w=><span key={w} style={{background:"rgba(0,212,255,0.1)",border:"1px solid rgba(0,212,255,0.2)",borderRadius:6,padding:"3px 10px",fontSize:12,color:"#00d4ff"}}>{w}</span>)}</div></div>);}
-function PregCompletar({q,qi,val,onChange}){return(<div style={card}><div style={{fontSize:13,lineHeight:2,display:"flex",flexWrap:"wrap",alignItems:"center",gap:4}}><span style={{fontWeight:700,color:"#a78bff"}}>{qi+1}.</span><span>{q.pre}</span><input value={val} onChange={e=>onChange(e.target.value)} placeholder="escribe aqu\u00ed..." style={{background:"rgba(255,255,255,0.08)",border:"none",borderBottom:"2px solid rgba(0,212,255,0.5)",padding:"2px 8px",color:"#00d4ff",fontSize:13,outline:"none",minWidth:160,borderRadius:"4px 4px 0 0"}}/><span>{q.post}</span></div></div>);}
-function NavBotones({sec,setSec,max}){return(<div style={{display:"flex",justifyContent:"space-between",marginTop:16}}>{sec>0&&<button onClick={()=>setSec(s=>s-1)} style={btn()}>\u2190 Anterior</button>}{sec<max&&<button onClick={()=>setSec(s=>s+1)} style={{...btn({marginLeft:"auto"}),background:"rgba(0,212,255,0.15)",border:"1px solid rgba(0,212,255,0.3)",color:"#00d4ff",fontWeight:600}}>Siguiente \u2192</button>}</div>);}
+function PregCompletar({q,qi,val,onChange}){return(<div style={card}><div style={{fontSize:13,lineHeight:2,display:"flex",flexWrap:"wrap",alignItems:"center",gap:4}}><span style={{fontWeight:700,color:"#a78bff"}}>{qi+1}.</span><span>{q.pre}</span><input value={val} onChange={e=>onChange(e.target.value)} placeholder="escribe aquí..." style={{background:"rgba(255,255,255,0.08)",border:"none",borderBottom:"2px solid rgba(0,212,255,0.5)",padding:"2px 8px",color:"#00d4ff",fontSize:13,outline:"none",minWidth:160,borderRadius:"4px 4px 0 0"}}/><span>{q.post}</span></div></div>);}
+function NavBotones({sec,setSec,max}){return(<div style={{display:"flex",justifyContent:"space-between",marginTop:16}}>{sec>0&&<button onClick={()=>setSec(s=>s-1)} style={btn()}>← Anterior</button>}{sec<max&&<button onClick={()=>setSec(s=>s+1)} style={{...btn({marginLeft:"auto"}),background:"rgba(0,212,255,0.15)",border:"1px solid rgba(0,212,255,0.3)",color:"#00d4ff",fontWeight:600}}>Siguiente →</button>}</div>);}
 function BotonEnviar({confirm,setConfirm,enviando,enviar}){
-  if(!confirm)return(<button onClick={()=>setConfirm(true)} style={{width:"100%",marginTop:8,background:"linear-gradient(90deg,#00d4ff,#7b2ff7)",border:"none",borderRadius:12,padding:14,color:"#fff",fontWeight:700,fontSize:15,cursor:"pointer"}}>Enviar examen \ud83d\udce8</button>);
-  return(<div style={{background:"rgba(255,170,0,0.1)",border:"1px solid rgba(255,170,0,0.4)",borderRadius:12,padding:16,textAlign:"center",marginTop:8}}><div style={{fontSize:14,color:"#ffaa00",marginBottom:12}}>\u00bfConfirm\u00e1s el env\u00edo? No podr\u00e1s modificar tus respuestas.</div><div style={{display:"flex",gap:10,justifyContent:"center"}}><button onClick={()=>setConfirm(false)} style={btn()}>Revisar primero</button><button onClick={enviar} disabled={enviando} style={{background:"#00ff88",border:"none",borderRadius:8,padding:"9px 20px",color:"#000",fontWeight:700,cursor:"pointer",fontSize:13}}>{enviando?"Enviando...":"S\u00ed, enviar \u2713"}</button></div></div>);
+  if(!confirm)return(<button onClick={()=>setConfirm(true)} style={{width:"100%",marginTop:8,background:"linear-gradient(90deg,#00d4ff,#7b2ff7)",border:"none",borderRadius:12,padding:14,color:"#fff",fontWeight:700,fontSize:15,cursor:"pointer"}}>Enviar examen 📨</button>);
+  return(<div style={{background:"rgba(255,170,0,0.1)",border:"1px solid rgba(255,170,0,0.4)",borderRadius:12,padding:16,textAlign:"center",marginTop:8}}><div style={{fontSize:14,color:"#ffaa00",marginBottom:12}}>¿Confirmás el envío? No podrás modificar tus respuestas.</div><div style={{display:"flex",gap:10,justifyContent:"center"}}><button onClick={()=>setConfirm(false)} style={btn()}>Revisar primero</button><button onClick={enviar} disabled={enviando} style={{background:"#00ff88",border:"none",borderRadius:8,padding:"9px 20px",color:"#000",fontWeight:700,cursor:"pointer",fontSize:13}}>{enviando?"Enviando...":"Sí, enviar ✓"}</button></div></div>);
 }
-function Enviado({nombre}){return(<div style={{minHeight:"100vh",background:"linear-gradient(135deg,#0a0a1a,#0a1628)",display:"flex",alignItems:"center",justifyContent:"center"}}><div style={{textAlign:"center",padding:40}}><div style={{fontSize:60,marginBottom:16}}>\u2705</div><h2 style={{fontSize:24,fontWeight:800,color:"#00ff88",marginBottom:8}}>\u00a1Examen enviado!</h2><p style={{color:"rgba(255,255,255,0.6)",marginBottom:6}}>Tus respuestas fueron guardadas, {nombre.split(" ")[0]}.</p><p style={{fontSize:13,color:"rgba(255,255,255,0.4)"}}>Tu catedr\u00e1tico revisar\u00e1 y publicar\u00e1 tu nota pronto.</p></div></div>);}
+function Enviado({nombre}){return(<div style={{minHeight:"100vh",background:"linear-gradient(135deg,#0a0a1a,#0a1628)",display:"flex",alignItems:"center",justifyContent:"center"}}><div style={{textAlign:"center",padding:40}}><div style={{fontSize:60,marginBottom:16}}>✅</div><h2 style={{fontSize:24,fontWeight:800,color:"#00ff88",marginBottom:8}}>¡Examen enviado!</h2><p style={{color:"rgba(255,255,255,0.6)",marginBottom:6}}>Tus respuestas fueron guardadas, {nombre.split(" ")[0]}.</p><p style={{fontSize:13,color:"rgba(255,255,255,0.4)"}}>Tu catedrático revisará y publicará tu nota pronto.</p></div></div>);}
 
 function EnviadoPractico({nombre,cursoId}){
   const c=getCurso(cursoId)||{color:"#f7971e",dark:"#7a4500"};
   return(<div style={{minHeight:"100vh",background:`linear-gradient(135deg,#0a0a1a,${c.dark})`,display:"flex",alignItems:"center",justifyContent:"center"}}>
     <div style={{textAlign:"center",padding:40,maxWidth:520}}>
-      <div style={{fontSize:60,marginBottom:16}}>\ud83d\udcbb</div>
-      <h2 style={{fontSize:24,fontWeight:800,color:c.color,marginBottom:8}}>\u00a1Instrucciones le\u00eddas!</h2>
-      <p style={{color:"rgba(255,255,255,0.7)",marginBottom:12,lineHeight:1.6}}>{nombre.split(" ")[0]}, ahora abr\u00ed <strong>Dev-C++</strong> y cre\u00e1 los 4 archivos siguiendo los incisos.</p>
+      <div style={{fontSize:60,marginBottom:16}}>💻</div>
+      <h2 style={{fontSize:24,fontWeight:800,color:c.color,marginBottom:8}}>¡Instrucciones leídas!</h2>
+      <p style={{color:"rgba(255,255,255,0.7)",marginBottom:12,lineHeight:1.6}}>{nombre.split(" ")[0]}, ahora abrí <strong>Dev-C++</strong> y creá los 4 archivos siguiendo los incisos.</p>
       <div style={{background:`${c.color}18`,border:`1px solid ${c.color}44`,borderRadius:12,padding:16,fontSize:13,color:"rgba(255,255,255,0.75)",lineHeight:1.8,textAlign:"left"}}>
-        <div style={{fontWeight:700,color:c.color,marginBottom:8}}>\ud83d\udccb Antes de cerrar:</div>
-        <div>1. Guard\u00e1 cada archivo con el nombre exacto: <code style={{background:"rgba(255,255,255,0.1)",padding:"1px 6px",borderRadius:4,fontFamily:"monospace"}}>ejercicio1.cpp</code> a <code style={{background:"rgba(255,255,255,0.1)",padding:"1px 6px",borderRadius:4,fontFamily:"monospace"}}>ejercicio4.cpp</code></div>
-        <div style={{marginTop:6}}>2. Verific\u00e1 que cada programa compila y corre sin errores antes de subir.</div>
-        <div style={{marginTop:6}}>3. Entr\u00e1 al <strong>Portal de Tareas</strong> y busc\u00e1 la actividad <strong>"Parcial U.III \u2014 switch C++"</strong>.</div>
-        <div style={{marginTop:6}}>4. Sub\u00ed los 4 archivos .cpp en esa actividad.</div>
+        <div style={{fontWeight:700,color:c.color,marginBottom:8}}>📋 Antes de cerrar:</div>
+        <div>1. Guardá cada archivo con el nombre exacto: <code style={{background:"rgba(255,255,255,0.1)",padding:"1px 6px",borderRadius:4,fontFamily:"monospace"}}>ejercicio1.cpp</code> a <code style={{background:"rgba(255,255,255,0.1)",padding:"1px 6px",borderRadius:4,fontFamily:"monospace"}}>ejercicio4.cpp</code></div>
+        <div style={{marginTop:6}}>2. Verificá que cada programa compila y corre sin errores antes de subir.</div>
+        <div style={{marginTop:6}}>3. Entrá al <strong>Portal de Tareas</strong> y buscá la actividad <strong>"Parcial U.III — switch C++"</strong>.</div>
+        <div style={{marginTop:6}}>4. Subí los 4 archivos .cpp en esa actividad.</div>
       </div>
     </div>
   </div>);
@@ -326,11 +322,11 @@ function ExamenPractico({nombre,cursoId,tipoExamen,onEnviar}){
       </div>
       <div style={{maxWidth:820,margin:"0 auto",padding:"24px 20px 80px"}}>
         <div style={{background:"rgba(0,212,255,0.08)",border:"1px solid rgba(0,212,255,0.2)",borderRadius:12,padding:"14px 18px",marginBottom:20,fontSize:13,lineHeight:1.7}}>
-          <div style={{fontWeight:700,color:"#00d4ff",marginBottom:6}}>\ud83d\udcbb \u00bfC\u00f3mo realizar este parcial?</div>
-          <div style={{color:"rgba(255,255,255,0.75)"}}>1. Le\u00e9 los incisos en esta pantalla.<br/>2. Abr\u00ed <strong>{examen.programa||"Dev-C++"}</strong> y cre\u00e1 cada archivo siguiendo las instrucciones.<br/>3. Al terminar, hac\u00e9 clic en <strong>"Confirmar \u2014 ya termin\u00e9"</strong>.<br/>4. Sub\u00ed los archivos en la actividad <strong>"{examen.entregable}"</strong> del Portal de Tareas.</div>
+          <div style={{fontWeight:700,color:"#00d4ff",marginBottom:6}}>💻 ¿Cómo realizar este parcial?</div>
+          <div style={{color:"rgba(255,255,255,0.75)"}}>1. Leé los incisos en esta pantalla.<br/>2. Abrí <strong>{examen.programa||"Dev-C++"}</strong> y creá cada archivo siguiendo las instrucciones.<br/>3. Al terminar, hacé clic en <strong>"Confirmar — ya terminé"</strong>.<br/>4. Subí los archivos en la actividad <strong>"{examen.entregable}"</strong> del Portal de Tareas.</div>
         </div>
         {examen.tabla&&<div style={{...card,marginBottom:20}}>
-          <div style={{fontWeight:700,color:c.color,fontSize:13,marginBottom:12}}>\ud83d\udccb Archivos que deb\u00e9s crear y entregar</div>
+          <div style={{fontWeight:700,color:c.color,fontSize:13,marginBottom:12}}>📋 Archivos que debés crear y entregar</div>
           <div style={{overflowX:"auto"}}>
             <table style={{width:"100%",borderCollapse:"collapse",fontSize:12,fontFamily:"monospace"}}>
               <thead><tr>{examen.tabla.headers.map((h,i)=><th key={i} style={{background:i===0?"#1a1a2e":"#1a3a1a",color:i===0?"#5a6272":"#00d4ff",padding:"7px 10px",border:"1px solid rgba(255,255,255,0.1)",textAlign:"center",fontWeight:700,fontSize:11}}>{h}</th>)}</tr></thead>
@@ -343,7 +339,7 @@ function ExamenPractico({nombre,cursoId,tipoExamen,onEnviar}){
           </div>
         </div>}
         <div style={{...card,marginBottom:20}}>
-          <div style={{fontWeight:700,color:c.color,fontSize:13,marginBottom:14}}>\ud83d\udcdd Incisos a realizar</div>
+          <div style={{fontWeight:700,color:c.color,fontSize:13,marginBottom:14}}>📝 Incisos a realizar</div>
           {examen.incisos.map((inc,i)=>(
             <div key={inc.id} style={{display:"flex",gap:12,marginBottom:14,paddingBottom:14,borderBottom:i<examen.incisos.length-1?"1px solid rgba(255,255,255,0.06)":"none"}}>
               <div style={{width:28,height:28,borderRadius:8,background:`${c.color}22`,border:`1px solid ${c.color}55`,display:"flex",alignItems:"center",justifyContent:"center",fontWeight:800,fontSize:13,color:c.color,flexShrink:0}}>{inc.letra.toUpperCase()}</div>
@@ -353,7 +349,7 @@ function ExamenPractico({nombre,cursoId,tipoExamen,onEnviar}){
                   <span style={{fontSize:11,background:`${c.color}18`,color:c.color,border:`1px solid ${c.color}33`,borderRadius:6,padding:"2px 8px"}}>{inc.pts} pts</span>
                   <label style={{display:"flex",alignItems:"center",gap:6,cursor:"pointer",fontSize:12,color:respuestas[inc.id]?"#00ff88":"rgba(255,255,255,0.4)"}}>
                     <input type="checkbox" checked={!!respuestas[inc.id]} onChange={e=>setRespuestas(p=>({...p,[inc.id]:e.target.checked}))} style={{accentColor:"#00ff88",width:14,height:14}}/>
-                    {respuestas[inc.id]?"\u2713 Completado":"Marcar como completado"}
+                    {respuestas[inc.id]?"✓ Completado":"Marcar como completado"}
                   </label>
                 </div>
               </div>
@@ -361,13 +357,13 @@ function ExamenPractico({nombre,cursoId,tipoExamen,onEnviar}){
           ))}
         </div>
         {!confirm
-          ?<button onClick={()=>setConfirm(true)} style={{width:"100%",background:`linear-gradient(90deg,${c.color},#00d4ff)`,border:"none",borderRadius:12,padding:14,color:"#fff",fontWeight:700,fontSize:15,cursor:"pointer"}}>\u2705 Confirmar \u2014 ya termin\u00e9</button>
+          ?<button onClick={()=>setConfirm(true)} style={{width:"100%",background:`linear-gradient(90deg,${c.color},#00d4ff)`,border:"none",borderRadius:12,padding:14,color:"#fff",fontWeight:700,fontSize:15,cursor:"pointer"}}>✅ Confirmar — ya terminé</button>
           :<div style={{background:"rgba(255,170,0,0.1)",border:"1px solid rgba(255,170,0,0.4)",borderRadius:12,padding:16,textAlign:"center"}}>
-            <div style={{fontSize:14,color:"#ffaa00",marginBottom:6}}>\u00bfConfirm\u00e1s que ya terminaste los ejercicios en Dev-C++?</div>
-            <div style={{fontSize:12,color:"rgba(255,255,255,0.5)",marginBottom:14}}>Record\u00e1 subir los 4 archivos .cpp en el Portal de Tareas.</div>
+            <div style={{fontSize:14,color:"#ffaa00",marginBottom:6}}>¿Confirmás que ya terminaste los ejercicios en Dev-C++?</div>
+            <div style={{fontSize:12,color:"rgba(255,255,255,0.5)",marginBottom:14}}>Recordá subir los 4 archivos .cpp en el Portal de Tareas.</div>
             <div style={{display:"flex",gap:10,justifyContent:"center"}}>
               <button onClick={()=>setConfirm(false)} style={btn()}>Revisar primero</button>
-              <button onClick={enviar} disabled={enviando} style={{background:"#00ff88",border:"none",borderRadius:8,padding:"9px 20px",color:"#000",fontWeight:700,cursor:"pointer",fontSize:13}}>{enviando?"Registrando...":"S\u00ed, confirmar \u2713"}</button>
+              <button onClick={enviar} disabled={enviando} style={{background:"#00ff88",border:"none",borderRadius:8,padding:"9px 20px",color:"#000",fontWeight:700,cursor:"pointer",fontSize:13}}>{enviando?"Registrando...":"Sí, confirmar ✓"}</button>
             </div>
           </div>
         }
@@ -384,10 +380,10 @@ function ExamenGenerico({nombre,cursoId,tipoExamen,onEnviar}){
   const {mm,ss,color:tc,agotado}=useTimer(examen?.tiempo||40*60);
   useEffect(()=>{if(agotado&&!enviado)enviar();},[agotado]);
   const enviar=async()=>{if(enviando||enviado)return;setEnviando(true);await onEnviar({nombre,cursoId,curso:c.label,tipoExamen,titulo:examen?.titulo,fecha:new Date().toLocaleString("es-GT"),multiple,vf,completar,desarrollo});setEnviado(true);};
-  if(!examen||!examen.multiple||examen.multiple.length===0)return(<div style={{minHeight:"100vh",background:"#0a0a1a",display:"flex",alignItems:"center",justifyContent:"center"}}><div style={{textAlign:"center",padding:40}}><div style={{fontSize:48,marginBottom:16}}>\ud83d\udea7</div><h2 style={{color:"#ffaa00",marginBottom:8}}>Examen en preparaci\u00f3n</h2><p style={{color:"rgba(255,255,255,0.5)"}}>Tu catedr\u00e1tico todav\u00eda no ha configurado este examen.</p></div></div>);
+  if(!examen||!examen.multiple||examen.multiple.length===0)return(<div style={{minHeight:"100vh",background:"#0a0a1a",display:"flex",alignItems:"center",justifyContent:"center"}}><div style={{textAlign:"center",padding:40}}><div style={{fontSize:48,marginBottom:16}}>🚧</div><h2 style={{color:"#ffaa00",marginBottom:8}}>Examen en preparación</h2><p style={{color:"rgba(255,255,255,0.5)"}}>Tu catedrático todavía no ha configurado este examen.</p></div></div>);
   if(enviado)return<Enviado nombre={nombre}/>;
   const hasDes=(examen.desarrollo?.length||0)>0;
-  const tabs=["Selecci\u00f3n M\u00faltiple","Verdadero o Falso","Completar",...(hasDes?["Desarrollo"]:[])];
+  const tabs=["Selección Múltiple","Verdadero o Falso","Completar",...(hasDes?["Desarrollo"]:[])];
   const maxSec=tabs.length-1;
   return(
     <div style={{minHeight:"100vh",background:`linear-gradient(135deg,#0a0a1a,${c.dark})`}}>
@@ -399,10 +395,10 @@ function ExamenGenerico({nombre,cursoId,tipoExamen,onEnviar}){
       </div>
       <TabsBar tabs={tabs} sec={sec} setSec={setSec} color={c.color}/>
       <div style={{maxWidth:800,margin:"0 auto",padding:"20px 20px 100px"}}>
-        {sec===0&&<><SecHeader title="Selecci\u00f3n M\u00faltiple" pts={`${examen.multiple.length} preguntas \u00b7 1 pt c/u`} inst="Selecciona la respuesta correcta." color={c.dark}/>{examen.multiple.map((q,i)=><PregMultiple key={q.id} q={q} qi={i} sel={multiple[q.id]} onSel={v=>setMultiple(p=>({...p,[q.id]:v}))} color={c.color}/>)}</>}
-        {sec===1&&<><SecHeader title="Verdadero o Falso" pts={`${examen.vf.length} preguntas \u00b7 1 pt c/u`} inst="Selecciona V si es verdadero, F si es falso." color={c.dark}/>{examen.vf.map((q,i)=><PregVF key={q.id} q={q} qi={i} sel={vf[q.id]} onSel={v=>setVf(p=>({...p,[q.id]:v}))}/>)}</>}
-        {sec===2&&<><SecHeader title="Completar espacios" pts={`${examen.completar.preguntas.length} preguntas \u00b7 1 pt c/u`} inst="Escribe la palabra correcta del banco." color={c.dark}/><BancoPalabras banco={examen.completar.banco}/>{examen.completar.preguntas.map((q,i)=><PregCompletar key={q.id} q={q} qi={i} val={completar[q.id]||""} onChange={v=>setCompletar(p=>({...p,[q.id]:v}))}/>)}{!hasDes&&<BotonEnviar confirm={confirm} setConfirm={setConfirm} enviando={enviando} enviar={enviar}/>}</>}
-        {sec===3&&hasDes&&<><SecHeader title="Desarrollo" pts={`${examen.desarrollo.reduce((a,q)=>a+q.pts,0)} pts`} inst="Responde con tus propias palabras." color={c.dark}/>{examen.desarrollo.map((q,i)=>(<div key={q.id} style={{...card,marginBottom:16}}><div style={{fontSize:13,lineHeight:1.6,marginBottom:10}}><span style={{fontWeight:700,color:"#ffaa00"}}>{i+1}. ({q.pts} pts)</span> {q.txt}</div><textarea value={desarrollo[q.id]||""} onChange={e=>setDesarrollo(p=>({...p,[q.id]:e.target.value}))} rows={5} placeholder="Escribe tu respuesta aqu\u00ed..." style={{width:"100%",background:"rgba(255,255,255,0.06)",border:"1px solid rgba(255,255,255,0.15)",borderRadius:10,padding:"10px 14px",color:"#fff",fontSize:13,outline:"none",resize:"vertical",lineHeight:1.6}}/></div>))}<BotonEnviar confirm={confirm} setConfirm={setConfirm} enviando={enviando} enviar={enviar}/></>}
+        {sec===0&&<><SecHeader title="Selección Múltiple" pts={`${examen.multiple.length} preguntas · 1 pt c/u`} inst="Selecciona la respuesta correcta." color={c.dark}/>{examen.multiple.map((q,i)=><PregMultiple key={q.id} q={q} qi={i} sel={multiple[q.id]} onSel={v=>setMultiple(p=>({...p,[q.id]:v}))} color={c.color}/>)}</>}
+        {sec===1&&<><SecHeader title="Verdadero o Falso" pts={`${examen.vf.length} preguntas · 1 pt c/u`} inst="Selecciona V si es verdadero, F si es falso." color={c.dark}/>{examen.vf.map((q,i)=><PregVF key={q.id} q={q} qi={i} sel={vf[q.id]} onSel={v=>setVf(p=>({...p,[q.id]:v}))}/>)}</>}
+        {sec===2&&<><SecHeader title="Completar espacios" pts={`${examen.completar.preguntas.length} preguntas · 1 pt c/u`} inst="Escribe la palabra correcta del banco." color={c.dark}/><BancoPalabras banco={examen.completar.banco}/>{examen.completar.preguntas.map((q,i)=><PregCompletar key={q.id} q={q} qi={i} val={completar[q.id]||""} onChange={v=>setCompletar(p=>({...p,[q.id]:v}))}/>)}{!hasDes&&<BotonEnviar confirm={confirm} setConfirm={setConfirm} enviando={enviando} enviar={enviar}/>}</>}
+        {sec===3&&hasDes&&<><SecHeader title="Desarrollo" pts={`${examen.desarrollo.reduce((a,q)=>a+q.pts,0)} pts`} inst="Responde con tus propias palabras." color={c.dark}/>{examen.desarrollo.map((q,i)=>(<div key={q.id} style={{...card,marginBottom:16}}><div style={{fontSize:13,lineHeight:1.6,marginBottom:10}}><span style={{fontWeight:700,color:"#ffaa00"}}>{i+1}. ({q.pts} pts)</span> {q.txt}</div><textarea value={desarrollo[q.id]||""} onChange={e=>setDesarrollo(p=>({...p,[q.id]:e.target.value}))} rows={5} placeholder="Escribe tu respuesta aquí..." style={{width:"100%",background:"rgba(255,255,255,0.06)",border:"1px solid rgba(255,255,255,0.15)",borderRadius:10,padding:"10px 14px",color:"#fff",fontSize:13,outline:"none",resize:"vertical",lineHeight:1.6}}/></div>))}<BotonEnviar confirm={confirm} setConfirm={setConfirm} enviando={enviando} enviar={enviar}/></>}
         <NavBotones sec={sec} setSec={setSec} max={maxSec}/>
       </div>
     </div>
@@ -410,20 +406,20 @@ function ExamenGenerico({nombre,cursoId,tipoExamen,onEnviar}){
 }
 
 function Bloque({title,color,children}){return(<div style={{...card,marginBottom:12}}><div style={{fontWeight:700,fontSize:13,color,marginBottom:10,borderBottom:"1px solid rgba(255,255,255,0.08)",paddingBottom:8}}>{title}</div>{children}</div>);}
-function ItemDet({num,txt,ok,resp,correcta}){return(<div style={{padding:"7px 0",borderBottom:"1px solid rgba(255,255,255,0.05)",fontSize:12}}><div style={{color:"rgba(255,255,255,0.7)",marginBottom:3}}>{num}. {txt}</div><span style={{color:ok?"#00ff88":"#ff8080"}}>{ok?"\u2713":"\u2717"} {resp}</span>{correcta&&<span style={{color:"rgba(255,255,255,0.4)",marginLeft:10}}>\u2192 {correcta}</span>}</div>);}
+function ItemDet({num,txt,ok,resp,correcta}){return(<div style={{padding:"7px 0",borderBottom:"1px solid rgba(255,255,255,0.05)",fontSize:12}}><div style={{color:"rgba(255,255,255,0.7)",marginBottom:3}}>{num}. {txt}</div><span style={{color:ok?"#00ff88":"#ff8080"}}>{ok?"✓":"✗"} {resp}</span>{correcta&&<span style={{color:"rgba(255,255,255,0.4)",marginLeft:10}}>→ {correcta}</span>}</div>);}
 
 function DetalleRespuesta({r,onBack}){
   const examen=EXAM_MAP[r.cursoId]?.[r.tipoExamen];const auto=calcAuto(r,examen);const max=maxAuto(examen);const c=getCurso(r.cursoId)||{color:"#aaa"};
-  return(<div><button onClick={onBack} style={{...btn(),marginBottom:14}}>\u2190 Volver</button>
+  return(<div><button onClick={onBack} style={{...btn(),marginBottom:14}}>← Volver</button>
     <div style={{...card,display:"flex",justifyContent:"space-between",flexWrap:"wrap",gap:10,marginBottom:14}}>
-      <div><div style={{fontSize:18,fontWeight:800}}>{r.nombre}</div><div style={{fontSize:13,color:"rgba(255,255,255,0.5)"}}>{r.curso} \u00b7 {r.titulo} \u00b7 {r.fecha}</div></div>
-      <div style={{textAlign:"right"}}><div style={{fontSize:20,fontWeight:800,color:c.color}}>{auto}/{max} <span style={{fontSize:12,color:"rgba(255,255,255,0.4)"}}>pts autom\u00e1ticos</span></div></div>
+      <div><div style={{fontSize:18,fontWeight:800}}>{r.nombre}</div><div style={{fontSize:13,color:"rgba(255,255,255,0.5)"}}>{r.curso} · {r.titulo} · {r.fecha}</div></div>
+      <div style={{textAlign:"right"}}><div style={{fontSize:20,fontWeight:800,color:c.color}}>{auto}/{max} <span style={{fontSize:12,color:"rgba(255,255,255,0.4)"}}>pts automáticos</span></div></div>
     </div>
     {examen&&examen.multiple?.length>0&&<>
-      <Bloque title="Selecci\u00f3n M\u00faltiple" color="#00d4ff">{examen.multiple.map((q,i)=>{const resp=r.multiple?.[q.id];const ok=resp===q.correcta;return<ItemDet key={q.id} num={i+1} txt={q.txt} ok={ok} resp={resp!=null?`${["A","B","C","D"][resp]}) ${q.opts[resp]}`:"Sin responder"} correcta={ok?null:`${["A","B","C","D"][q.correcta]}) ${q.opts[q.correcta]}`}/>;})}</Bloque>
+      <Bloque title="Selección Múltiple" color="#00d4ff">{examen.multiple.map((q,i)=>{const resp=r.multiple?.[q.id];const ok=resp===q.correcta;return<ItemDet key={q.id} num={i+1} txt={q.txt} ok={ok} resp={resp!=null?`${["A","B","C","D"][resp]}) ${q.opts[resp]}`:"Sin responder"} correcta={ok?null:`${["A","B","C","D"][q.correcta]}) ${q.opts[q.correcta]}`}/>;})}</Bloque>
       <Bloque title="Verdadero o Falso" color="#a78bff">{examen.vf.map((q,i)=>{const resp=r.vf?.[q.id];const ok=resp===q.correcta;return<ItemDet key={q.id} num={i+1} txt={q.txt} ok={ok} resp={resp==null?"Sin responder":resp?"Verdadero":"Falso"} correcta={ok?null:q.correcta?"Verdadero":"Falso"}/>;})}</Bloque>
       <Bloque title="Completar" color="#ffaa00">{examen.completar.preguntas.map((q,i)=>{const resp=(r.completar?.[q.id]||"").toLowerCase().trim();const ok=resp===q.correcta?.toLowerCase();return<ItemDet key={q.id} num={i+1} txt={`${q.pre} ___ ${q.post}`} ok={ok} resp={r.completar?.[q.id]||"Sin responder"} correcta={ok?null:q.correcta}/>;})}</Bloque>
-      {examen.desarrollo?.length>0&&<Bloque title="Desarrollo \u2014 revisar manualmente" color="#ff8080">{examen.desarrollo.map((q,i)=>(<div key={q.id} style={{padding:"10px 0",borderBottom:"1px solid rgba(255,255,255,0.05)"}}><div style={{fontSize:12,color:"rgba(255,255,255,0.5)",marginBottom:6}}>{i+1}. ({q.pts} pts) {q.txt}</div><div style={{background:"rgba(255,255,255,0.05)",borderRadius:8,padding:"10px 14px",fontSize:13,lineHeight:1.6,whiteSpace:"pre-wrap"}}>{r.desarrollo?.[q.id]||<span style={{color:"rgba(255,255,255,0.3)",fontStyle:"italic"}}>Sin respuesta</span>}</div></div>))}</Bloque>}
+      {examen.desarrollo?.length>0&&<Bloque title="Desarrollo — revisar manualmente" color="#ff8080">{examen.desarrollo.map((q,i)=>(<div key={q.id} style={{padding:"10px 0",borderBottom:"1px solid rgba(255,255,255,0.05)"}}><div style={{fontSize:12,color:"rgba(255,255,255,0.5)",marginBottom:6}}>{i+1}. ({q.pts} pts) {q.txt}</div><div style={{background:"rgba(255,255,255,0.05)",borderRadius:8,padding:"10px 14px",fontSize:13,lineHeight:1.6,whiteSpace:"pre-wrap"}}>{r.desarrollo?.[q.id]||<span style={{color:"rgba(255,255,255,0.3)",fontStyle:"italic"}}>Sin respuesta</span>}</div></div>))}</Bloque>}
     </>}
   </div>);
 }
@@ -435,42 +431,30 @@ function PanelMaestro({onSalir}){
   useEffect(()=>{(async()=>{const [r,e]=await Promise.all([leerRespuestas(),leerEstado()]);setRespuestas(r);setEstado(e);setCargando(false);})();},[]);
   const toggleExamen=async(cursoId,tipo)=>{const key=`${cursoId}_${tipo}`;const nuevo={...estado,[key]:!(estado[key]||false)};setGuardando(true);await guardarEstado(nuevo);setEstado(nuevo);setGuardando(false);};
   const filtradas=respuestas.filter(r=>(filtroC==="todos"||r.cursoId===filtroC)&&(filtroT==="todos"||r.tipoExamen===filtroT));
-
   const getTipos=(cid)=>["mad1","lab1","comp1","py5","comp5","prog4"].includes(cid)?["parcial","parcial_u2","parcial_u3","final"]:["parcial","final"];
-  const getTipoLabel=(tipo)=>({parcial:"\ud83d\udcdd Parcial U.I",parcial_u2:"\ud83d\udcdd Parcial U.II",parcial_u3:"\ud83d\udcdd Parcial U.III",final:"\ud83d\udccb Final"})[tipo]||tipo;
+  const getTipoLabel=(tipo)=>({parcial:"📝 Parcial U.I",parcial_u2:"📝 Parcial U.II",parcial_u3:"📝 Parcial U.III",final:"📋 Final"})[tipo]||tipo;
   const getTipoConf=(cid,tipo)=>{const ex=EXAM_MAP[cid]?.[tipo];return ex&&(ex.multiple?.length>0||ex.incisos?.length>0);};
-
   if(detalle)return(<div style={{minHeight:"100vh",background:"#0d1117",color:"#fff"}}>
-    <div style={{background:"rgba(0,0,0,0.5)",borderBottom:"1px solid rgba(255,255,255,0.1)",padding:"12px 24px",display:"flex",justifyContent:"space-between",alignItems:"center"}}><div style={{fontWeight:800,fontSize:16}}>\ud83d\udcca Panel del Catedr\u00e1tico</div><button onClick={onSalir} style={btn()}>\u2190 Salir</button></div>
+    <div style={{background:"rgba(0,0,0,0.5)",borderBottom:"1px solid rgba(255,255,255,0.1)",padding:"12px 24px",display:"flex",justifyContent:"space-between",alignItems:"center"}}><div style={{fontWeight:800,fontSize:16}}>📊 Panel del Catedrático</div><button onClick={onSalir} style={btn()}>← Salir</button></div>
     <div style={{padding:"20px 24px"}}><DetalleRespuesta r={detalle} onBack={()=>setDetalle(null)}/></div>
   </div>);
-
   return(<div style={{minHeight:"100vh",background:"#0d1117",color:"#fff"}}>
     <div style={{background:"rgba(0,0,0,0.5)",borderBottom:"1px solid rgba(255,255,255,0.1)",padding:"12px 24px",display:"flex",justifyContent:"space-between",alignItems:"center"}}>
-      <div><div style={{fontWeight:800,fontSize:16}}>\ud83d\udcca Panel del Catedr\u00e1tico</div><div style={{fontSize:12,color:"rgba(255,255,255,0.4)"}}>{respuestas.length} respuestas{guardando?" \u00b7 Guardando...":""}</div></div>
-      <button onClick={onSalir} style={btn()}>\u2190 Salir</button>
+      <div><div style={{fontWeight:800,fontSize:16}}>📊 Panel del Catedrático</div><div style={{fontSize:12,color:"rgba(255,255,255,0.4)"}}>{respuestas.length} respuestas{guardando?" · Guardando...":""}</div></div>
+      <button onClick={onSalir} style={btn()}>← Salir</button>
     </div>
     <div style={{padding:"20px 24px"}}>
       <div style={{...card,marginBottom:20,border:"1px solid rgba(0,212,255,0.2)"}}>
-        <div style={{fontWeight:700,fontSize:14,color:"#00d4ff",marginBottom:14}}>\ud83c\udf9b\ufe0f Activar / Desactivar ex\u00e1menes &nbsp;<span style={{fontSize:11,color:"rgba(255,255,255,0.4)",fontWeight:400}}>Solo el examen activo es visible para los alumnos</span></div>
+        <div style={{fontWeight:700,fontSize:14,color:"#00d4ff",marginBottom:14}}>🎛️ Activar / Desactivar exámenes <span style={{fontSize:11,color:"rgba(255,255,255,0.4)",fontWeight:400}}>Solo el examen activo es visible para los alumnos</span></div>
         <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(280px,1fr))",gap:10}}>
           {CURSOS.map(c=>(<div key={c.id} style={{background:"rgba(255,255,255,0.03)",border:"1px solid rgba(255,255,255,0.08)",borderRadius:10,padding:12}}>
             <div style={{fontSize:12,fontWeight:700,color:c.color,marginBottom:8}}>{c.label}</div>
             {getTipos(c.id).map(tipo=>{
-              const activo=estado[`${c.id}_${tipo}`]||false;
-              const conf=getTipoConf(c.id,tipo);
-              const ex=EXAM_MAP[c.id]?.[tipo];
+              const activo=estado[`${c.id}_${tipo}`]||false;const conf=getTipoConf(c.id,tipo);const ex=EXAM_MAP[c.id]?.[tipo];
               return(<div key={tipo} style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:6}}>
-                <div>
-                  <div style={{fontSize:12,color:activo?"#fff":"rgba(255,255,255,0.5)",display:"flex",alignItems:"center",gap:5}}>
-                    {getTipoLabel(tipo)}
-                    {!conf&&<span style={{fontSize:10,background:"rgba(255,170,0,0.15)",color:"#ffaa00",border:"1px solid rgba(255,170,0,0.3)",borderRadius:4,padding:"1px 5px"}}>sin configurar</span>}
-                  </div>
-                  <div style={{fontSize:10,color:"rgba(255,255,255,0.3)"}}>{ex?.subtitulo||"\u2014"}</div>
-                </div>
-                <button onClick={()=>toggleExamen(c.id,tipo)} disabled={!conf}
-                  style={{background:activo?"rgba(0,255,136,0.2)":"rgba(255,255,255,0.08)",border:activo?"1px solid #00ff88":"1px solid rgba(255,255,255,0.15)",borderRadius:20,padding:"4px 12px",color:activo?"#00ff88":conf?"rgba(255,255,255,0.5)":"rgba(255,255,255,0.2)",cursor:conf?"pointer":"not-allowed",fontSize:12,fontWeight:700,minWidth:80}}>
-                  {activo?"\ud83d\udfe2 Activo":conf?"\u26ab Cerrado":"\u2699\ufe0f Vac\u00edo"}
+                <div><div style={{fontSize:12,color:activo?"#fff":"rgba(255,255,255,0.5)",display:"flex",alignItems:"center",gap:5}}>{getTipoLabel(tipo)}{!conf&&<span style={{fontSize:10,background:"rgba(255,170,0,0.15)",color:"#ffaa00",border:"1px solid rgba(255,170,0,0.3)",borderRadius:4,padding:"1px 5px"}}>sin configurar</span>}</div><div style={{fontSize:10,color:"rgba(255,255,255,0.3)"}}>{ex?.subtitulo||"—"}</div></div>
+                <button onClick={()=>toggleExamen(c.id,tipo)} disabled={!conf} style={{background:activo?"rgba(0,255,136,0.2)":"rgba(255,255,255,0.08)",border:activo?"1px solid #00ff88":"1px solid rgba(255,255,255,0.15)",borderRadius:20,padding:"4px 12px",color:activo?"#00ff88":conf?"rgba(255,255,255,0.5)":"rgba(255,255,255,0.2)",cursor:conf?"pointer":"not-allowed",fontSize:12,fontWeight:700,minWidth:80}}>
+                  {activo?"🟢 Activo":conf?"⚫ Cerrado":"⚙️ Vacío"}
                 </button>
               </div>);
             })}
@@ -478,36 +462,32 @@ function PanelMaestro({onSalir}){
         </div>
       </div>
       <div style={{display:"grid",gridTemplateColumns:"repeat(4,1fr)",gap:10,marginBottom:16}}>
-        {[{label:"Total enviados",val:respuestas.length,color:"#00d4ff"},
-          {label:"Parciales U.III",val:respuestas.filter(r=>r.tipoExamen==="parcial_u3").length,color:"#34d399"},
-          {label:"Ex\u00e1menes activos",val:Object.values(estado).filter(Boolean).length,color:"#ffaa00"},
-          {label:"Otros",val:respuestas.filter(r=>r.tipoExamen!=="parcial_u3").length,color:"#a78bff"},
-        ].map(s=>(<div key={s.label} style={{background:"rgba(255,255,255,0.04)",border:"1px solid rgba(255,255,255,0.08)",borderRadius:12,padding:"12px",textAlign:"center"}}><div style={{fontSize:20,fontWeight:800,color:s.color}}>{s.val}</div><div style={{fontSize:11,color:"rgba(255,255,255,0.4)",marginTop:3}}>{s.label}</div></div>))}
+        {[{label:"Total enviados",val:respuestas.length,color:"#00d4ff"},{label:"Parciales U.III",val:respuestas.filter(r=>r.tipoExamen==="parcial_u3").length,color:"#34d399"},{label:"Exámenes activos",val:Object.values(estado).filter(Boolean).length,color:"#ffaa00"},{label:"Otros",val:respuestas.filter(r=>r.tipoExamen!=="parcial_u3").length,color:"#a78bff"}].map(s=>(<div key={s.label} style={{background:"rgba(255,255,255,0.04)",border:"1px solid rgba(255,255,255,0.08)",borderRadius:12,padding:"12px",textAlign:"center"}}><div style={{fontSize:20,fontWeight:800,color:s.color}}>{s.val}</div><div style={{fontSize:11,color:"rgba(255,255,255,0.4)",marginTop:3}}>{s.label}</div></div>))}
       </div>
       <div style={{display:"flex",gap:8,marginBottom:10,flexWrap:"wrap"}}>
         <button onClick={()=>setFiltroC("todos")} style={{background:filtroC==="todos"?"rgba(0,212,255,0.15)":"rgba(255,255,255,0.05)",border:filtroC==="todos"?"1px solid #00d4ff":"1px solid rgba(255,255,255,0.1)",borderRadius:20,padding:"6px 14px",color:filtroC==="todos"?"#00d4ff":"rgba(255,255,255,0.6)",cursor:"pointer",fontSize:12}}>Todos ({respuestas.length})</button>
-        {CURSOS.map(c=><button key={c.id} onClick={()=>setFiltroC(c.id)} style={{background:filtroC===c.id?c.bg:"rgba(255,255,255,0.05)",border:filtroC===c.id?`1px solid ${c.color}`:"1px solid rgba(255,255,255,0.1)",borderRadius:20,padding:"6px 14px",color:filtroC===c.id?c.color:"rgba(255,255,255,0.6)",cursor:"pointer",fontSize:12}}>{c.label.split("\u2014")[1]?.trim()||c.label} ({respuestas.filter(r=>r.cursoId===c.id).length})</button>)}
+        {CURSOS.map(c=><button key={c.id} onClick={()=>setFiltroC(c.id)} style={{background:filtroC===c.id?c.bg:"rgba(255,255,255,0.05)",border:filtroC===c.id?`1px solid ${c.color}`:"1px solid rgba(255,255,255,0.1)",borderRadius:20,padding:"6px 14px",color:filtroC===c.id?c.color:"rgba(255,255,255,0.6)",cursor:"pointer",fontSize:12}}>{c.label.split("—")[1]?.trim()||c.label} ({respuestas.filter(r=>r.cursoId===c.id).length})</button>)}
       </div>
       <div style={{display:"flex",gap:8,marginBottom:16}}>
         {[["todos","Todos"],["parcial","P. U.I"],["parcial_u2","P. U.II"],["parcial_u3","P. U.III"],["final","Final"]].map(([v,l])=><button key={v} onClick={()=>setFiltroT(v)} style={{background:filtroT===v?"rgba(167,139,250,0.15)":"rgba(255,255,255,0.05)",border:filtroT===v?"1px solid #a78bff":"1px solid rgba(255,255,255,0.1)",borderRadius:20,padding:"5px 12px",color:filtroT===v?"#a78bff":"rgba(255,255,255,0.6)",cursor:"pointer",fontSize:12}}>{l}</button>)}
       </div>
       {cargando?<div style={{textAlign:"center",padding:40,color:"rgba(255,255,255,0.4)"}}>Cargando...</div>
-      :filtradas.length===0?<div style={{textAlign:"center",padding:40,color:"rgba(255,255,255,0.3)"}}><div style={{fontSize:36,marginBottom:8}}>\ud83d\udcad</div><div>No hay respuestas con estos filtros.</div></div>
+      :filtradas.length===0?<div style={{textAlign:"center",padding:40,color:"rgba(255,255,255,0.3)"}}><div style={{fontSize:36,marginBottom:8}}>📭</div><div>No hay respuestas con estos filtros.</div></div>
       :<div>
         <div style={{display:"grid",gridTemplateColumns:"2fr 2fr 1fr 1fr 1fr 70px",gap:8,padding:"6px 12px",fontSize:11,color:"rgba(255,255,255,0.4)",fontWeight:700,textTransform:"uppercase"}}><span>Alumno</span><span>Curso</span><span>Tipo</span><span>Hora</span><span>Auto</span><span></span></div>
         {filtradas.map((r,i)=>{
-          const c=getCurso(r.cursoId)||{color:"#aaa",label:r.curso||"\u2014",bg:"rgba(255,255,255,0.08)"};
+          const c=getCurso(r.cursoId)||{color:"#aaa",label:r.curso||"—",bg:"rgba(255,255,255,0.08)"};
           const examen=EXAM_MAP[r.cursoId]?.[r.tipoExamen];const auto=calcAuto(r,examen);const max=maxAuto(examen);const pct=max>0?Math.round((auto/max)*100):0;
           const tipoColors={parcial:"#a78bff",parcial_u2:"#ff6b9d",parcial_u3:"#34d399",final:"#00ff88"};
           const tipoBgs={parcial:"rgba(167,139,250,0.15)",parcial_u2:"rgba(255,107,157,0.15)",parcial_u3:"rgba(52,211,153,0.15)",final:"rgba(0,255,136,0.1)"};
           const tl={parcial:"P. U.I",parcial_u2:"P. U.II",parcial_u3:"P. U.III",final:"Final"};
           return(<div key={i} style={{background:"rgba(255,255,255,0.04)",border:"1px solid rgba(255,255,255,0.07)",borderRadius:10,padding:"10px 12px",display:"grid",gridTemplateColumns:"2fr 2fr 1fr 1fr 1fr 70px",gap:8,alignItems:"center",marginBottom:6}}>
-            <span style={{fontWeight:600,fontSize:13}}>{r.nombre||"\u2014"}</span>
-            <span style={{fontSize:11,color:c.color,background:c.bg,borderRadius:6,padding:"2px 8px",overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{c.label.split("\u2014")[1]?.trim()||c.label}</span>
+            <span style={{fontWeight:600,fontSize:13}}>{r.nombre||"—"}</span>
+            <span style={{fontSize:11,color:c.color,background:c.bg,borderRadius:6,padding:"2px 8px",overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{c.label.split("—")[1]?.trim()||c.label}</span>
             <span style={{fontSize:11,background:tipoBgs[r.tipoExamen]||"rgba(255,255,255,0.05)",color:tipoColors[r.tipoExamen]||"#fff",borderRadius:6,padding:"2px 8px",textAlign:"center"}}>{tl[r.tipoExamen]||r.tipoExamen}</span>
             <span style={{fontSize:11,color:"rgba(255,255,255,0.4)"}}>{(r.fecha||"").split(",")[1]||(r.fecha||"")}</span>
             <span style={{fontSize:13,fontWeight:700,color:pct>=70?"#00ff88":pct>=50?"#ffaa00":"#ff8080"}}>{auto}/{max}</span>
-            <button onClick={()=>setDetalle(r)} style={{...btn({padding:"5px 10px",fontSize:12}),color:"#00d4ff",borderColor:"rgba(0,212,255,0.3)",background:"rgba(0,212,255,0.1)"}}>Ver \u2192</button>
+            <button onClick={()=>setDetalle(r)} style={{...btn({padding:"5px 10px",fontSize:12}),color:"#00d4ff",borderColor:"rgba(0,212,255,0.3)",background:"rgba(0,212,255,0.1)"}}>Ver →</button>
           </div>);
         })}
       </div>}
@@ -519,37 +499,37 @@ function Login({onStart}){
   const [nombre,setNombre]=useState("");const [cursoId,setCursoId]=useState("");const [pass,setPass]=useState("");
   const [modo,setModo]=useState("alumno");const [err,setErr]=useState("");const [estado,setEstado]=useState({});const [cargando,setCargando]=useState(true);
   useEffect(()=>{leerEstado().then(e=>{setEstado(e);setCargando(false);});},[]);
-  const TIPO_LABEL={parcial:"\ud83d\udcdd Parcial U.I",parcial_u2:"\ud83d\udcdd Parcial U.II",parcial_u3:"\ud83d\udcdd Parcial U.III",final:"\ud83d\udccb Examen Final"};
+  const TIPO_LABEL={parcial:"📝 Parcial U.I",parcial_u2:"📝 Parcial U.II",parcial_u3:"📝 Parcial U.III",final:"📋 Examen Final"};
   const tieneContenido=(cid,t)=>{const ex=EXAM_MAP[cid]?.[t];return ex&&(ex.multiple?.length>0||ex.incisos?.length>0);};
   const cursosConExamen=CURSOS.filter(c=>["parcial","parcial_u2","parcial_u3","final"].some(t=>estado[`${c.id}_${t}`]&&tieneContenido(c.id,t)));
   const submit=()=>{
-    if(modo==="maestro"){if(pass!==PASS_MAESTRO)return setErr("Contrase\u00f1a incorrecta.");return onStart("__MAESTRO__","maestro","maestro");}
+    if(modo==="maestro"){if(pass!==PASS_MAESTRO)return setErr("Contraseña incorrecta.");return onStart("__MAESTRO__","maestro","maestro");}
     if(!nombre.trim())return setErr("Escribe tu nombre completo.");
     if(!cursoId)return setErr("Selecciona tu curso.");
     const tipos=["parcial","parcial_u2","parcial_u3","final"];
     const tipo=tipos.find(t=>estado[`${cursoId}_${t}`]&&tieneContenido(cursoId,t));
-    if(!tipo)return setErr("No hay ning\u00fan examen activo para tu curso en este momento.");
+    if(!tipo)return setErr("No hay ningún examen activo para tu curso en este momento.");
     setErr("");onStart(nombre.trim(),cursoId,tipo);
   };
   return(<div style={{minHeight:"100vh",background:"linear-gradient(135deg,#0a0a1a,#0a1628)",display:"flex",alignItems:"center",justifyContent:"center",padding:20}}>
     <div style={{background:"rgba(255,255,255,0.05)",border:"1px solid rgba(255,255,255,0.1)",borderRadius:20,padding:"40px 36px",width:"100%",maxWidth:500,color:"#fff"}}>
-      <div style={{textAlign:"center",marginBottom:24}}><div style={{fontSize:38,marginBottom:8}}>\ud83c\udfeb</div><div style={{fontSize:12,color:"rgba(255,255,255,0.4)"}}>Liceo Santa Mar\u00eda \u00b7 Ciclo 2026</div><h1 style={{fontSize:22,fontWeight:800,background:"linear-gradient(90deg,#00d4ff,#7b2ff7)",WebkitBackgroundClip:"text",WebkitTextFillColor:"transparent",margin:"6px 0"}}>Plataforma de Ex\u00e1menes</h1></div>
-      <div style={{display:"flex",gap:6,marginBottom:20,background:"rgba(255,255,255,0.05)",borderRadius:10,padding:4}}>{["alumno","maestro"].map(m=><button key={m} onClick={()=>{setModo(m);setErr("");}} style={{flex:1,background:modo===m?"rgba(0,212,255,0.2)":"transparent",border:modo===m?"1px solid rgba(0,212,255,0.4)":"1px solid transparent",borderRadius:8,padding:"7px",color:modo===m?"#00d4ff":"rgba(255,255,255,0.5)",cursor:"pointer",fontSize:13,fontWeight:modo===m?700:400}}>{m==="alumno"?"\ud83d\udc68\u200d\ud83c\udf93 Alumno":"\ud83d\udc69\u200d\ud83c\udfeb Maestro"}</button>)}</div>
+      <div style={{textAlign:"center",marginBottom:24}}><div style={{fontSize:38,marginBottom:8}}>🏫</div><div style={{fontSize:12,color:"rgba(255,255,255,0.4)"}}>Liceo Santa María · Ciclo 2026</div><h1 style={{fontSize:22,fontWeight:800,background:"linear-gradient(90deg,#00d4ff,#7b2ff7)",WebkitBackgroundClip:"text",WebkitTextFillColor:"transparent",margin:"6px 0"}}>Plataforma de Exámenes</h1></div>
+      <div style={{display:"flex",gap:6,marginBottom:20,background:"rgba(255,255,255,0.05)",borderRadius:10,padding:4}}>{["alumno","maestro"].map(m=><button key={m} onClick={()=>{setModo(m);setErr("");}} style={{flex:1,background:modo===m?"rgba(0,212,255,0.2)":"transparent",border:modo===m?"1px solid rgba(0,212,255,0.4)":"1px solid transparent",borderRadius:8,padding:"7px",color:modo===m?"#00d4ff":"rgba(255,255,255,0.5)",cursor:"pointer",fontSize:13,fontWeight:modo===m?700:400}}>{m==="alumno"?"👨‍🎓 Alumno":"👩‍🏫 Maestro"}</button>)}</div>
       {modo==="alumno"?(<>
-        <div style={{marginBottom:14}}><label style={{fontSize:12,color:"rgba(255,255,255,0.6)",display:"block",marginBottom:6}}>Nombre completo</label><input value={nombre} onChange={e=>setNombre(e.target.value)} placeholder="Ej: Mar\u00eda Garc\u00eda L\u00f3pez" style={{width:"100%",background:"rgba(255,255,255,0.08)",border:"1px solid rgba(255,255,255,0.15)",borderRadius:10,padding:"10px 14px",color:"#fff",fontSize:14,outline:"none"}}/></div>
+        <div style={{marginBottom:14}}><label style={{fontSize:12,color:"rgba(255,255,255,0.6)",display:"block",marginBottom:6}}>Nombre completo</label><input value={nombre} onChange={e=>setNombre(e.target.value)} placeholder="Ej: María García López" style={{width:"100%",background:"rgba(255,255,255,0.08)",border:"1px solid rgba(255,255,255,0.15)",borderRadius:10,padding:"10px 14px",color:"#fff",fontSize:14,outline:"none"}}/></div>
         <div style={{marginBottom:12}}><label style={{fontSize:12,color:"rgba(255,255,255,0.6)",display:"block",marginBottom:6}}>Selecciona tu curso</label>
-          {cargando?<div style={{fontSize:13,color:"rgba(255,255,255,0.4)",textAlign:"center",padding:12}}>Verificando ex\u00e1menes disponibles...</div>
-          :cursosConExamen.length===0?<div style={{background:"rgba(255,170,0,0.1)",border:"1px solid rgba(255,170,0,0.3)",borderRadius:10,padding:"12px 16px",fontSize:13,color:"#ffaa00",textAlign:"center"}}>\u23f3 No hay ex\u00e1menes activos en este momento.<br/><span style={{fontSize:12,opacity:.7}}>Tu catedr\u00e1tico activar\u00e1 el examen cuando sea el momento.</span></div>
+          {cargando?<div style={{fontSize:13,color:"rgba(255,255,255,0.4)",textAlign:"center",padding:12}}>Verificando exámenes disponibles...</div>
+          :cursosConExamen.length===0?<div style={{background:"rgba(255,170,0,0.1)",border:"1px solid rgba(255,170,0,0.3)",borderRadius:10,padding:"12px 16px",fontSize:13,color:"#ffaa00",textAlign:"center"}}>⏳ No hay exámenes activos en este momento.<br/><span style={{fontSize:12,opacity:.7}}>Tu catedrático activará el examen cuando sea el momento.</span></div>
           :<div style={{display:"flex",flexDirection:"column",gap:8}}>{cursosConExamen.map(c=>{
             const tipos=["parcial","parcial_u2","parcial_u3","final"];
             const tipo=tipos.find(t=>estado[`${c.id}_${t}`]&&tieneContenido(c.id,t));
             const examen=EXAM_MAP[c.id]?.[tipo];
-            return(<button key={c.id} onClick={()=>setCursoId(c.id)} style={{background:cursoId===c.id?c.bg:"rgba(255,255,255,0.04)",border:`1px solid ${cursoId===c.id?c.color:"rgba(255,255,255,0.1)"}`,borderRadius:10,padding:"10px 16px",color:cursoId===c.id?c.color:"rgba(255,255,255,0.7)",cursor:"pointer",fontSize:13,textAlign:"left",fontWeight:cursoId===c.id?700:400}}><div>{c.label}</div><div style={{fontSize:11,opacity:.7,marginTop:2}}>{TIPO_LABEL[tipo]||tipo} \u00b7 {examen?.subtitulo}</div></button>);
+            return(<button key={c.id} onClick={()=>setCursoId(c.id)} style={{background:cursoId===c.id?c.bg:"rgba(255,255,255,0.04)",border:`1px solid ${cursoId===c.id?c.color:"rgba(255,255,255,0.1)"}`,borderRadius:10,padding:"10px 16px",color:cursoId===c.id?c.color:"rgba(255,255,255,0.7)",cursor:"pointer",fontSize:13,textAlign:"left",fontWeight:cursoId===c.id?700:400}}><div>{c.label}</div><div style={{fontSize:11,opacity:.7,marginTop:2}}>{TIPO_LABEL[tipo]||tipo} · {examen?.subtitulo}</div></button>);
           })}</div>}
         </div>
-      </>):<div style={{marginBottom:18}}><label style={{fontSize:12,color:"rgba(255,255,255,0.6)",display:"block",marginBottom:6}}>Contrase\u00f1a del catedr\u00e1tico</label><input type="password" value={pass} onChange={e=>setPass(e.target.value)} onKeyDown={e=>e.key==="Enter"&&submit()} placeholder="\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022" style={{width:"100%",background:"rgba(255,255,255,0.08)",border:"1px solid rgba(255,255,255,0.15)",borderRadius:10,padding:"10px 14px",color:"#fff",fontSize:14,outline:"none"}}/></div>}
+      </>):<div style={{marginBottom:18}}><label style={{fontSize:12,color:"rgba(255,255,255,0.6)",display:"block",marginBottom:6}}>Contraseña del catedrático</label><input type="password" value={pass} onChange={e=>setPass(e.target.value)} onKeyDown={e=>e.key==="Enter"&&submit()} placeholder="••••••••" style={{width:"100%",background:"rgba(255,255,255,0.08)",border:"1px solid rgba(255,255,255,0.15)",borderRadius:10,padding:"10px 14px",color:"#fff",fontSize:14,outline:"none"}}/></div>}
       {err&&<div style={{background:"rgba(255,80,80,0.15)",border:"1px solid rgba(255,80,80,0.3)",borderRadius:8,padding:"8px 12px",fontSize:12,color:"#ff8080",marginBottom:12}}>{err}</div>}
-      <button onClick={submit} disabled={modo==="alumno"&&cargando} style={{width:"100%",background:"linear-gradient(90deg,#00d4ff,#7b2ff7)",border:"none",borderRadius:12,padding:"12px",color:"#fff",fontWeight:700,fontSize:15,cursor:"pointer",marginTop:6,opacity:modo==="alumno"&&cargando?0.5:1}}>{modo==="alumno"?"Iniciar examen \u2192":"Entrar al panel \u2192"}</button>
+      <button onClick={submit} disabled={modo==="alumno"&&cargando} style={{width:"100%",background:"linear-gradient(90deg,#00d4ff,#7b2ff7)",border:"none",borderRadius:12,padding:"12px",color:"#fff",fontWeight:700,fontSize:15,cursor:"pointer",marginTop:6,opacity:modo==="alumno"&&cargando?0.5:1}}>{modo==="alumno"?"Iniciar examen →":"Entrar al panel →"}</button>
     </div>
   </div>);
 }
