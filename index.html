@@ -73,40 +73,62 @@ const EXAMENES_LAB1={
       {id:"d2",pts:3,txt:"Crea una contraseña usando el método Passphrase. Escribe: a) la frase que usaste, b) la contraseña resultante y c) explica por qué es segura."},
     ],
   },
-  final:{titulo:"Examen Final — Laboratorio I",subtitulo:"Unidad III · Protección de Dispositivos y Respaldo de Datos",tiempo:40*60,
+
+  // ──────────────────────────────────────────────────────
+  // EXAMEN PRÁCTICO — Wireshark (HTTP vs HTTPS y DNS)
+  // El alumno trabaja en Wireshark y escribe sus hallazgos aquí mismo
+  // ──────────────────────────────────────────────────────
+  parcial_u3:{
+    tipo:"practico",
+    sinArchivo:true,
+    titulo:"Examen Práctico — Laboratorio I · Wireshark",
+    subtitulo:"Captura de tráfico: HTTP vs HTTPS y DNS",
+    programa:"Wireshark y Google Chrome",
+    tiempo:40*60,
+    aviso:"Solo captura el tráfico de TU propia computadora. No intentes ver datos de tus compañeros. Al terminar, detén la captura y cierra Wireshark sin guardar.",
+    incisos:[
+      {id:"i1",pts:15,letra:"a",txt:"Abre Wireshark, selecciona la interfaz de red que muestra actividad (la que tiene la gráfica moviéndose, normalmente Wi-Fi o Ethernet) e inicia la captura con el botón del tiburón azul. ¿Cómo se llama la interfaz que usaste?",ph:"Ej: Wi-Fi"},
+      {id:"i2",pts:20,letra:"b",txt:"Con la captura activa, abre Chrome y visita http://neverssl.com (si Chrome muestra una advertencia, elige continuar al sitio). Detén la captura y escribe el filtro: http — Busca la línea que dice GET / en la columna Info. ¿Qué aparece en la columna Protocol y qué aparece en la columna Info?",ph:"Protocol: ...   Info: ..."},
+      {id:"i3",pts:20,letra:"c",txt:"Haz clic derecho sobre esa línea → Seguir → Flujo HTTP (Follow → HTTP Stream). Copia UNA línea de texto que puedas leer claramente, por ejemplo la que empieza con Host:",ph:"Copia aquí una línea legible del flujo HTTP"},
+      {id:"i4",pts:15,letra:"d",txt:"En la misma captura cambia el filtro a: dns — Busca la respuesta (response) para neverssl.com, ábrela y en la sección Answers anota la dirección IP que devolvió el DNS.",ph:"Ej: 34.223.124.45"},
+      {id:"i5",pts:20,letra:"e",txt:"Inicia una NUEVA captura, visita https://www.google.com y detén la captura. Usa el filtro: tls (si no aparece nada usa: tls || quic). Clic derecho sobre un paquete → Seguir → Flujo TLS. ¿Pudiste leer el contenido? Describe cómo se ve comparado con el inciso c.",ph:"¿Se puede leer? ¿Cómo se ve?"},
+      {id:"i6",pts:10,letra:"f",txt:"En una o dos oraciones: según lo que viste hoy, ¿por qué es peligroso escribir tu contraseña en un sitio HTTP y no lo es en uno HTTPS?",ph:"Escribe tu conclusión"},
+    ],
+  },
+
+  final:{titulo:"Examen Final — Laboratorio I",subtitulo:"Unidad II · Privacidad Digital y Navegación Segura",tiempo:40*60,
     multiple:[
-      {id:"m1",txt:"¿Para qué sirven las actualizaciones de Windows?",opts:["Para cambiar el fondo de pantalla y el tema visual","Para cerrar vulnerabilidades de seguridad y mejorar el sistema","Para aumentar la velocidad del procesador","Para instalar programas nuevos automáticamente"],correcta:1},
-      {id:"m2",txt:"¿Qué función cumple el Firewall de Windows?",opts:["Elimina virus y malware del sistema","Controla el tráfico de red que entra y sale de la computadora","Actualiza las definiciones del antivirus","Guarda copias de seguridad de los archivos"],correcta:1},
-      {id:"m3",txt:"¿Qué hace la protección en tiempo real de Windows Defender?",opts:["Hace un respaldo automático de los archivos cada hora","Analiza cada archivo al abrirlo o descargarlo antes de que pueda ejecutarse","Bloquea todas las conexiones de red entrantes","Verifica si Windows está actualizado al día"],correcta:1},
-      {id:"m4",txt:"¿Cuáles son las 3 capas de protección básicas del sistema operativo Windows?",opts:["Contraseña, cifrado y respaldo","Actualizaciones, Firewall y Antivirus","Chrome, Edge y Firefox con modo seguro","Usuario, administrador e invitado"],correcta:1},
-      {id:"m5",txt:"¿Qué tipo de backup copia TODO el contenido cada vez que se ejecuta, sin importar si cambió o no?",opts:["Backup incremental","Backup diferencial","Backup completo","Backup en la nube"],correcta:2},
-      {id:"m6",txt:"¿Qué copia un backup INCREMENTAL?",opts:["Todo el sistema completo cada vez","Solo los archivos que cambiaron desde el último backup (de cualquier tipo)","Solo los archivos que cambiaron desde el último backup COMPLETO","Solo archivos mayores a 1 MB"],correcta:1},
-      {id:"m7",txt:"Para restaurar usando backups diferenciales, ¿cuántos archivos necesitás como máximo?",opts:["Solo 1, el más reciente","2 — el completo y el diferencial más reciente","Todos los diferenciales generados hasta la fecha","3 — completo, incremental y diferencial"],correcta:1},
-      {id:"m8",txt:"Según la Regla 3-2-1, ¿cuántas copias de tus datos importantes deberías tener como mínimo?",opts:["1 copia","2 copias","3 copias","5 copias"],correcta:2},
-      {id:"m9",txt:"¿Qué significa cifrar un archivo?",opts:["Comprimirlo para que ocupe menos espacio","Convertirlo en datos ilegibles para quien no tenga la clave correcta","Eliminarlo de forma permanente y segura","Subirlo automáticamente a la nube"],correcta:1},
-      {id:"m10",txt:"¿Cuál de estas herramientas de Windows permite cifrar el disco duro completo?",opts:["7-Zip","EFS","BitLocker","VeraCrypt"],correcta:2},
+      {id:"m1",txt:"¿Qué tipo de cookie desaparece automáticamente al cerrar el navegador?",opts:["Cookie persistente","Cookie de terceros","Cookie de sesión","Cookie cifrada"],correcta:2},
+      {id:"m2",txt:"Buscaste zapatillas deportivas y ahora ves ese anuncio en todos los sitios. ¿Qué técnica lo explica?",opts:["Cookies de sesión","Cookies de terceros y rastreo publicitario","Fingerprinting del dispositivo","DNS seguro activado"],correcta:1},
+      {id:"m3",txt:"¿Cuál describe mejor la huella digital PASIVA?",opts:["Publicar una foto en Instagram","Dar me gusta en una publicación","El navegador guarda tu historial automáticamente sin que lo notes","Escribir un comentario en un foro"],correcta:2},
+      {id:"m4",txt:"URL A: bancoindustrial.com.gt — URL B: banco-industrial.verificacion-segura.com/login — ¿Cuál es falsa?",opts:["La A — usa subdominio engañoso","La B — el dominio real es verificacion-segura.com","Las dos son falsas","Las dos son reales"],correcta:1},
+      {id:"m5",txt:"¿Qué significa que un sitio tenga el candado en la barra de dirección?",opts:["Que el sitio es propiedad del gobierno","Que la conexión está cifrada con SSL/TLS y el sitio tiene certificado válido","Que el sitio no usa cookies de terceros","Que el sitio no puede ser hackeado"],correcta:1},
+      {id:"m6",txt:"¿Cuál es la ruta correcta para revisar opciones de seguridad en Chrome?",opts:["chrome://extensions","chrome://privacy","chrome://settings/security","chrome://certificates"],correcta:2},
+      {id:"m7",txt:"¿Qué técnica usa esta URL falsa? www.gooogle.com",opts:["Subdominio engañoso","Typosquatting — letra repetida","Ruta engañosa","Sustitución por número"],correcta:1},
+      {id:"m8",txt:"¿Qué son los píxeles de seguimiento?",opts:["Imágenes de alta resolución para anuncios","Imágenes invisibles que reportan cuándo abres una página o correo","Archivos que bloquean cookies de terceros","Extensiones de Chrome para privacidad"],correcta:1},
+      {id:"m9",txt:"¿Cuál de estas acciones genera huella digital ACTIVA?",opts:["El navegador guarda tu historial","Una app registra tu ubicación en segundo plano","Publicar una foto en redes sociales","Un sitio guarda tu dirección IP"],correcta:2},
+      {id:"m10",txt:"¿Por qué es importante revisar la configuración de privacidad en redes sociales?",opts:["Para que carguen más rápido","Para limitar quién puede ver tu información personal y reducir tu huella digital","Para evitar cookies de sesión","Para mejorar la velocidad de internet"],correcta:1},
     ],
     vf:[
-      {id:"vf1",txt:"Es seguro desactivar el Firewall temporalmente si un programa lo solicita.",correcta:false},
-      {id:"vf2",txt:"Windows Defender es un antivirus gratuito que viene incluido en Windows.",correcta:true},
-      {id:"vf3",txt:"El 60% de los ataques exitosos explotan vulnerabilidades para las que ya existía un parche disponible.",correcta:true},
-      {id:"vf4",txt:"El backup completo ocupa menos espacio de almacenamiento que el incremental.",correcta:false},
-      {id:"vf5",txt:"Para restaurar con backup incremental necesitás el backup completo más TODOS los incrementales posteriores en orden.",correcta:true},
-      {id:"vf6",txt:"La Regla 3-2-1 indica que al menos una copia de tus datos debe estar en un lugar diferente al original.",correcta:true},
-      {id:"vf7",txt:"Si olvidás la contraseña de un archivo cifrado, normalmente no hay forma de recuperar el contenido.",correcta:true},
-      {id:"vf8",txt:"7-Zip es una herramienta de pago para cifrar archivos con contraseña.",correcta:false},
+      {id:"vf1",txt:"El modo incógnito de Chrome elimina completamente tu huella digital.",correcta:false},
+      {id:"vf2",txt:"Un sitio web puede tener el candado HTTPS y aun así ser un sitio falso o de phishing.",correcta:true},
+      {id:"vf3",txt:"Las cookies de terceros son colocadas por el mismo sitio web que visitas.",correcta:false},
+      {id:"vf4",txt:"La huella digital en internet es permanente — información publicada puede quedar accesible aunque la elimines.",correcta:true},
+      {id:"vf5",txt:"Activar 'Usar siempre conexiones seguras' en Chrome fuerza HTTPS en todos los sitios.",correcta:true},
+      {id:"vf6",txt:"El fingerprinting identifica tu dispositivo por sus características únicas.",correcta:true},
+      {id:"vf7",txt:"Las cookies persistentes se eliminan cuando cierras el navegador.",correcta:false},
+      {id:"vf8",txt:"La URL malicioso.com/banguat.gob.gt/login pertenece al dominio banguat.gob.gt.",correcta:false},
     ],
-    completar:{banco:["Firewall","Defender","completo","incremental","diferencial","3-2-1","cifrado","BitLocker"],preguntas:[
-      {id:"c1",pre:"El",post:"controla qué conexiones de red tienen permiso de entrar y salir de la computadora.",correcta:"Firewall"},
-      {id:"c2",pre:"Windows",post:"es el antivirus gratuito integrado en Windows que protege el sistema en tiempo real.",correcta:"Defender"},
-      {id:"c3",pre:"El backup",post:"copia todos los archivos siempre, sin importar si cambiaron.",correcta:"completo"},
-      {id:"c4",pre:"El backup",post:"copia solo los archivos que cambiaron desde el último backup completo.",correcta:"diferencial"},
-      {id:"c5",pre:"La Regla",post:"establece tener 3 copias, en 2 medios distintos, con 1 copia fuera del sitio.",correcta:"3-2-1"},
-      {id:"c6",pre:"El",post:"convierte un archivo en datos ilegibles sin la clave correcta.",correcta:"cifrado"},
+    completar:{banco:["cookies","huella digital","HTTPS","certificado SSL","rastreo","dominio","privacidad","phishing"],preguntas:[
+      {id:"c1",pre:"Los pequeños archivos que los sitios guardan en tu navegador se llaman",post:".",correcta:"cookies"},
+      {id:"c2",pre:"El conjunto de toda la información que generás al usar internet se llama",post:".",correcta:"huella digital"},
+      {id:"c3",pre:"El protocolo que cifra la comunicación entre el navegador y el servidor web se llama",post:".",correcta:"HTTPS"},
+      {id:"c4",pre:"El documento digital que confirma la identidad de un sitio web se llama",post:".",correcta:"certificado SSL"},
+      {id:"c5",pre:"La recopilación sistemática de tus hábitos de navegación para mostrar anuncios se llama",post:"web.",correcta:"rastreo"},
     ]},
     desarrollo:[
-      {id:"d1",pts:3,txt:"Explica la diferencia entre un backup incremental y uno diferencial. Menciona una ventaja de cada uno."},
-      {id:"d2",pts:2,txt:"Tu primo tiene solo una copia de su proyecto en el Escritorio, sin respaldo ni contraseña. Aplicando la Regla 3-2-1 y el cifrado, dale 2 recomendaciones concretas para proteger su información."},
+      {id:"d1",pts:3,txt:"Explica qué es el rastreo web y menciona DOS técnicas que usan las empresas para rastrearte en internet."},
+      {id:"d2",pts:2,txt:"Describe qué harías para reducir tu huella digital. Menciona al menos TRES acciones concretas."},
     ],
   }
 };
@@ -140,41 +162,53 @@ const EXAMENES_COMP1={
     ]},desarrollo:[],
   },
 
-  parcial_u2:{titulo:"Parcial U.II — Computación I",subtitulo:"Pendiente de configurar",tiempo:40*60,
-    multiple:[],vf:[],completar:{banco:[],preguntas:[]},desarrollo:[]},
-
   // ──────────────────────────────────────────────────────
-  // PARCIAL U.III — Práctico en computadora
-  // SUMAR.SI y SUMAR.SI.CONJUNTO — Panadería Santa María
+  // PARCIAL U.III — Práctico integrador en computadora
+  // SI, CONTAR.SI, SUMAR.SI, SUMAR.SI.CONJUNTO y BUSCARV
   // ──────────────────────────────────────────────────────
   parcial_u3:{
     tipo:"practico",
     titulo:"Parcial Práctico — Computación I · Unidad III",
-    subtitulo:"Funciones SUMAR.SI y SUMAR.SI.CONJUNTO · Panadería Santa María",
+    subtitulo:"Integrador: SI, CONTAR.SI, SUMAR.SI, SUMAR.SI.CONJUNTO y BUSCARV · Papelería Santa María",
     programa:"Microsoft Excel",
-    tiempo:50*60,
-    entregable:"Parcial U.III — Panadería SUMAR.SI",
+    tiempo:45*60,
+    archivo:"Papeleria",
+    entregable:"Parcial U.III — Papelería BUSCARV Integrador",
     tabla:{
-      headers:["","A — Producto","B — Categoría","C — Mes","D — Monto (Q)"],
+      titulo:"📋 Tabla 1 — Catálogo de productos (A1:D6)",
+      headers:["","A — Código","B — Producto","C — Categoría","D — Precio (Q)"],
       rows:[
-        ["2","Pan francés","Panadería","Enero","320.00"],
-        ["3","Pastel de chocolate","Repostería","Enero","450.00"],
-        ["4","Champurradas","Panadería","Febrero","280.00"],
-        ["5","Cupcakes","Repostería","Enero","310.00"],
-        ["6","Pan de manteca","Panadería","Febrero","260.00"],
-        ["7","Torta tres leches","Repostería","Febrero","520.00"],
-        ["8","Quesadillas","Panadería","Enero","195.00"],
-        ["9","Galletas decoradas","Repostería","Febrero","340.00"],
+        ["2","P001","Cuaderno profesional","Papelería","12.00"],
+        ["3","P002","Calculadora científica","Tecnología","85.00"],
+        ["4","P003","Lapicero azul","Papelería","3.50"],
+        ["5","P004","USB 32GB","Tecnología","65.00"],
+        ["6","P005","Folder tamaño carta","Papelería","2.00"],
+      ]
+    },
+    tabla2:{
+      titulo:"📋 Tabla 2 — Registro de ventas (F1:H9) — completa I:M con fórmulas",
+      headers:["","F — Código","G — Cantidad","H — Estado","I — Producto","J — Precio","K — Categoría","L — Subtotal","M — Marca"],
+      rows:[
+        ["2","P001","10","Pagado","tú la calculas","tú la calculas","tú la calculas","tú la calculas","tú la calculas"],
+        ["3","P002","2","Pagado","tú la calculas","tú la calculas","tú la calculas","tú la calculas","tú la calculas"],
+        ["4","P003","15","Pendiente","tú la calculas","tú la calculas","tú la calculas","tú la calculas","tú la calculas"],
+        ["5","P004","3","Pagado","tú la calculas","tú la calculas","tú la calculas","tú la calculas","tú la calculas"],
+        ["6","P001","5","Pendiente","tú la calculas","tú la calculas","tú la calculas","tú la calculas","tú la calculas"],
+        ["7","P005","20","Pagado","tú la calculas","tú la calculas","tú la calculas","tú la calculas","tú la calculas"],
+        ["8","P002","1","Pendiente","tú la calculas","tú la calculas","tú la calculas","tú la calculas","tú la calculas"],
+        ["9","P004","2","Pagado","tú la calculas","tú la calculas","tú la calculas","tú la calculas","tú la calculas"],
       ]
     },
     incisos:[
-      {id:"i1",pts:20,letra:"a",txt:"Ingresa los datos de la tabla en Excel exactamente como aparecen: producto en columna A, categoría en B, mes en C y monto (Q) en D."},
-      {id:"i2",pts:20,letra:"b",txt:'En la columna F crea un resumen: usa =SUMAR.SI(B2:B9,"Panadería",D2:D9) para sumar el total vendido en la categoría Panadería. Repite con =SUMAR.SI(B2:B9,"Repostería",D2:D9) para Repostería.'},
-      {id:"i3",pts:15,letra:"c",txt:'Agrega: usa =SUMAR.SI(C2:C9,"Enero",D2:D9) para el total vendido en Enero, y =SUMAR.SI(C2:C9,"Febrero",D2:D9) para el total vendido en Febrero.'},
-      {id:"i4",pts:20,letra:"d",txt:'Agrega: usa =SUMAR.SI.CONJUNTO(D2:D9,B2:B9,"Panadería",C2:C9,"Enero") para sumar solo lo vendido en Panadería durante Enero. Recuerda que en SUMAR.SI.CONJUNTO el rango a sumar va PRIMERO.'},
-      {id:"i5",pts:15,letra:"e",txt:'Agrega otra consulta: usa =SUMAR.SI.CONJUNTO(D2:D9,B2:B9,"Repostería",C2:C9,"Febrero") para sumar lo vendido en Repostería durante Febrero.'},
-      {id:"i6",pts:10,letra:"f",txt:"Aplica formato Moneda (Q) a la columna D y a todos tus resultados. Aplica fondo verde oscuro y letra blanca en negrita a los encabezados (fila 1)."},
-      {id:"i7",pts:10,letra:"g",txt:"Guarda el archivo como Panaderia_TuNombre.xlsx y súbelo en el Portal de Tareas en la actividad Parcial U.III — Panadería SUMAR.SI."},
+      {id:"i1",pts:10,letra:"a",txt:"Ingresa el Catálogo de productos exactamente como aparece en la Tabla 1 (A1:D6)."},
+      {id:"i2",pts:10,letra:"b",txt:"Ingresa la base de ventas: columnas F, G y H (Código, Cantidad, Estado) exactamente como aparecen en la Tabla 2. Escribe también los encabezados I, J, K, L, M."},
+      {id:"i3",pts:20,letra:"c",txt:"En I2, J2 y K2 usa BUSCARV para traer el Producto, Precio y Categoría del código de la fila (rango $A$2:$D$6, columnas 2, 3 y 4, con FALSO). Copia las 3 fórmulas hasta la fila 9."},
+      {id:"i4",pts:10,letra:"d",txt:"En L2 calcula el Subtotal = Cantidad × Precio (=G2*J2). Copia hasta L9 y aplica formato Moneda (Q)."},
+      {id:"i5",pts:15,letra:"e",txt:'En M2 usa la función SI: si el Subtotal (L2) es mayor a 100 → "✅ Venta grande", si no → dejar vacío (""). Copia hasta M9.'},
+      {id:"i6",pts:10,letra:"f",txt:'Debajo de la tabla (por ejemplo en F12) crea un resumen con CONTAR.SI: cuántas ventas tienen Estado "Pagado" y cuántas "Pendiente" (dos fórmulas separadas, usando el rango H2:H9).'},
+      {id:"i7",pts:10,letra:"g",txt:'Usa SUMAR.SI para calcular el total vendido (columna L) de la categoría "Papelería" (usando el rango K2:K9 como criterio y L2:L9 para sumar).'},
+      {id:"i8",pts:10,letra:"h",txt:'Usa SUMAR.SI.CONJUNTO para calcular el total vendido de la categoría "Papelería" Y estado "Pagado" al mismo tiempo (rango_suma L2:L9, luego K2:K9="Papelería", luego H2:H9="Pagado").'},
+      {id:"i9",pts:5,letra:"i",txt:"Aplica formato: encabezados con fondo verde oscuro y letra blanca en negrita, bordes a ambas tablas. Guarda como Papeleria_TuNombre.xlsx y súbelo en el Portal de Tareas, actividad \"Parcial U.III — Papelería BUSCARV Integrador\"."},
     ],
   },
 
@@ -230,78 +264,58 @@ const EXAMENES_PY5={
   },
 
   // ──────────────────────────────────────────────────────
-  // PARCIAL UNIDAD III — Estructura match / case
-  // Detección y corrección de errores
+  // EXAMEN FINAL — Detección y corrección de errores
+  // Integra: variables, conversión de tipos, for, listas e if/elif/else
   // ──────────────────────────────────────────────────────
-  parcial_u3:{
+  final:{
     tipo:"practico",
-    titulo:"Examen Práctico — Programación Python · Unidad III",
-    subtitulo:"Estructura match / case · Detección y corrección de errores",
-    programa:"IDLE, Thonny o VS Code (Python 3.10+)",
-    entregable:"Examen U.III — Correccion match case Python",
+    titulo:"Examen Final Práctico — Programación Python · Unidad IV",
+    subtitulo:"Detección y corrección de errores · Registro de asistencia",
+    programa:"IDLE, Thonny o VS Code",
+    entregable:"Examen Final — Correccion asistencia Python",
     tiempo:60*60,
     codigo:{
-      titulo:"📄 Código con errores — sistema_estacionamiento.py",
+      titulo:"📄 Código con errores — registro_asistencia.py",
       lineas:[
-        {n:1,  txt:'# sistema_estacionamiento.py', err:false},
-        {n:2,  txt:'# Calcula el pago según el tipo de vehículo y las horas', err:false},
+        {n:1,  txt:'# registro_asistencia.py', err:false},
+        {n:2,  txt:'# Registro de asistencia de un salón de clases', err:false},
         {n:3,  txt:'', err:false},
-        {n:4,  txt:'tipo = input("1-Carro  2-Moto  3-Bicicleta: ")', err:true, msg:"Falta convertir con int(): tipo queda como texto (str) y nunca coincidirá con los case numéricos más abajo"},
-        {n:5,  txt:'horas = float(input("¿Cuántas horas estacionado? "))', err:false},
+        {n:4,  txt:'total_estudiantes = int(input("¿Cuántos estudiantes hay en el salón? "))', err:false},
+        {n:5,  txt:'presentes = []', err:false},
         {n:6,  txt:'', err:false},
-        {n:7,  txt:'match tipo', err:true, msg:"Falta el dos puntos ( : ) después de la variable tipo"},
-        {n:8,  txt:'    case 1:', err:false},
-        {n:9,  txt:'        tarifa = 5.00', err:false},
-        {n:10, txt:'        break', err:true, msg:"En Python no se usa break dentro de match/case — esta línea provoca SyntaxError: 'break' outside loop"},
-        {n:11, txt:'    case 2', err:true, msg:"Falta el dos puntos ( : ) después del valor 2 en el case"},
-        {n:12, txt:'        tarifa = 3.00', err:false},
-        {n:13, txt:'    case 3:', err:false},
-        {n:14, txt:'        tarifa = 1.50', err:false},
-        {n:15, txt:'    case _:', err:false},
-        {n:16, txt:'        tarifa = 0', err:false},
-        {n:17, txt:'        pint("Tipo de vehículo inválido.")', err:true, msg:'"print" está mal escrito como "pint" — Python no reconoce esa función y marca NameError: name \'pint\' is not defined'},
-        {n:18, txt:'', err:false},
-        {n:19, txt:'total = tarifa * horas', err:false},
-        {n:20, txt:'print(f"Total a pagar: Q{total}")', err:false},
-      ],
-      specs:[
-        {op:1,nombre:"Carro",precio:"Q 5.00 / hora"},
-        {op:2,nombre:"Moto",precio:"Q 3.00 / hora"},
-        {op:3,nombre:"Bicicleta",precio:"Q 1.50 / hora"},
+        {n:7,  txt:'for i in range(total_estudiantes)', err:true, msg:"Falta el dos puntos ( : ) al final de la línea del for"},
+        {n:8,  txt:'    nombre = input("Nombre del estudiante: ")', err:false},
+        {n:9,  txt:'    estado = input("¿Asistió? (si/no): ")', err:false},
+        {n:10, txt:'    if estado == "si":', err:false},
+        {n:11, txt:'    presentes.apend(nombre)', err:true, msg:"Dos errores en esta línea: falta indentar un nivel más para que quede dentro del if, y 'apend' está mal escrito — el método correcto de las listas es 'append'"},
+        {n:12, txt:'', err:false},
+        {n:13, txt:'total_presentes = len(presentes)', err:false},
+        {n:14, txt:'total_ausentes = total_estudiantes - total_presentes', err:false},
+        {n:15, txt:'porcentaje = (total_presentes / total_estudiantes) * 100', err:true, msg:"Error lógico: si el usuario ingresa 0 estudiantes, esta división provoca ZeroDivisionError. Falta validar que total_estudiantes sea mayor a 0 antes de calcular el porcentaje"},
+        {n:16, txt:'', err:false},
+        {n:17, txt:'if porcentaje >= 90:', err:false},
+        {n:18, txt:'    print("Excelente asistencia")', err:false},
+        {n:19, txt:'elif porcentaje >= 75', err:true, msg:"Falta el dos puntos ( : ) al final de la línea del elif"},
+        {n:20, txt:'    print("Buena asistencia")', err:false},
+        {n:21, txt:'else:', err:false},
+        {n:22, txt:'    print("Asistencia baja, requiere seguimiento")', err:false},
+        {n:23, txt:'', err:false},
+        {n:24, txt:'print("Total presentes:", total_presentes)', err:false},
+        {n:25, txt:'print("Total ausentes:", total_ausentes)', err:false},
+        {n:26, txt:'print("Porcentaje de asistencia:", round(porcentaje, 2), "%")', err:false},
+        {n:27, txt:'prin("Estudiantes presentes:", presentes)', err:true, msg:'"print" está mal escrito como "prin" — Python no reconoce esa función y marca NameError'},
       ],
     },
     incisos:[
-      {id:"i1",pts:10,letra:"a",txt:"Abre tu editor de Python y copia el código de sistema_estacionamiento.py exactamente como aparece (incluyendo los errores) en un archivo nuevo llamado estacionamiento_original.py. Intenta ejecutarlo y observa los errores que marca el intérprete."},
-      {id:"i2",pts:20,letra:"b",txt:"Identifica los 5 errores del programa. Para cada uno anota: el número de línea, si es un error de SINTAXIS (Python lo detecta al ejecutar, como falta de : o el break mal usado) o un error LÓGICO (el programa corre pero el resultado es incorrecto, como el tipo sin convertir a número), y una breve explicación de qué está mal."},
-      {id:"i3",pts:15,letra:"c",txt:"En la línea 4 corrige la conversión: cambia input(...) por int(input(...)) para que tipo se compare correctamente contra los valores numéricos de los case."},
-      {id:"i4",pts:15,letra:"d",txt:"En la línea 7 agrega el dos puntos ( : ) después de match tipo. En la línea 11 agrega el dos puntos ( : ) después de case 2."},
-      {id:"i5",pts:15,letra:"e",txt:"Elimina la línea break (línea 10). Explica en un comentario por qué no es necesaria en Python, a diferencia de switch en C++ (cada case en match/case termina automáticamente sin caer en el siguiente)."},
-      {id:"i6",pts:10,letra:"f",txt:'Corrige la línea 17: cambia "pint" por "print" para que el programa compile y muestre el mensaje de tipo inválido correctamente.'},
-      {id:"i7",pts:10,letra:"g",txt:"Guarda el archivo corregido como estacionamiento_corregido.py. Ejecútalo y verifica que no existan errores. Prueba el programa con estos casos: tipo=1 horas=2, tipo=2 horas=3, y tipo=5 (verifica que muestre el mensaje de tipo inválido usando case _)."},
-      {id:"i8",pts:5,letra:"h",txt:"En un archivo de texto llamado analisis_errores_py.txt (o como comentario al inicio de estacionamiento_corregido.py) escribe una tabla con los 5 errores encontrados: número de línea, tipo (sintaxis/lógico) y explicación de la corrección. Sube ambos archivos al Portal de Tareas en la actividad \"Examen U.III — Correccion match case Python\"."},
+      {id:"i1",pts:10,letra:"a",txt:"Abre tu editor de Python y copia el código de registro_asistencia.py exactamente como aparece (incluyendo los errores) en un archivo nuevo llamado asistencia_original.py. Intenta ejecutarlo y observa el primer error que marca el intérprete."},
+      {id:"i2",pts:20,letra:"b",txt:"Identifica los 5 errores marcados. Para cada uno anota: el número de línea, si es un error de SINTAXIS (Python lo detecta al ejecutar), LÓGICO (el programa corre pero el resultado puede ser incorrecto o fallar en ciertos casos) o de NOMBRE (una función o método mal escrito), y una breve explicación de qué está mal."},
+      {id:"i3",pts:15,letra:"c",txt:"En la línea 7 agrega el dos puntos ( : ) después del for. En la línea 19 agrega el dos puntos ( : ) después del elif."},
+      {id:"i4",pts:15,letra:"d",txt:"En la línea 11: indenta la instrucción un nivel más para que quede dentro del if, y corrige 'apend' por 'append'."},
+      {id:"i5",pts:15,letra:"e",txt:"En la línea 15: agrega una validación con if antes de calcular el porcentaje. Si total_estudiantes es 0, muestra un mensaje como 'No hay estudiantes registrados.' y no calcules el porcentaje; si es mayor a 0, procede con el cálculo normalmente."},
+      {id:"i6",pts:10,letra:"f",txt:"Corrige la línea 27: cambia 'prin' por 'print' para que el programa muestre correctamente la lista de estudiantes presentes."},
+      {id:"i7",pts:10,letra:"g",txt:"Guarda el archivo corregido como asistencia_corregido.py. Ejecútalo y pruébalo dos veces: una con 5 estudiantes (marca 3 'si' y 2 'no'), y otra ingresando 0 estudiantes para confirmar que ya no se cae con ZeroDivisionError."},
+      {id:"i8",pts:5,letra:"h",txt:"En un archivo de texto llamado analisis_errores_asistencia.txt (o como comentario al inicio de asistencia_corregido.py) escribe una tabla con los 5 errores encontrados: línea, tipo y corrección. Sube ambos archivos al Portal de Tareas en la actividad \"Examen Final — Correccion asistencia Python\"."},
     ],
-  },
-
-  final:{titulo:"Examen Final — Programación Python",subtitulo:"Condicionales if / else / elif",tiempo:40*60,
-    multiple:[
-      {id:"m1",txt:"¿Cuál es la sintaxis correcta de un if en Python?",opts:["if (x > 0) {","if x > 0:","if x > 0 then","if: x > 0"],correcta:1},
-      {id:"m2",txt:"¿Qué hace el bloque else en un if/else?",opts:["Ejecuta código si la condición es verdadera","Ejecuta código si la condición es falsa","Repite el bloque if","Termina el programa"],correcta:1},
-      {id:"m3",txt:"¿Cuándo se usa elif?",opts:["Para terminar un if","Para añadir una condición alternativa","Para repetir el if","Para comparar texto"],correcta:1},
-      {id:"m4",txt:"¿Qué operador compara si dos valores son IGUALES en Python?",opts:["=","!=","==",">="],correcta:2},
-      {id:"m5",txt:"nota = 75 — ¿Qué imprime: if nota >= 60: print('Aprobado') else: print('Reprobado')?",opts:["Reprobado","Aprobado","75","Error"],correcta:1},
-    ],
-    vf:[
-      {id:"vf1",txt:"En Python, el cuerpo del if debe estar indentado.",correcta:true},
-      {id:"vf2",txt:"elif se puede usar sin un if previo.",correcta:false},
-      {id:"vf3",txt:"El operador != significa diferente de.",correcta:true},
-      {id:"vf4",txt:"Se puede tener más de un elif en la misma estructura condicional.",correcta:true},
-    ],
-    completar:{banco:["if","else","elif","==","!=","True","False","input"],preguntas:[
-      {id:"c1",pre:"La palabra clave para una condición alternativa en Python es",post:".",correcta:"elif"},
-      {id:"c2",pre:"El operador para comparar si dos valores son iguales es",post:".",correcta:"=="},
-      {id:"c3",pre:"El bloque",post:"se ejecuta cuando ninguna condición anterior fue verdadera.",correcta:"else"},
-    ]},
-    desarrollo:[{id:"d1",pts:5,txt:"Escribe un programa Python que pida una nota (0-100) y la clasifique: 90-100 Excelente, 80-89 Muy bien, 70-79 Bien, 60-69 Aprobado, 0-59 Reprobado."}],
   }
 };
 
@@ -343,69 +357,27 @@ const EXAMENES_PROG4={
       {id:"d2",pts:2,txt:"Explica con tus palabras la diferencia entre usar if/else if y usar switch. ¿Cuándo conviene usar cada uno?"},
     ],
   },
-  final:{
-    tipo:"practico",
-    titulo:"Examen Final Práctico — Programación C++ · Unidad III",
-    subtitulo:"Estructura switch · Detección y corrección de errores en Dev-C++",
-    programa:"Dev-C++ o Code::Blocks",
-    entregable:"Examen Final — Correccion switch C++",
-    tiempo:60*60,
-    codigo:{
-      titulo:"📄 Código con errores — sistema_boletos.cpp",
-      lineas:[
-        {n:1,  txt:'#include <iostream>', err:false},
-        {n:2,  txt:'using namespace std;', err:false},
-        {n:3,  txt:'', err:false},
-        {n:4,  txt:'int main() {', err:false},
-        {n:5,  txt:'    int tipo;', err:false},
-        {n:6,  txt:'    float precio, cantidad, total;', err:false},
-        {n:7,  txt:'', err:false},
-        {n:8,  txt:'    cout << "1. Boleto General" << endl', err:true, msg:"Falta el punto y coma ( ; ) al final de la línea"},
-        {n:9,  txt:'    cout << "2. Boleto VIP" << endl;', err:false},
-        {n:10, txt:'    cout << "3. Boleto Preferencial" << endl;', err:false},
-        {n:11, txt:'    cout << "Elige el tipo de boleto: ";', err:false},
-        {n:12, txt:'    cin >> tipo;', err:false},
-        {n:13, txt:'    cout << "Cantidad de boletos: ";', err:false},
-        {n:14, txt:'    cin >> cantidad;', err:false},
-        {n:15, txt:'', err:false},
-        {n:16, txt:'    switch (tipo) {', err:false},
-        {n:17, txt:'        case 1', err:true, msg:"Falta el dos puntos ( : ) después del valor del case"},
-        {n:18, txt:'            precio = 25.00;', err:false},
-        {n:19, txt:'            break;', err:false},
-        {n:20, txt:'        case 2:', err:false},
-        {n:21, txt:'            precio = 60.00', err:true, msg:"Falta el punto y coma ( ; ) al final de la asignación"},
-        {n:22, txt:'            break;', err:false},
-        {n:23, txt:'        case 3:', err:false},
-        {n:24, txt:'            precio = 40.00;', err:false},
-        {n:25, txt:'        case 4:', err:true, msg:"Falta el break; al final del case 3 (provoca fall-through no deseado hacia case 4)"},
-        {n:26, txt:'            precio = 15.00;', err:false},
-        {n:27, txt:'            break;', err:false},
-        {n:28, txt:'    }', err:true, msg:"Falta el bloque default: para manejar una opción inválida"},
-        {n:29, txt:'', err:false},
-        {n:30, txt:'    total = precio * cantidad;', err:false},
-        {n:31, txt:'    ciut << "Total a pagar: Q" << total << endl;', err:true, msg:"cout está mal escrito como \"ciut\" — error de sintaxis, el compilador no reconoce ciut"},
-        {n:32, txt:'', err:false},
-        {n:33, txt:'    return 0;', err:false},
-        {n:34, txt:'}', err:false},
-      ],
-      specs:[
-        {op:1,nombre:"Boleto General",precio:"Q 25.00"},
-        {op:2,nombre:"Boleto VIP",precio:"Q 60.00"},
-        {op:3,nombre:"Boleto Preferencial",precio:"Q 40.00"},
-        {op:4,nombre:"Boleto Niño",precio:"Q 15.00"},
-      ],
-    },
-    incisos:[
-      {id:"i1",pts:10,letra:"a",txt:"Abre Dev-C++ y copia el código de sistema_boletos.cpp exactamente como aparece (incluyendo los errores) en un archivo nuevo llamado boletos_original.cpp. Intenta compilarlo y observa los errores que marca el compilador."},
-      {id:"i2",pts:15,letra:"b",txt:"Identifica los 5 errores del programa. Para cada uno anota: el número de línea, si es un error de SINTAXIS (el compilador lo detecta, como falta de ; o :) o un error LÓGICO (compila pero el resultado es incorrecto, como el fall-through no deseado o el default faltante), y una breve explicación de qué está mal."},
-      {id:"i3",pts:15,letra:"c",txt:"En la línea 8 corrige el punto y coma faltante. En la línea 17 agrega el dos puntos ( : ) después de case 1. En la línea 21 agrega el punto y coma faltante después de precio = 60.00."},
-      {id:"i4",pts:15,letra:"d",txt:"En la línea 24-25 agrega la instrucción break; después de precio = 40.00; en el case 3, para evitar que el programa ejecute también el case 4 cuando el usuario elige la opción 3 (fall-through no intencional)."},
-      {id:"i5",pts:15,letra:"e",txt:'Agrega un bloque default: dentro del switch (antes de la llave de cierre) que imprima "Tipo de boleto invalido." cuando el usuario ingrese una opción que no sea 1, 2, 3 o 4.'},
-      {id:"i6",pts:10,letra:"f",txt:'Corrige la línea 31: cambia "ciut" por "cout" para que el programa compile y muestre el total correctamente con el formato "Total a pagar: Q" seguido del monto.'},
-      {id:"i7",pts:10,letra:"g",txt:"Guarda el archivo corregido como boletos_corregido.cpp. Compílalo y verifica que no existan errores. Prueba el programa con estos casos: tipo=1 cantidad=3, tipo=3 cantidad=2 (verifica que NO caiga al case 4), y tipo=9 (verifica que muestre el mensaje de opción inválida)."},
-      {id:"i8",pts:10,letra:"h",txt:"En un archivo de texto llamado analisis_errores.txt (o como comentario al inicio de boletos_corregido.cpp) escribe una tabla con los 5 errores encontrados: número de línea, tipo (sintaxis/lógico) y explicación de la corrección. Sube ambos archivos (boletos_corregido.cpp y analisis_errores.txt) al Portal de Tareas en la actividad \"Examen Final — Correccion switch C++\"."},
+  final:{titulo:"Examen Final — Programación C++",subtitulo:"Condicionales if / else / else if",tiempo:40*60,
+    multiple:[
+      {id:"m1",txt:"¿Cuál es la sintaxis correcta de un if en C++?",opts:["if x > 0:","if (x > 0) {","if x > 0 then {","if: (x > 0)"],correcta:1},
+      {id:"m2",txt:"¿Qué operador compara si dos valores son IGUALES en C++?",opts:["=","!=","==",">="],correcta:2},
+      {id:"m3",txt:"nota = 75 — ¿Qué imprime: if(nota>=60) cout<<\"Aprobado\"; else cout<<\"Reprobado\";?",opts:["Reprobado","Aprobado","75","Error"],correcta:1},
+      {id:"m4",txt:"¿Cuándo se usa else if en C++?",opts:["Para terminar el if","Para añadir condición alternativa","Para repetir el if","Para comparar texto"],correcta:1},
+      {id:"m5",txt:"¿Qué significa el operador != en C++?",opts:["Mayor que","Igual que","Diferente de","Menor o igual que"],correcta:2},
     ],
-  },
+    vf:[
+      {id:"vf1",txt:"En C++, el cuerpo del if debe ir entre llaves { } si tiene más de una instrucción.",correcta:true},
+      {id:"vf2",txt:"else if se puede usar sin un if previo en C++.",correcta:false},
+      {id:"vf3",txt:"Se puede tener más de un else if en la misma estructura condicional.",correcta:true},
+      {id:"vf4",txt:"El else es obligatorio en toda estructura if de C++.",correcta:false},
+    ],
+    completar:{banco:["if","else","else if","==","!=","cout","cin","int"],preguntas:[
+      {id:"c1",pre:"Para agregar una condición alternativa en C++ usamos",post:".",correcta:"else if"},
+      {id:"c2",pre:"El operador para comparar si dos valores son iguales en C++ es",post:".",correcta:"=="},
+      {id:"c3",pre:"El bloque",post:"se ejecuta cuando ninguna condición anterior fue verdadera.",correcta:"else"},
+    ]},
+    desarrollo:[{id:"d1",pts:5,txt:"Escribe un programa C++ que pida una nota (0-100) y muestre: 90-100 Excelente, 80-89 Muy bien, 70-79 Bien, 60-69 Aprobado, 0-59 Reprobado."}],
+  }
 };
 
 const EXAMENES_COMP5={
@@ -436,35 +408,24 @@ const EXAMENES_COMP5={
       {id:"c5",pre:"Para evitar errores en BUSCARV se usa la función",post:".",correcta:"SI.ERROR"},
     ]},desarrollo:[],
   },
-  final:{
-    tipo:"practico",
-    titulo:"Examen Final Práctico — Excel Avanzado · Unidad III",
-    subtitulo:"Tabla y gráfico dinámico · Reporte de ventas trimestral",
-    tiempo:60*60,
-    archivo:"TablaDinamicaFinal",
-    entregable:"Examen Final — Tabla Dinámica",
-    tabla:{
-      headers:["","A — Vendedor","B — Región","C — Categoría","D — Total (Q)"],
-      rows:[
-        ["2","Ana López","Zona Norte","Útiles escolares","85.00"],
-        ["3","Luis Coy","Zona Sur","Tecnología","450.00"],
-        ["4","Rosa Tahay","Zona Central","Snacks","60.00"],
-        ["5","Carlos Batz","Zona Este","Tecnología","375.00"],
-        ["6","Ana López","Zona Norte","Uniformes","127.50"],
-        ["7","Sandra Xol","Zona Sur","Útiles escolares","300.00"],
-        ["8","Luis Coy","Zona Central","Snacks","90.00"],
-        ["9","Rosa Tahay","Zona Este","Tecnología","300.00"],
-        ["…","(la base completa trae 55 filas)","…","…","…"],
-      ]
-    },
-    incisos:[
-      {id:"i1",pts:15,letra:"a",txt:"Abre el archivo base entregado por tu catedrático (examenfinal_tabladinamica_base.xlsx). Ve a la hoja \"Datos\" y revisa que están las columnas Vendedor, Región, Categoría, Producto, Cantidad, Precio Unitario y Total — no escribas nada todavía, solo verifica que los datos están completos."},
-      {id:"i2",pts:20,letra:"b",txt:'Haz clic en cualquier celda de la tabla de datos. Ve a la pestaña Insertar → Tabla dinámica. Confirma el rango de datos y selecciona "Hoja de cálculo nueva". Renombra esa hoja como "Tabla Dinámica".'},
-      {id:"i3",pts:20,letra:"c",txt:'En el panel "Campos de tabla dinámica", arrastra Vendedor al recuadro Filas, Región al recuadro Columnas y Total (Q) al recuadro Valores (debe quedar como "Suma de Total (Q)"). Verifica que la tabla se llenó automáticamente.'},
-      {id:"i4",pts:15,letra:"d",txt:"Cambia el campo del recuadro Columnas: quita Región y coloca Categoría en su lugar. Observa que la tabla dinámica se actualiza sola. Deja la tabla final con Categoría en Columnas."},
-      {id:"i5",pts:15,letra:"e",txt:'Con la tabla dinámica activa, ve a la pestaña "Analizar de tabla dinámica" (o "PivotTable Analyze") y haz clic en "Gráfico dinámico". Elige el tipo "Columna agrupada" y acepta. Agrega un título al gráfico describiendo lo que muestra.'},
-      {id:"i6",pts:15,letra:"f",txt:'Da formato final: aplica un estilo de color al gráfico, coloca el gráfico debajo o al lado de la tabla dinámica, y verifica que los valores de la tabla tengan formato Moneda (Q). Guarda el archivo como TablaDinamicaFinal_TuNombre.xlsx y súbelo en el Portal de Tareas, actividad "Examen Final — Tabla Dinámica".'},
+  final:{titulo:"Examen Final — Computación Aplicada",subtitulo:"CONTAR.SI, SUMAR.SI y BUSCARV",tiempo:40*60,
+    multiple:[
+      {id:"m1",txt:"¿Qué hace CONTAR.SI?",opts:["Suma celdas que cumplen una condición","Cuenta celdas que cumplen una condición","Busca un valor en una columna","Muestra el máximo de un rango"],correcta:1},
+      {id:"m2",txt:"¿Cuál es la sintaxis correcta de SUMAR.SI?",opts:["=SUMAR.SI(rango;criterio)","=SUMAR.SI(rango;criterio;rango_suma)","=SUMAR.SI(criterio;rango_suma)","=SUMAR.SI(rango_suma;criterio;rango)"],correcta:1},
+      {id:"m3",txt:"¿Qué hace el 4to argumento de BUSCARV cuando vale 0 (FALSO)?",opts:["Busca coincidencia aproximada","Busca coincidencia exacta","Ignora el resultado","Muestra error si no hay datos"],correcta:1},
+      {id:"m4",txt:"=CONTAR.SI(A1:A10;\"Aprobado\") — ¿qué cuenta?",opts:["Todas las celdas en A1:A10","Solo celdas vacías","Las celdas que contienen exactamente Aprobado","Las celdas con números"],correcta:2},
+      {id:"m5",txt:"En BUSCARV, ¿qué representa el indicador de columna?",opts:["La fila donde buscar","La columna del valor a devolver","El rango de búsqueda","El criterio de búsqueda"],correcta:1},
     ],
+    vf:[
+      {id:"vf1",txt:"CONTAR.SI puede contar celdas que cumplan una condición de texto.",correcta:true},
+      {id:"vf2",txt:"BUSCARV busca el valor en la última columna del rango.",correcta:false},
+      {id:"vf3",txt:"SUMAR.SI.CONJUNTO puede aplicar múltiples criterios de suma.",correcta:true},
+      {id:"vf4",txt:"Si BUSCARV no encuentra el valor buscado, siempre muestra 0.",correcta:false},
+    ],
+    completar:{banco:["BUSCARV","CONTAR.SI","SUMAR.SI","criterio","rango","columna","exacta"],preguntas:[
+      {id:"c1",pre:"La función que suma celdas que cumplen una condición es",post:".",correcta:"SUMAR.SI"},
+      {id:"c2",pre:"La función que busca un valor y devuelve el dato de otra columna es",post:".",correcta:"BUSCARV"},
+    ]},desarrollo:[],
   }
 };
 
@@ -499,6 +460,7 @@ const EXAMENES_MAD1={
     ]},desarrollo:[],
   },
 
+  // ── Parcial Unidad II — PRÁCTICO en computadora ──
   parcial_u2:{
     tipo:"practico",
     titulo:"Parcial Práctico — Computación e Informática · Unidad II",
@@ -531,6 +493,21 @@ const EXAMENES_MAD1={
     ],
   },
 
+  parcial_u4:{
+    tipo:"practico",
+    titulo:"Parcial Práctico — Computación e Informática · Unidad III",
+    subtitulo:"Función BUSCARV y SUMA en Excel · Pedido de distribuidora",
+    tiempo:30*60,
+    archivo:"Pedido",
+    entregable:"Parcial U.III — BUSCARV Pedido",
+    incisos:[
+      {id:"i1",pts:20,letra:"a",txt:"Ingresa la tabla de productos en Excel exactamente como aparece: código en A, producto en B y precio en C."},
+      {id:"i2",pts:20,letra:"b",txt:"Crea una sección de Pedido con columnas: Código, Cantidad, Producto y Precio unitario. Ingresa los 4 códigos y cantidades indicados en la tabla de pedido."},
+      {id:"i3",pts:20,letra:"c",txt:"En la columna Producto usa =BUSCARV(código, tabla de productos, 2, FALSO) para traer el nombre de cada producto pedido. En la columna Precio usa BUSCARV con el indicador de columna 3 para traer el precio unitario."},
+      {id:"i4",pts:20,letra:"d",txt:"Agrega una columna Subtotal que multiplique Cantidad por Precio unitario para cada línea del pedido."},
+      {id:"i5",pts:20,letra:"e",txt:"Calcula el Total del pedido con =SUMA() sobre los subtotales. Aplica formato Moneda (Q), fondo verde oscuro y letra blanca en los encabezados. Guarda como Pedido_TuNombre.xlsx y súbelo en el Portal de Tareas."},
+    ],
+  },
 
   final:{
     tipo:"practico",
@@ -555,13 +532,17 @@ const EXAMENES_MAD1={
 const EXAM_MAP={lab1:EXAMENES_LAB1,comp1:EXAMENES_COMP1,py5:EXAMENES_PY5,prog4:EXAMENES_PROG4,comp5:EXAMENES_COMP5,mad1:EXAMENES_MAD1};
 
 function calcAuto(r,examen){
-  if(!examen||examen.tipo==="practico")return 0;let p=0;
+  if(!examen||examen.tipo==="practico"||!examen.multiple||!examen.vf||!examen.completar)return 0;
+  let p=0;
   examen.multiple.forEach(q=>{if(r.multiple?.[q.id]===q.correcta)p++;});
   examen.vf.forEach(q=>{if(r.vf?.[q.id]===q.correcta)p++;});
   examen.completar.preguntas.forEach(q=>{if((r.completar?.[q.id]||"").toLowerCase().trim()===q.correcta.toLowerCase())p++;});
   return p;
 }
-function maxAuto(examen){if(!examen||examen.tipo==="practico")return 0;return examen.multiple.length+examen.vf.length+examen.completar.preguntas.length;}
+function maxAuto(examen){
+  if(!examen||examen.tipo==="practico"||!examen.multiple||!examen.vf||!examen.completar)return 0;
+  return examen.multiple.length+examen.vf.length+examen.completar.preguntas.length;
+}
 
 const JB_URL=()=>`https://api.jsonbin.io/v3/b/${window.JSONBIN_BIN}`;
 const JB_H=()=>({"Content-Type":"application/json","X-Master-Key":window.JSONBIN_KEY,"X-Bin-Versioning":"false"});
@@ -599,18 +580,18 @@ function BotonEnviar({confirm,setConfirm,enviando,enviar}){
 }
 function Enviado({nombre}){return(<div style={{minHeight:"100vh",background:"linear-gradient(135deg,#0a0a1a,#0a1628)",display:"flex",alignItems:"center",justifyContent:"center"}}><div style={{textAlign:"center",padding:40}}><div style={{fontSize:60,marginBottom:16}}>✅</div><h2 style={{fontSize:24,fontWeight:800,color:"#00ff88",marginBottom:8}}>¡Examen enviado!</h2><p style={{color:"rgba(255,255,255,0.6)",marginBottom:6}}>Tus respuestas fueron guardadas, {nombre.split(" ")[0]}.</p><p style={{fontSize:13,color:"rgba(255,255,255,0.4)"}}>Tu catedrático revisará y publicará tu nota pronto.</p></div></div>);}
 
-function EnviadoPractico({nombre,cursoId}){
-  const c=getCurso(cursoId)||{color:"#ff6b9d",dark:"#7a0035"};
-  return(<div style={{minHeight:"100vh",background:`linear-gradient(135deg,#0a0a1a,${c.dark})`,display:"flex",alignItems:"center",justifyContent:"center"}}>
-    <div style={{textAlign:"center",padding:40,maxWidth:520}}>
-      <div style={{fontSize:60,marginBottom:16}}>💻</div>
-      <h2 style={{fontSize:24,fontWeight:800,color:c.color,marginBottom:8}}>¡Instrucciones leídas!</h2>
-      <p style={{color:"rgba(255,255,255,0.7)",marginBottom:12,lineHeight:1.6}}>{nombre.split(" ")[0]}, ahora abre el programa indicado y completa el ejercicio siguiendo los incisos.</p>
-      <div style={{background:`${c.color}20`,border:`1px solid ${c.color}4d`,borderRadius:12,padding:16,fontSize:13,color:"rgba(255,255,255,0.7)",lineHeight:1.7,textAlign:"left"}}>
-        <div style={{fontWeight:700,color:c.color,marginBottom:8}}>📋 Recuerda antes de cerrar:</div>
-        <div>1. Guarda tu(s) archivo(s) con el nombre indicado en los incisos.</div>
+function EnviadoPractico({nombre,sinArchivo}){
+  if(sinArchivo)return<Enviado nombre={nombre}/>;
+  return(<div style={{minHeight:"100vh",background:"linear-gradient(135deg,#0a0a1a,#7a0035)",display:"flex",alignItems:"center",justifyContent:"center"}}>
+    <div style={{textAlign:"center",padding:40,maxWidth:500}}>
+      <div style={{fontSize:60,marginBottom:16}}>📊</div>
+      <h2 style={{fontSize:24,fontWeight:800,color:"#ff6b9d",marginBottom:8}}>¡Instrucciones leídas!</h2>
+      <p style={{color:"rgba(255,255,255,0.7)",marginBottom:12,lineHeight:1.6}}>{nombre.split(" ")[0]}, ahora abre <strong>Microsoft Excel</strong> y completa la planilla siguiendo los incisos.</p>
+      <div style={{background:"rgba(255,107,157,0.12)",border:"1px solid rgba(255,107,157,0.3)",borderRadius:12,padding:16,fontSize:13,color:"rgba(255,255,255,0.7)",lineHeight:1.7,textAlign:"left"}}>
+        <div style={{fontWeight:700,color:"#ff6b9d",marginBottom:8}}>📋 Recuerda antes de cerrar:</div>
+        <div>1. Guarda tu archivo como <code style={{background:"rgba(255,255,255,0.1)",padding:"1px 6px",borderRadius:4,fontFamily:"monospace"}}>TuArchivo_TuNombre.xlsx</code></div>
         <div style={{marginTop:6}}>2. Entra al <strong>Portal de Tareas</strong> → sección <strong>Tareas</strong></div>
-        <div style={{marginTop:6}}>3. Busca la actividad correspondiente y sube tu(s) archivo(s)</div>
+        <div style={{marginTop:6}}>3. Busca la actividad del <strong>Parcial de tu unidad</strong> y sube tu archivo</div>
       </div>
     </div>
   </div>);
@@ -638,25 +619,6 @@ function CodigoConErrores({codigo,color}){
         ))}
       </div>
     </div>
-    {codigo.specs&&<div style={{marginTop:12}}>
-      <div style={{fontSize:11,color:"rgba(255,255,255,0.4)",marginBottom:6,fontWeight:700,textTransform:"uppercase",letterSpacing:.5}}>Especificaciones (según el código, cuando esté corregido)</div>
-      <table style={{width:"100%",borderCollapse:"collapse",fontSize:12}}>
-        <thead><tr>
-          <th style={{background:"#1a3a1a",color:"#00d4ff",padding:"6px 10px",border:"1px solid rgba(255,255,255,0.1)",fontWeight:700,fontSize:11}}>Opción</th>
-          <th style={{background:"#1a3a1a",color:"#00d4ff",padding:"6px 10px",border:"1px solid rgba(255,255,255,0.1)",fontWeight:700,fontSize:11}}>Tipo</th>
-          <th style={{background:"#1a3a1a",color:"#00d4ff",padding:"6px 10px",border:"1px solid rgba(255,255,255,0.1)",fontWeight:700,fontSize:11}}>Precio</th>
-        </tr></thead>
-        <tbody>
-          {codigo.specs.map(s=>(
-            <tr key={s.op} style={{background:s.op%2===0?"rgba(255,255,255,0.03)":"rgba(255,255,255,0.01)"}}>
-              <td style={{padding:"5px 10px",border:"1px solid rgba(255,255,255,0.08)",color:"#5a6272",textAlign:"center",fontWeight:700}}>{s.op}</td>
-              <td style={{padding:"5px 10px",border:"1px solid rgba(255,255,255,0.08)",color:"#fff"}}>{s.nombre}</td>
-              <td style={{padding:"5px 10px",border:"1px solid rgba(255,255,255,0.08)",color:"#fbbf24",textAlign:"center"}}>{s.precio}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>}
   </div>);
 }
 
@@ -679,13 +641,16 @@ function ExamenPractico({nombre,cursoId,tipoExamen,onEnviar}){
   };
 
   if(!examen)return<div style={{color:"#ff8080",padding:40,textAlign:"center"}}>Examen no configurado.</div>;
-  if(enviado)return<EnviadoPractico nombre={nombre} cursoId={cursoId}/>;
+  if(enviado)return<EnviadoPractico nombre={nombre} sinArchivo={examen.sinArchivo}/>;
+
+  const sinArchivo=!!examen.sinArchivo;
+  const col=c.color;
 
   return(
     <div style={{minHeight:"100vh",background:`linear-gradient(135deg,#0a0a1a,${c.dark})`}}>
       <TopBar cursoId={cursoId} nombre={nombre} mm={mm} ss={ss} timerColor={tc}/>
-      <div style={{background:`${c.color}1a`,borderBottom:`1px solid ${c.color}40`,padding:"8px 20px"}}>
-        <div style={{fontWeight:700,color:c.color,fontSize:13}}>{examen.titulo}</div>
+      <div style={{background:`${col}1a`,borderBottom:`1px solid ${col}40`,padding:"8px 20px"}}>
+        <div style={{fontWeight:700,color:col,fontSize:13}}>{examen.titulo}</div>
         <div style={{fontSize:11,color:"rgba(255,255,255,0.5)"}}>{examen.subtitulo}</div>
       </div>
 
@@ -694,61 +659,223 @@ function ExamenPractico({nombre,cursoId,tipoExamen,onEnviar}){
         {/* Aviso instrucciones */}
         <div style={{background:"rgba(0,212,255,0.08)",border:"1px solid rgba(0,212,255,0.2)",borderRadius:12,padding:"14px 18px",marginBottom:20,fontSize:13,lineHeight:1.7}}>
           <div style={{fontWeight:700,color:"#00d4ff",marginBottom:6}}>💻 ¿Cómo realizar este examen?</div>
+          {sinArchivo?(
+          <div style={{color:"rgba(255,255,255,0.75)"}}>
+            1. Lee cada inciso en esta pantalla.<br/>
+            2. Realízalo en <strong>{examen.programa}</strong>.<br/>
+            3. Escribe lo que encontraste en la caja de respuesta de cada inciso.<br/>
+            4. Al terminar todos los incisos, haz clic en <strong>"Enviar examen"</strong>.
+          </div>
+          ):(
           <div style={{color:"rgba(255,255,255,0.75)"}}>
             1. Lee los incisos en esta pantalla.<br/>
             2. Abre <strong>{examen.programa||"Microsoft Excel"}</strong> y trabaja siguiendo cada inciso.<br/>
             3. Al terminar, haz clic en <strong>"Confirmar — ya terminé"</strong> para registrar tu participación.<br/>
             4. Sube tu(s) archivo(s) en el <strong>Portal de Tareas</strong>, actividad <strong>"{examen.entregable}"</strong>.
           </div>
+          )}
         </div>
 
-        {/* Código con errores (para exámenes de programación) */}
-        {examen.codigo&&<CodigoConErrores codigo={examen.codigo} color={c.color}/>}
+        {examen.aviso&&<div style={{background:"rgba(255,80,80,0.1)",border:"1px solid rgba(255,80,80,0.35)",borderLeft:"4px solid #ff5050",borderRadius:10,padding:"10px 14px",marginBottom:20,fontSize:13,color:"#fca5a5",lineHeight:1.6}}>⚠️ <strong>Uso ético:</strong> {examen.aviso}</div>}
 
-        {/* Tabla de datos (para exámenes de Excel) */}
-        {examen.tabla&&<div style={{...card,marginBottom:20}}>
-          <div style={{fontWeight:700,color:c.color,fontSize:13,marginBottom:12}}>📋 Datos que debes ingresar</div>
+        {/* Código con errores (exámenes de programación tipo "corrige el código") */}
+        {examen.codigo&&<CodigoConErrores codigo={examen.codigo} color={col}/>}
+
+        {/* Tabla de datos (solo exámenes de Excel de Madurez — bloque hardcodeado histórico) */}
+        {cursoId==="mad1"&&(
+        <div style={{...card,marginBottom:20}}>
+          <div style={{fontWeight:700,color:"#ff6b9d",fontSize:13,marginBottom:12}}>📋 Datos que debes ingresar en Excel</div>
+          <div style={{overflowX:"auto"}}>
+            {tipoExamen==="parcial_u2"?(
+            <table style={{width:"100%",borderCollapse:"collapse",fontSize:12,fontFamily:"monospace"}}>
+              <thead><tr>
+                {["","A — Empleado","B — Días trabajados","C — Pago por día (Q)","D — Sueldo total","E — ¿Bono?"].map((h,i)=>(
+                  <th key={i} style={{background:i===0?"#1a1a2e":"#1a3a1a",color:i===0?"#5a6272":"#00d4ff",padding:"7px 10px",border:"1px solid rgba(255,255,255,0.1)",textAlign:"center",fontWeight:700,fontSize:11}}>{h}</th>
+                ))}
+              </tr></thead>
+              <tbody>
+                {[["Carlos Ajú",22,"Q 75.00"],["María Tahay",18,"Q 90.00"],["Pedro Cumes",25,"Q 65.00"],["Luisa Sical",20,"Q 80.00"],["José Tohom",15,"Q 70.00"]].map(([nom,dias,pago],ri)=>(
+                  <tr key={ri} style={{background:ri%2===0?"rgba(255,255,255,0.03)":"rgba(255,255,255,0.01)"}}>
+                    <td style={{padding:"6px 10px",border:"1px solid rgba(255,255,255,0.08)",color:"#5a6272",textAlign:"center",fontWeight:700}}>{ri+2}</td>
+                    <td style={{padding:"6px 10px",border:"1px solid rgba(255,255,255,0.08)",color:"#fff"}}>{nom}</td>
+                    <td style={{padding:"6px 10px",border:"1px solid rgba(255,255,255,0.08)",color:"#fff",textAlign:"center"}}>{dias}</td>
+                    <td style={{padding:"6px 10px",border:"1px solid rgba(255,255,255,0.08)",color:"#fbbf24",textAlign:"center"}}>{pago}</td>
+                    <td style={{padding:"6px 10px",border:"1px solid rgba(255,255,255,0.08)",color:"#00ff88",textAlign:"center",fontStyle:"italic",fontSize:11}}>tú la calculas</td>
+                    <td style={{padding:"6px 10px",border:"1px solid rgba(255,255,255,0.08)",color:"#00ff88",textAlign:"center",fontStyle:"italic",fontSize:11}}>tú la calculas</td>
+                  </tr>
+                ))}
+                <tr style={{background:"rgba(255,107,157,0.08)"}}>
+                  <td style={{padding:"6px 10px",border:"1px solid rgba(255,255,255,0.08)",color:"#5a6272",textAlign:"center",fontWeight:700}}>8</td>
+                  <td style={{padding:"6px 10px",border:"1px solid rgba(255,255,255,0.08)",color:"#ff6b9d",fontWeight:700}}>TOTAL GENERAL</td>
+                  <td colSpan={2} style={{padding:"6px 10px",border:"1px solid rgba(255,255,255,0.08)",color:"#5a6272",textAlign:"center"}}>—</td>
+                  <td style={{padding:"6px 10px",border:"1px solid rgba(255,255,255,0.08)",color:"#00ff88",textAlign:"center",fontStyle:"italic",fontSize:11}}>=SUMA(D2:D6)</td>
+                  <td style={{padding:"6px 10px",border:"1px solid rgba(255,255,255,0.08)",color:"#5a6272",textAlign:"center"}}>—</td>
+                </tr>
+              </tbody>
+            </table>
+            ):tipoExamen==="parcial_u3"?(
+            <table style={{width:"100%",borderCollapse:"collapse",fontSize:12,fontFamily:"monospace"}}>
+              <thead><tr>
+                {["","A — Vendedor","B — Categoría","C — Monto (Q)","D — Estado"].map((h,i)=>(
+                  <th key={i} style={{background:i===0?"#1a1a2e":"#1a3a1a",color:i===0?"#5a6272":"#00d4ff",padding:"7px 10px",border:"1px solid rgba(255,255,255,0.1)",textAlign:"center",fontWeight:700,fontSize:11}}>{h}</th>
+                ))}
+              </tr></thead>
+              <tbody>
+                {[["Ana García","Ropa","Q 450","Completada"],["Luis Pérez","Calzado","Q 780","Completada"],["Rosa Tahay","Ropa","Q 230","Pendiente"],["Jorge Ajú","Accesorios","Q 120","Completada"],["Marta Cumes","Ropa","Q 890","Completada"],["Carlos Batz","Calzado","Q 350","Pendiente"],["Ana García","Accesorios","Q 200","Completada"],["Luis Pérez","Ropa","Q 560","Completada"]].map(([ven,cat,mon,est],ri)=>(
+                  <tr key={ri} style={{background:ri%2===0?"rgba(255,255,255,0.03)":"rgba(255,255,255,0.01)"}}>
+                    <td style={{padding:"6px 10px",border:"1px solid rgba(255,255,255,0.08)",color:"#5a6272",textAlign:"center",fontWeight:700}}>{ri+2}</td>
+                    <td style={{padding:"6px 10px",border:"1px solid rgba(255,255,255,0.08)",color:"#fff"}}>{ven}</td>
+                    <td style={{padding:"6px 10px",border:"1px solid rgba(255,255,255,0.08)",color:"#a78bfa",textAlign:"center"}}>{cat}</td>
+                    <td style={{padding:"6px 10px",border:"1px solid rgba(255,255,255,0.08)",color:"#fbbf24",textAlign:"center"}}>{mon}</td>
+                    <td style={{padding:"6px 10px",border:"1px solid rgba(255,255,255,0.08)",color:est==="Completada"?"#00ff88":"#ff8080",textAlign:"center",fontWeight:600}}>{est}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            ):tipoExamen==="parcial_u4"?(
+            <div>
+              <div style={{fontSize:11,color:"#fb923c",fontWeight:700,marginBottom:6}}>📦 Tabla 1 — Catálogo de productos</div>
+              <table style={{width:"100%",borderCollapse:"collapse",fontSize:12,fontFamily:"monospace",marginBottom:16}}>
+                <thead><tr>
+                  {["","A — Código","B — Producto","C — Precio (Q)"].map((h,i)=>(
+                    <th key={i} style={{background:i===0?"#1a1a2e":"#3a1a05",color:i===0?"#5a6272":"#fb923c",padding:"7px 10px",border:"1px solid rgba(255,255,255,0.1)",textAlign:"center",fontWeight:700,fontSize:11}}>{h}</th>
+                  ))}
+                </tr></thead>
+                <tbody>
+                  {[["R001","Refresco de naranja 1L","Q 12.50"],["R002","Agua pura 600ml","Q 5.00"],["R003","Jugo de durazno 1L","Q 15.00"],["R004","Gaseosa cola 2L","Q 18.00"],["R005","Té helado 500ml","Q 8.50"]].map(([cod,prod,pre],ri)=>(
+                    <tr key={ri} style={{background:ri%2===0?"rgba(255,255,255,0.03)":"rgba(255,255,255,0.01)"}}>
+                      <td style={{padding:"6px 10px",border:"1px solid rgba(255,255,255,0.08)",color:"#5a6272",textAlign:"center",fontWeight:700}}>{ri+2}</td>
+                      <td style={{padding:"6px 10px",border:"1px solid rgba(255,255,255,0.08)",color:"#fbbf24",textAlign:"center"}}>{cod}</td>
+                      <td style={{padding:"6px 10px",border:"1px solid rgba(255,255,255,0.08)",color:"#fff"}}>{prod}</td>
+                      <td style={{padding:"6px 10px",border:"1px solid rgba(255,255,255,0.08)",color:"#00ff88",textAlign:"center"}}>{pre}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              <div style={{fontSize:11,color:"#fb923c",fontWeight:700,marginBottom:6}}>🧾 Tabla 2 — Pedido a completar con BUSCARV</div>
+              <table style={{width:"100%",borderCollapse:"collapse",fontSize:12,fontFamily:"monospace"}}>
+                <thead><tr>
+                  {["","F — Código","G — Cantidad","H — Producto","I — Precio unit.","J — Subtotal"].map((h,i)=>(
+                    <th key={i} style={{background:i===0?"#1a1a2e":"#3a1a05",color:i===0?"#5a6272":"#fb923c",padding:"7px 10px",border:"1px solid rgba(255,255,255,0.1)",textAlign:"center",fontWeight:700,fontSize:11}}>{h}</th>
+                  ))}
+                </tr></thead>
+                <tbody>
+                  {[["R003",3],["R001",5],["R005",2],["R004",4]].map(([cod,cant],ri)=>(
+                    <tr key={ri} style={{background:ri%2===0?"rgba(255,255,255,0.03)":"rgba(255,255,255,0.01)"}}>
+                      <td style={{padding:"6px 10px",border:"1px solid rgba(255,255,255,0.08)",color:"#5a6272",textAlign:"center",fontWeight:700}}>{ri+2}</td>
+                      <td style={{padding:"6px 10px",border:"1px solid rgba(255,255,255,0.08)",color:"#fbbf24",textAlign:"center"}}>{cod}</td>
+                      <td style={{padding:"6px 10px",border:"1px solid rgba(255,255,255,0.08)",color:"#fff",textAlign:"center"}}>{cant}</td>
+                      <td style={{padding:"6px 10px",border:"1px solid rgba(255,255,255,0.08)",color:"#00ff88",textAlign:"center",fontStyle:"italic",fontSize:11}}>tú la calculas</td>
+                      <td style={{padding:"6px 10px",border:"1px solid rgba(255,255,255,0.08)",color:"#00ff88",textAlign:"center",fontStyle:"italic",fontSize:11}}>tú la calculas</td>
+                      <td style={{padding:"6px 10px",border:"1px solid rgba(255,255,255,0.08)",color:"#00ff88",textAlign:"center",fontStyle:"italic",fontSize:11}}>tú la calculas</td>
+                    </tr>
+                  ))}
+                  <tr style={{background:"rgba(251,146,60,0.1)"}}>
+                    <td style={{padding:"6px 10px",border:"1px solid rgba(255,255,255,0.08)",color:"#5a6272",textAlign:"center",fontWeight:700}}>6</td>
+                    <td colSpan={4} style={{padding:"6px 10px",border:"1px solid rgba(255,255,255,0.08)",color:"#fb923c",fontWeight:700,textAlign:"right"}}>TOTAL DEL PEDIDO</td>
+                    <td style={{padding:"6px 10px",border:"1px solid rgba(255,255,255,0.08)",color:"#00ff88",textAlign:"center",fontStyle:"italic",fontSize:11}}>=SUMA(J2:J5)</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            ):(
+            <table style={{width:"100%",borderCollapse:"collapse",fontSize:12,fontFamily:"monospace"}}>
+              <thead><tr>
+                {["","A — Despachador","B — Categoría","C — Monto (Q)","D — Estado"].map((h,i)=>(
+                  <th key={i} style={{background:i===0?"#1a1a2e":"#1a3a1a",color:i===0?"#5a6272":"#00d4ff",padding:"7px 10px",border:"1px solid rgba(255,255,255,0.1)",textAlign:"center",fontWeight:700,fontSize:11}}>{h}</th>
+                ))}
+              </tr></thead>
+              <tbody>
+                {[["Emilio","Medicamentos","Q 620","Facturada"],["Valeria","Higiene","Q 310","Facturada"],["Emilio","Vitaminas","Q 180","Pendiente"],["Mateo","Medicamentos","Q 740","Facturada"],["Valeria","Medicamentos","Q 95","Pendiente"],["Emilio","Higiene","Q 430","Facturada"],["Mateo","Vitaminas","Q 265","Facturada"],["Valeria","Vitaminas","Q 510","Facturada"],["Mateo","Higiene","Q 150","Pendiente"],["Emilio","Medicamentos","Q 380","Facturada"]].map(([ven,cat,mon,est],ri)=>(
+                  <tr key={ri} style={{background:ri%2===0?"rgba(255,255,255,0.03)":"rgba(255,255,255,0.01)"}}>
+                    <td style={{padding:"6px 10px",border:"1px solid rgba(255,255,255,0.08)",color:"#5a6272",textAlign:"center",fontWeight:700}}>{ri+2}</td>
+                    <td style={{padding:"6px 10px",border:"1px solid rgba(255,255,255,0.08)",color:"#fff"}}>{ven}</td>
+                    <td style={{padding:"6px 10px",border:"1px solid rgba(255,255,255,0.08)",color:"#a78bfa",textAlign:"center"}}>{cat}</td>
+                    <td style={{padding:"6px 10px",border:"1px solid rgba(255,255,255,0.08)",color:"#fbbf24",textAlign:"center"}}>{mon}</td>
+                    <td style={{padding:"6px 10px",border:"1px solid rgba(255,255,255,0.08)",color:est==="Facturada"?"#00ff88":"#ff8080",textAlign:"center",fontWeight:600}}>{est}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            )}
+          </div>
+          {tipoExamen==="final"&&(
+          <div style={{marginTop:10,fontSize:11,color:"rgba(255,255,255,0.4)"}}>
+            💡 Tip: usa estos rangos en tus fórmulas — Montos: <code style={{color:"#fbbf24"}}>C2:C11</code> · Vendedor: <code style={{color:"#fbbf24"}}>A2:A11</code> · Categoría: <code style={{color:"#fbbf24"}}>B2:B11</code> · Estado: <code style={{color:"#fbbf24"}}>D2:D11</code>
+          </div>
+          )}
+        </div>
+        )}
+
+        {/* Tabla(s) de datos genéricas — cualquier curso puede traer examen.tabla / examen.tabla2 */}
+        {examen.tabla&&(
+        <div style={{...card,marginBottom:20}}>
+          <div style={{fontWeight:700,color:col,fontSize:13,marginBottom:12}}>{examen.tabla.titulo||"📋 Datos que debes ingresar en Excel"}</div>
           <div style={{overflowX:"auto"}}>
             <table style={{width:"100%",borderCollapse:"collapse",fontSize:12,fontFamily:"monospace"}}>
               <thead><tr>
                 {examen.tabla.headers.map((h,i)=>(
-                  <th key={i} style={{background:i===0?"#1a1a2e":"#1a3a1a",color:i===0?"#5a6272":c.color,padding:"7px 10px",border:"1px solid rgba(255,255,255,0.1)",textAlign:"center",fontWeight:700,fontSize:11}}>{h}</th>
+                  <th key={i} style={{background:i===0?"#1a1a2e":"#1a3a1a",color:i===0?"#5a6272":col,padding:"7px 10px",border:"1px solid rgba(255,255,255,0.1)",textAlign:"center",fontWeight:700,fontSize:11}}>{h}</th>
                 ))}
               </tr></thead>
               <tbody>
                 {examen.tabla.rows.map((row,ri)=>(
                   <tr key={ri} style={{background:ri%2===0?"rgba(255,255,255,0.03)":"rgba(255,255,255,0.01)"}}>
-                    {row.map((cell,ci)=>{
-                      const header=examen.tabla.headers[ci]||"";
-                      let color="#fff";
-                      if(ci===0)color="#5a6272";
-                      else if(/\(Q\)|Total|Monto|Sueldo|Precio/i.test(header))color="#fbbf24";
-                      else if(/Categoría|Región|Depto|Puesto/i.test(header))color="#a78bfa";
-                      return(<td key={ci} style={{padding:"6px 10px",border:"1px solid rgba(255,255,255,0.08)",color,textAlign:ci===0?"center":"left",fontWeight:ci===0?700:400}}>{cell}</td>);
-                    })}
+                    {row.map((cell,ci)=><td key={ci} style={{padding:"6px 10px",border:"1px solid rgba(255,255,255,0.08)",color:ci===0?"#5a6272":cell==="tú la calculas"?"#00ff88":"#fff",textAlign:ci===0?"center":"left",fontWeight:ci===0?700:400,fontStyle:cell==="tú la calculas"?"italic":"normal",fontSize:cell==="tú la calculas"?11:12}}>{cell}</td>)}
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
-        </div>}
+        </div>
+        )}
+
+        {examen.tabla2&&(
+        <div style={{...card,marginBottom:20}}>
+          <div style={{fontWeight:700,color:col,fontSize:13,marginBottom:12}}>{examen.tabla2.titulo||"📋 Datos adicionales"}</div>
+          <div style={{overflowX:"auto"}}>
+            <table style={{width:"100%",borderCollapse:"collapse",fontSize:12,fontFamily:"monospace"}}>
+              <thead><tr>
+                {examen.tabla2.headers.map((h,i)=>(
+                  <th key={i} style={{background:i===0?"#1a1a2e":"#1a3a1a",color:i===0?"#5a6272":col,padding:"7px 10px",border:"1px solid rgba(255,255,255,0.1)",textAlign:"center",fontWeight:700,fontSize:11}}>{h}</th>
+                ))}
+              </tr></thead>
+              <tbody>
+                {examen.tabla2.rows.map((row,ri)=>(
+                  <tr key={ri} style={{background:ri%2===0?"rgba(255,255,255,0.03)":"rgba(255,255,255,0.01)"}}>
+                    {row.map((cell,ci)=><td key={ci} style={{padding:"6px 10px",border:"1px solid rgba(255,255,255,0.08)",color:ci===0?"#5a6272":cell==="tú la calculas"?"#00ff88":"#fff",textAlign:ci===0?"center":"left",fontWeight:ci===0?700:400,fontStyle:cell==="tú la calculas"?"italic":"normal",fontSize:cell==="tú la calculas"?11:12}}>{cell}</td>)}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+        )}
 
         {/* Incisos */}
         <div style={{...card,marginBottom:20}}>
-          <div style={{fontWeight:700,color:c.color,fontSize:13,marginBottom:14}}>📝 Incisos a realizar</div>
+          <div style={{fontWeight:700,color:col,fontSize:13,marginBottom:14}}>📝 Incisos a realizar</div>
           {examen.incisos.map((inc,i)=>(
             <div key={inc.id} style={{display:"flex",gap:12,marginBottom:14,paddingBottom:14,borderBottom:i<examen.incisos.length-1?"1px solid rgba(255,255,255,0.06)":"none"}}>
-              <div style={{width:28,height:28,borderRadius:8,background:`${c.color}26`,border:`1px solid ${c.color}4d`,display:"flex",alignItems:"center",justifyContent:"center",fontWeight:800,fontSize:13,color:c.color,flexShrink:0}}>{inc.letra.toUpperCase()}</div>
+              <div style={{width:28,height:28,borderRadius:8,background:`${col}26`,border:`1px solid ${col}4d`,display:"flex",alignItems:"center",justifyContent:"center",fontWeight:800,fontSize:13,color:col,flexShrink:0}}>{inc.letra.toUpperCase()}</div>
               <div style={{flex:1}}>
                 <div style={{fontSize:13,lineHeight:1.6,color:"rgba(255,255,255,0.85)"}}>{inc.txt}</div>
+                {inc.ph?(
+                  <div style={{marginTop:8}}>
+                    <textarea value={respuestas[inc.id]||""} onChange={e=>setRespuestas(p=>({...p,[inc.id]:e.target.value}))} rows={2} placeholder={inc.ph}
+                      style={{width:"100%",background:"rgba(255,255,255,0.06)",border:"1px solid rgba(255,255,255,0.15)",borderRadius:8,padding:"8px 12px",color:"#fff",fontSize:13,outline:"none",resize:"vertical",lineHeight:1.5}}/>
+                    <span style={{fontSize:11,background:`${col}1a`,color:col,border:`1px solid ${col}33`,borderRadius:6,padding:"2px 8px"}}>{inc.pts} pts</span>
+                  </div>
+                ):(
                 <div style={{marginTop:6,display:"flex",gap:8,alignItems:"center"}}>
-                  <span style={{fontSize:11,background:`${c.color}1a`,color:c.color,border:`1px solid ${c.color}33`,borderRadius:6,padding:"2px 8px"}}>{inc.pts} pts</span>
+                  <span style={{fontSize:11,background:`${col}1a`,color:col,border:`1px solid ${col}33`,borderRadius:6,padding:"2px 8px"}}>{inc.pts} pts</span>
                   <label style={{display:"flex",alignItems:"center",gap:6,cursor:"pointer",fontSize:12,color:respuestas[inc.id]?"#00ff88":"rgba(255,255,255,0.4)"}}>
                     <input type="checkbox" checked={!!respuestas[inc.id]} onChange={e=>setRespuestas(p=>({...p,[inc.id]:e.target.checked}))}
                       style={{accentColor:"#00ff88",width:14,height:14}}/>
                     {respuestas[inc.id]?"✓ Completado":"Marcar como completado"}
                   </label>
                 </div>
+                )}
               </div>
             </div>
           ))}
@@ -756,17 +883,17 @@ function ExamenPractico({nombre,cursoId,tipoExamen,onEnviar}){
 
         {/* Botón enviar */}
         {!confirm?(
-          <button onClick={()=>setConfirm(true)} style={{width:"100%",background:`linear-gradient(90deg,${c.color},#7b2ff7)`,border:"none",borderRadius:12,padding:14,color:"#fff",fontWeight:700,fontSize:15,cursor:"pointer"}}>
-            ✅ Confirmar — ya terminé
+          <button onClick={()=>setConfirm(true)} style={{width:"100%",background:`linear-gradient(90deg,${col},#00d4ff)`,border:"none",borderRadius:12,padding:14,color:"#fff",fontWeight:700,fontSize:15,cursor:"pointer"}}>
+            {sinArchivo?"Enviar examen 📨":"✅ Confirmar — ya terminé"}
           </button>
         ):(
           <div style={{background:"rgba(255,170,0,0.1)",border:"1px solid rgba(255,170,0,0.4)",borderRadius:12,padding:16,textAlign:"center"}}>
-            <div style={{fontSize:14,color:"#ffaa00",marginBottom:6}}>¿Confirmas que ya terminaste el ejercicio?</div>
-            <div style={{fontSize:12,color:"rgba(255,255,255,0.5)",marginBottom:14}}>Recuerda subir tu(s) archivo(s) en el Portal de Tareas después.</div>
-            <div style={{display:"flex",gap:10,justifyContent:"center"}}>
+            <div style={{fontSize:14,color:"#ffaa00",marginBottom:6}}>{sinArchivo?"¿Confirmas el envío? No podrás modificar tus respuestas.":"¿Confirmas que ya terminaste?"}</div>
+            {!sinArchivo&&<div style={{fontSize:12,color:"rgba(255,255,255,0.5)",marginBottom:14}}>Recuerda subir tu archivo en el Portal de Tareas después.</div>}
+            <div style={{display:"flex",gap:10,justifyContent:"center",marginTop:sinArchivo?8:0}}>
               <button onClick={()=>setConfirm(false)} style={btn()}>Revisar primero</button>
               <button onClick={enviar} disabled={enviando} style={{background:"#00ff88",border:"none",borderRadius:8,padding:"9px 20px",color:"#000",fontWeight:700,cursor:"pointer",fontSize:13}}>
-                {enviando?"Registrando...":"Sí, confirmar ✓"}
+                {enviando?"Enviando...":"Sí, enviar ✓"}
               </button>
             </div>
           </div>
@@ -814,9 +941,20 @@ function Bloque({title,color,children}){return(<div style={{...card,marginBottom
 function ItemDet({num,txt,ok,resp,correcta}){return(<div style={{padding:"7px 0",borderBottom:"1px solid rgba(255,255,255,0.05)",fontSize:12}}><div style={{color:"rgba(255,255,255,0.7)",marginBottom:3,whiteSpace:"pre-line"}}>{num}. {txt}</div><span style={{color:ok?"#00ff88":"#ff8080"}}>{ok?"✓":"✗"} {resp}</span>{correcta&&<span style={{color:"rgba(255,255,255,0.4)",marginLeft:10}}>→ {correcta}</span>}</div>);}
 
 function DetalleRespuesta({r,onBack}){
-  const examen=EXAM_MAP[r.cursoId]?.[r.tipoExamen];const auto=calcAuto(r,examen);const max=maxAuto(examen);const c=getCurso(r.cursoId)||{color:"#aaa"};
-  return(<div><button onClick={onBack} style={{...btn(),marginBottom:14}}>← Volver</button><div style={{...card,display:"flex",justifyContent:"space-between",flexWrap:"wrap",gap:10,marginBottom:14}}><div><div style={{fontSize:18,fontWeight:800}}>{r.nombre}</div><div style={{fontSize:13,color:"rgba(255,255,255,0.5)"}}>{r.curso} · {r.titulo} · {r.fecha}</div></div><div style={{textAlign:"right"}}><div style={{fontSize:20,fontWeight:800,color:c.color}}>{auto}/{max} <span style={{fontSize:12,color:"rgba(255,255,255,0.4)"}}>pts automáticos</span></div>{examen?.desarrollo?.length>0&&<div style={{fontSize:12,color:"rgba(255,255,255,0.4)"}}>+ desarrollo manual</div>}</div></div>
-    {examen&&examen.multiple&&<><Bloque title="Selección Múltiple" color="#00d4ff">{examen.multiple.map((q,i)=>{const resp=r.multiple?.[q.id];const ok=resp===q.correcta;return<ItemDet key={q.id} num={i+1} txt={q.txt} ok={ok} resp={resp!=null?`${["A","B","C","D"][resp]}) ${q.opts[resp]}`:"Sin responder"} correcta={ok?null:`${["A","B","C","D"][q.correcta]}) ${q.opts[q.correcta]}`}/>;})}</Bloque><Bloque title="Verdadero o Falso" color="#a78bff">{examen.vf.map((q,i)=>{const resp=r.vf?.[q.id];const ok=resp===q.correcta;return<ItemDet key={q.id} num={i+1} txt={q.txt} ok={ok} resp={resp==null?"Sin responder":resp?"Verdadero":"Falso"} correcta={ok?null:q.correcta?"Verdadero":"Falso"}/>;})}</Bloque><Bloque title="Completar" color="#ffaa00">{examen.completar.preguntas.map((q,i)=>{const resp=(r.completar?.[q.id]||"").toLowerCase().trim();const ok=resp===q.correcta.toLowerCase();return<ItemDet key={q.id} num={i+1} txt={`${q.pre} ___ ${q.post}`} ok={ok} resp={r.completar?.[q.id]||"Sin responder"} correcta={ok?null:q.correcta}/>;})}</Bloque>{examen.desarrollo?.length>0&&<Bloque title="Desarrollo — revisar manualmente" color="#ff8080">{examen.desarrollo.map((q,i)=>(<div key={q.id} style={{padding:"10px 0",borderBottom:"1px solid rgba(255,255,255,0.05)"}}><div style={{fontSize:12,color:"rgba(255,255,255,0.5)",marginBottom:6}}>{i+1}. ({q.pts} pts) {q.txt}</div><div style={{background:"rgba(255,255,255,0.05)",borderRadius:8,padding:"10px 14px",fontSize:13,lineHeight:1.6,whiteSpace:"pre-wrap"}}>{r.desarrollo?.[q.id]||<span style={{color:"rgba(255,255,255,0.3)",fontStyle:"italic"}}>Sin respuesta</span>}</div></div>))}</Bloque>}</>}
+  const examen=EXAM_MAP[r.cursoId]?.[r.tipoExamen];
+  const esPractico=examen?.tipo==="practico";
+  const auto=calcAuto(r,examen);const max=maxAuto(examen);const c=getCurso(r.cursoId)||{color:"#aaa"};
+  return(<div><button onClick={onBack} style={{...btn(),marginBottom:14}}>← Volver</button><div style={{...card,display:"flex",justifyContent:"space-between",flexWrap:"wrap",gap:10,marginBottom:14}}><div><div style={{fontSize:18,fontWeight:800}}>{r.nombre}</div><div style={{fontSize:13,color:"rgba(255,255,255,0.5)"}}>{r.curso} · {r.titulo} · {r.fecha}</div></div><div style={{textAlign:"right"}}>
+    {esPractico?
+      <div style={{fontSize:14,fontWeight:800,color:"#fb923c"}}>💻 Examen práctico<br/><span style={{fontSize:11,color:"rgba(255,255,255,0.4)",fontWeight:400}}>{examen.sinArchivo?"Califica las respuestas del alumno abajo":"Revisa el archivo en el Portal de Tareas"}</span></div>
+    :<><div style={{fontSize:20,fontWeight:800,color:c.color}}>{auto}/{max} <span style={{fontSize:12,color:"rgba(255,255,255,0.4)"}}>pts automáticos</span></div>{examen?.desarrollo&&examen.desarrollo.length>0&&<div style={{fontSize:12,color:"rgba(255,255,255,0.4)"}}>+ desarrollo manual</div>}</>}
+  </div></div>
+    {esPractico&&examen&&<Bloque title={examen.sinArchivo?"Respuestas del alumno — revisar manualmente":"Incisos marcados por el alumno"} color="#fb923c">{examen.incisos.map((inc,i)=>{
+      const v=r.respuestas?.[inc.id];
+      if(inc.ph)return(<div key={inc.id} style={{padding:"10px 0",borderBottom:"1px solid rgba(255,255,255,0.05)"}}><div style={{fontSize:12,color:"rgba(255,255,255,0.5)",marginBottom:6}}>{inc.letra.toUpperCase()}. ({inc.pts} pts) {inc.txt}</div><div style={{background:"rgba(255,255,255,0.05)",borderRadius:8,padding:"8px 12px",fontSize:13,lineHeight:1.6,whiteSpace:"pre-wrap"}}>{v||<span style={{color:"rgba(255,255,255,0.3)",fontStyle:"italic"}}>Sin respuesta</span>}</div></div>);
+      const marcado=!!v;return<ItemDet key={inc.id} num={i+1} txt={`(${inc.pts} pts) ${inc.txt}`} ok={marcado} resp={marcado?"Marcado como completado":"No marcado como completado"}/>;
+    })}</Bloque>}
+    {!esPractico&&examen&&<><Bloque title="Selección Múltiple" color="#00d4ff">{examen.multiple.map((q,i)=>{const resp=r.multiple?.[q.id];const ok=resp===q.correcta;return<ItemDet key={q.id} num={i+1} txt={q.txt} ok={ok} resp={resp!=null?`${["A","B","C","D"][resp]}) ${q.opts[resp]}`:"Sin responder"} correcta={ok?null:`${["A","B","C","D"][q.correcta]}) ${q.opts[q.correcta]}`}/>;})}</Bloque><Bloque title="Verdadero o Falso" color="#a78bff">{examen.vf.map((q,i)=>{const resp=r.vf?.[q.id];const ok=resp===q.correcta;return<ItemDet key={q.id} num={i+1} txt={q.txt} ok={ok} resp={resp==null?"Sin responder":resp?"Verdadero":"Falso"} correcta={ok?null:q.correcta?"Verdadero":"Falso"}/>;})}</Bloque><Bloque title="Completar" color="#ffaa00">{examen.completar.preguntas.map((q,i)=>{const resp=(r.completar?.[q.id]||"").toLowerCase().trim();const ok=resp===q.correcta.toLowerCase();return<ItemDet key={q.id} num={i+1} txt={`${q.pre} ___ ${q.post}`} ok={ok} resp={r.completar?.[q.id]||"Sin responder"} correcta={ok?null:q.correcta}/>;})}</Bloque>{examen.desarrollo&&examen.desarrollo.length>0&&<Bloque title="Desarrollo — revisar manualmente" color="#ff8080">{examen.desarrollo.map((q,i)=>(<div key={q.id} style={{padding:"10px 0",borderBottom:"1px solid rgba(255,255,255,0.05)"}}><div style={{fontSize:12,color:"rgba(255,255,255,0.5)",marginBottom:6}}>{i+1}. ({q.pts} pts) {q.txt}</div><div style={{background:"rgba(255,255,255,0.05)",borderRadius:8,padding:"10px 14px",fontSize:13,lineHeight:1.6,whiteSpace:"pre-wrap"}}>{r.desarrollo?.[q.id]||<span style={{color:"rgba(255,255,255,0.3)",fontStyle:"italic"}}>Sin respuesta</span>}</div></div>))}</Bloque>}</>}
   </div>);
 }
 
@@ -828,13 +966,16 @@ function PanelMaestro({onSalir}){
   if(detalle)return(<div style={{minHeight:"100vh",background:"#0d1117",color:"#fff"}}><div style={{background:"rgba(0,0,0,0.5)",borderBottom:"1px solid rgba(255,255,255,0.1)",padding:"12px 24px",display:"flex",justifyContent:"space-between",alignItems:"center"}}><div style={{fontWeight:800,fontSize:16}}>📊 Panel del Catedrático</div><button onClick={onSalir} style={btn()}>← Salir</button></div><div style={{padding:"20px 24px"}}><DetalleRespuesta r={detalle} onBack={()=>setDetalle(null)}/></div></div>);
 
   const getTipos=(cid)=>{
-    if(cid==="mad1"||cid==="py5"||cid==="comp1") return ["parcial","parcial_u2","parcial_u3","final"];
+    if(cid==="mad1") return ["parcial","parcial_u2","parcial_u3","parcial_u4","final"];
+    if(cid==="lab1") return ["parcial","parcial_u3","final"];
+    if(cid==="comp1") return ["parcial","parcial_u3","final"];
     return ["parcial","final"];
   };
-  const getTipoLabel=(tipo)=>{
+  const getTipoLabel=(tipo,cid)=>{
     if(tipo==="parcial") return "📝 Parcial Unidad I";
     if(tipo==="parcial_u2") return "📝 Parcial Unidad II";
-    if(tipo==="parcial_u3") return "📝 Parcial Unidad III";
+    if(tipo==="parcial_u3") return cid==="lab1"?"🦈 Práctico Wireshark":"📝 Parcial Unidad III";
+    if(tipo==="parcial_u4") return "📝 Parcial Unidad III · BUSCARV";
     return "📋 Examen Final";
   };
 
@@ -854,7 +995,7 @@ function PanelMaestro({onSalir}){
                 {getTipos(c.id).map(tipo=>{
                   const activo=estado[`${c.id}_${tipo}`]||false;const examen=EXAM_MAP[c.id]?.[tipo];
                   return(<div key={tipo} style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:6}}>
-                    <div><div style={{fontSize:12,color:activo?"#fff":"rgba(255,255,255,0.5)"}}>{getTipoLabel(tipo)}</div><div style={{fontSize:10,color:"rgba(255,255,255,0.3)"}}>{examen?.subtitulo||"—"}</div></div>
+                    <div><div style={{fontSize:12,color:activo?"#fff":"rgba(255,255,255,0.5)"}}>{getTipoLabel(tipo,c.id)}</div><div style={{fontSize:10,color:"rgba(255,255,255,0.3)"}}>{examen?.subtitulo||"—"}</div></div>
                     <button onClick={()=>toggleExamen(c.id,tipo)} style={{background:activo?"rgba(0,255,136,0.2)":"rgba(255,255,255,0.08)",border:activo?"1px solid #00ff88":"1px solid rgba(255,255,255,0.15)",borderRadius:20,padding:"4px 12px",color:activo?"#00ff88":"rgba(255,255,255,0.5)",cursor:"pointer",fontSize:12,fontWeight:700,minWidth:80}}>
                       {activo?"🟢 Activo":"⚫ Cerrado"}
                     </button>
@@ -865,32 +1006,30 @@ function PanelMaestro({onSalir}){
           </div>
         </div>
         <div style={{display:"grid",gridTemplateColumns:"repeat(4,1fr)",gap:10,marginBottom:16}}>
-          {[{label:"Total enviados",val:respuestas.length,color:"#00d4ff"},{label:"Parciales U.I",val:respuestas.filter(r=>r.tipoExamen==="parcial").length,color:"#a78bff"},{label:"Parciales U.II",val:respuestas.filter(r=>r.tipoExamen==="parcial_u2").length,color:"#ff6b9d"},{label:"Parciales U.III",val:respuestas.filter(r=>r.tipoExamen==="parcial_u3").length,color:"#34d399"},{label:"Finales",val:respuestas.filter(r=>r.tipoExamen==="final").length,color:"#00ff88"}].map(s=>(<div key={s.label} style={{background:"rgba(255,255,255,0.04)",border:"1px solid rgba(255,255,255,0.08)",borderRadius:12,padding:"12px",textAlign:"center"}}><div style={{fontSize:20,fontWeight:800,color:s.color}}>{s.val}</div><div style={{fontSize:11,color:"rgba(255,255,255,0.4)",marginTop:3}}>{s.label}</div></div>))}
+          {[{label:"Total enviados",val:respuestas.length,color:"#00d4ff"},{label:"Parciales U.I",val:respuestas.filter(r=>r.tipoExamen==="parcial").length,color:"#a78bff"},{label:"Parciales U.II",val:respuestas.filter(r=>r.tipoExamen==="parcial_u2").length,color:"#ff6b9d"},{label:"Parciales U.III",val:respuestas.filter(r=>r.tipoExamen==="parcial_u3").length,color:"#34d399"},{label:"BUSCARV",val:respuestas.filter(r=>r.tipoExamen==="parcial_u4").length,color:"#fb923c"},{label:"Finales",val:respuestas.filter(r=>r.tipoExamen==="final").length,color:"#00ff88"}].map(s=>(<div key={s.label} style={{background:"rgba(255,255,255,0.04)",border:"1px solid rgba(255,255,255,0.08)",borderRadius:12,padding:"12px",textAlign:"center"}}><div style={{fontSize:20,fontWeight:800,color:s.color}}>{s.val}</div><div style={{fontSize:11,color:"rgba(255,255,255,0.4)",marginTop:3}}>{s.label}</div></div>))}
         </div>
         <div style={{display:"flex",gap:8,marginBottom:10,flexWrap:"wrap"}}>
           <button onClick={()=>setFiltroC("todos")} style={{background:filtroC==="todos"?"rgba(0,212,255,0.15)":"rgba(255,255,255,0.05)",border:filtroC==="todos"?"1px solid #00d4ff":"1px solid rgba(255,255,255,0.1)",borderRadius:20,padding:"6px 14px",color:filtroC==="todos"?"#00d4ff":"rgba(255,255,255,0.6)",cursor:"pointer",fontSize:12}}>Todos ({respuestas.length})</button>
           {CURSOS.map(c=><button key={c.id} onClick={()=>setFiltroC(c.id)} style={{background:filtroC===c.id?c.bg:"rgba(255,255,255,0.05)",border:filtroC===c.id?`1px solid ${c.color}`:"1px solid rgba(255,255,255,0.1)",borderRadius:20,padding:"6px 14px",color:filtroC===c.id?c.color:"rgba(255,255,255,0.6)",cursor:"pointer",fontSize:12}}>{c.label.split("—")[1]?.trim()||c.label} ({respuestas.filter(r=>r.cursoId===c.id).length})</button>)}
         </div>
         <div style={{display:"flex",gap:8,marginBottom:16}}>
-          {[["todos","Todos"],["parcial","📝 Parciales U.I"],["parcial_u2","📝 Parciales U.II"],["parcial_u3","📝 Parciales U.III"],["final","📋 Finales"]].map(([v,l])=><button key={v} onClick={()=>setFiltroT(v)} style={{background:filtroT===v?"rgba(167,139,250,0.15)":"rgba(255,255,255,0.05)",border:filtroT===v?"1px solid #a78bff":"1px solid rgba(255,255,255,0.1)",borderRadius:20,padding:"5px 12px",color:filtroT===v?"#a78bff":"rgba(255,255,255,0.6)",cursor:"pointer",fontSize:12}}>{l}</button>)}
+          {[["todos","Todos"],["parcial","📝 Parciales U.I"],["parcial_u2","📝 Parciales U.II"],["parcial_u3","📝 Parciales U.III"],["parcial_u4","📝 BUSCARV"],["final","📋 Finales"]].map(([v,l])=><button key={v} onClick={()=>setFiltroT(v)} style={{background:filtroT===v?"rgba(167,139,250,0.15)":"rgba(255,255,255,0.05)",border:filtroT===v?"1px solid #a78bff":"1px solid rgba(255,255,255,0.1)",borderRadius:20,padding:"5px 12px",color:filtroT===v?"#a78bff":"rgba(255,255,255,0.6)",cursor:"pointer",fontSize:12}}>{l}</button>)}
         </div>
         {cargando?<div style={{textAlign:"center",padding:40,color:"rgba(255,255,255,0.4)"}}>Cargando...</div>:filtradas.length===0?<div style={{textAlign:"center",padding:40,color:"rgba(255,255,255,0.3)"}}><div style={{fontSize:36,marginBottom:8}}>📭</div><div>No hay respuestas con estos filtros.</div></div>:(
           <div>
             <div style={{display:"grid",gridTemplateColumns:"2fr 2fr 1fr 1fr 1fr 70px",gap:8,padding:"6px 12px",fontSize:11,color:"rgba(255,255,255,0.4)",fontWeight:700,textTransform:"uppercase"}}><span>Alumno</span><span>Curso</span><span>Tipo</span><span>Hora</span><span>Auto</span><span></span></div>
             {filtradas.map((r,i)=>{
               const c=getCurso(r.cursoId)||{color:"#aaa",label:r.curso||"—",bg:"rgba(255,255,255,0.08)"};
-              const examen=EXAM_MAP[r.cursoId]?.[r.tipoExamen];const auto=calcAuto(r,examen);const max=maxAuto(examen);const pct=max>0?Math.round((auto/max)*100):0;
-              const exDef2=EXAM_MAP[r.cursoId]?.[r.tipoExamen];
-              const esPractico=exDef2?.tipo==="practico";
-              const tipoLabel=r.tipoExamen==="parcial"?"P. U.I":r.tipoExamen==="parcial_u2"?(esPractico?"P. U.II 💻":"P. U.II"):r.tipoExamen==="parcial_u3"?"P. U.III":(esPractico?"Final 💻":"Final");
-              const tipoBg=r.tipoExamen==="parcial"?"rgba(167,139,250,0.15)":r.tipoExamen==="parcial_u2"?"rgba(255,107,157,0.15)":r.tipoExamen==="parcial_u3"?"rgba(52,211,153,0.15)":"rgba(0,255,136,0.1)";
-              const tipoColor=r.tipoExamen==="parcial"?"#a78bff":r.tipoExamen==="parcial_u2"?"#ff6b9d":r.tipoExamen==="parcial_u3"?"#34d399":"#00ff88";
+              const examen=EXAM_MAP[r.cursoId]?.[r.tipoExamen];const esPractico=examen?.tipo==="practico";const auto=calcAuto(r,examen);const max=maxAuto(examen);const pct=max>0?Math.round((auto/max)*100):0;
+              const tipoLabel=r.tipoExamen==="parcial"?"P. U.I":r.tipoExamen==="parcial_u2"?(esPractico?"P. U.II 💻":"P. U.II"):r.tipoExamen==="parcial_u3"?(r.cursoId==="lab1"?"Wireshark":"P. U.III"):r.tipoExamen==="parcial_u4"?"P. BUSCARV":"Final";
+              const tipoBg=r.tipoExamen==="parcial"?"rgba(167,139,250,0.15)":r.tipoExamen==="parcial_u2"?"rgba(255,107,157,0.15)":r.tipoExamen==="parcial_u3"?"rgba(52,211,153,0.15)":r.tipoExamen==="parcial_u4"?"rgba(251,146,60,0.15)":"rgba(0,255,136,0.1)";
+              const tipoColor=r.tipoExamen==="parcial"?"#a78bff":r.tipoExamen==="parcial_u2"?"#ff6b9d":r.tipoExamen==="parcial_u3"?"#34d399":r.tipoExamen==="parcial_u4"?"#fb923c":"#00ff88";
               return(<div key={i} style={{background:"rgba(255,255,255,0.04)",border:"1px solid rgba(255,255,255,0.07)",borderRadius:10,padding:"10px 12px",display:"grid",gridTemplateColumns:"2fr 2fr 1fr 1fr 1fr 70px",gap:8,alignItems:"center",marginBottom:6}}>
                 <span style={{fontWeight:600,fontSize:13}}>{r.nombre||"—"}</span>
                 <span style={{fontSize:11,color:c.color,background:c.bg,borderRadius:6,padding:"2px 8px",overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{c.label.split("—")[1]?.trim()||c.label}</span>
                 <span style={{fontSize:11,background:tipoBg,color:tipoColor,borderRadius:6,padding:"2px 8px",textAlign:"center"}}>{tipoLabel}</span>
                 <span style={{fontSize:11,color:"rgba(255,255,255,0.4)"}}>{(r.fecha||"").split(",")[1]||(r.fecha||"")}</span>
-                <span style={{fontSize:13,fontWeight:700,color:pct>=70?"#00ff88":pct>=50?"#ffaa00":"#ff8080"}}>{auto}/{max}</span>
+                <span style={{fontSize:13,fontWeight:700,color:esPractico?"#fb923c":pct>=70?"#00ff88":pct>=50?"#ffaa00":"#ff8080"}}>{esPractico?"💻 Práctico":`${auto}/${max}`}</span>
                 <button onClick={()=>setDetalle(r)} style={{...btn({padding:"5px 10px",fontSize:12}),color:"#00d4ff",borderColor:"rgba(0,212,255,0.3)",background:"rgba(0,212,255,0.1)"}}>Ver →</button>
               </div>);
             })}
@@ -905,20 +1044,20 @@ function Login({onStart}){
   const [nombre,setNombre]=useState("");const [cursoId,setCursoId]=useState("");const [pass,setPass]=useState("");const [modo,setModo]=useState("alumno");const [err,setErr]=useState("");const [estado,setEstado]=useState({});const [cargando,setCargando]=useState(true);
   useEffect(()=>{leerEstado().then(e=>{setEstado(e);setCargando(false);});},[]);
 
-  const TIPO_LABEL={parcial:"📝 Parcial Unidad I",parcial_u2:"📝 Parcial Unidad II",parcial_u3:"📝 Parcial Unidad III",final:"📋 Examen Final"};
+  const TIPO_LABEL={parcial:"📝 Parcial Unidad I",parcial_u2:"📝 Parcial Unidad II",parcial_u3:"📝 Parcial Unidad III",parcial_u4:"📝 Parcial BUSCARV",final:"📋 Examen Final"};
 
   const submit=()=>{
     if(modo==="maestro"){if(pass!==PASS_MAESTRO)return setErr("Contraseña incorrecta.");return onStart("__MAESTRO__","maestro","maestro");}
     if(!nombre.trim())return setErr("Escribe tu nombre completo.");
     if(!cursoId)return setErr("Selecciona tu curso.");
-    const tipos=["parcial","parcial_u2","parcial_u3","final"];
+    const tipos=["parcial","parcial_u2","parcial_u3","parcial_u4","final"];
     const tipo=tipos.find(t=>estado[`${cursoId}_${t}`]);
     if(!tipo)return setErr("No hay ningún examen activo para tu curso en este momento.");
     setErr("");onStart(nombre.trim(),cursoId,tipo);
   };
 
   const cursosConExamen=CURSOS.filter(c=>{
-    const tipos=["parcial","parcial_u2","parcial_u3","final"];
+    const tipos=["parcial","parcial_u2","parcial_u3","parcial_u4","final"];
     return tipos.some(t=>estado[`${c.id}_${t}`]);
   });
 
@@ -933,10 +1072,10 @@ function Login({onStart}){
             {cargando?<div style={{fontSize:13,color:"rgba(255,255,255,0.4)",textAlign:"center",padding:12}}>Verificando exámenes disponibles...</div>
             :cursosConExamen.length===0?<div style={{background:"rgba(255,170,0,0.1)",border:"1px solid rgba(255,170,0,0.3)",borderRadius:10,padding:"12px 16px",fontSize:13,color:"#ffaa00",textAlign:"center"}}>⏳ No hay exámenes activos en este momento.<br/><span style={{fontSize:12,opacity:.7}}>Tu catedrático activará el examen cuando sea el momento.</span></div>
             :<div style={{display:"flex",flexDirection:"column",gap:8}}>{cursosConExamen.map(c=>{
-              const tipos=["parcial","parcial_u2","parcial_u3","final"];
+              const tipos=["parcial","parcial_u2","parcial_u3","parcial_u4","final"];
               const tipo=tipos.find(t=>estado[`${c.id}_${t}`]);
               const examen=EXAM_MAP[c.id]?.[tipo];
-              return(<button key={c.id} onClick={()=>setCursoId(c.id)} style={{background:cursoId===c.id?c.bg:"rgba(255,255,255,0.04)",border:`1px solid ${cursoId===c.id?c.color:"rgba(255,255,255,0.1)"}`,borderRadius:10,padding:"10px 16px",color:cursoId===c.id?c.color:"rgba(255,255,255,0.7)",cursor:"pointer",fontSize:13,textAlign:"left",fontWeight:cursoId===c.id?700:400,transition:"all .2s"}}><div>{c.label}</div><div style={{fontSize:11,opacity:.7,marginTop:2}}>{TIPO_LABEL[tipo]||tipo} · {examen?.subtitulo}</div></button>);
+              return(<button key={c.id} onClick={()=>setCursoId(c.id)} style={{background:cursoId===c.id?c.bg:"rgba(255,255,255,0.04)",border:`1px solid ${cursoId===c.id?c.color:"rgba(255,255,255,0.1)"}`,borderRadius:10,padding:"10px 16px",color:cursoId===c.id?c.color:"rgba(255,255,255,0.7)",cursor:"pointer",fontSize:13,textAlign:"left",fontWeight:cursoId===c.id?700:400,transition:"all .2s"}}><div>{c.label}</div><div style={{fontSize:11,opacity:.7,marginTop:2}}>{examen?.titulo||TIPO_LABEL[tipo]||tipo} · {examen?.subtitulo}</div></button>);
             })}</div>}
           </div>
         </>):<div style={{marginBottom:18}}><label style={{fontSize:12,color:"rgba(255,255,255,0.6)",display:"block",marginBottom:6}}>Contraseña del catedrático</label><input type="password" value={pass} onChange={e=>setPass(e.target.value)} onKeyDown={e=>e.key==="Enter"&&submit()} placeholder="••••••••" style={{width:"100%",background:"rgba(255,255,255,0.08)",border:"1px solid rgba(255,255,255,0.15)",borderRadius:10,padding:"10px 14px",color:"#fff",fontSize:14,outline:"none"}}/></div>}
